@@ -5,6 +5,7 @@ entries:
   - title: info 
     entries:
       - title: Doksanbir Blog
+      - title: test
 
   - title: all posts
     post_list:
