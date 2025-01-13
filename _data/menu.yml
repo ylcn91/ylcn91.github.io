@@ -3,6 +3,6 @@ entries:
     entries:
       - title: Doksanbir Blog
       - title: who am i
-        url: "{{ "/whoami/" | relative_url }}"
+        url: "/no-style-please/whoami/"
       
       
