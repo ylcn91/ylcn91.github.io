@@ -2,7 +2,7 @@ entries:
   - title: info
     entries:
       - title: who am i
-        url: "/no-style-please/whoami/"
+        url: "/whoami/"
       - title: tech arsenal
         entries:
           - title: Core Languages
