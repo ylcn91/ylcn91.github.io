@@ -1,3 +1,4 @@
-# no style, please! - special thanks to riggraz
+# no style, please! 
 
-who am i? 
+- special thanks to riggraz
+- who am i?
