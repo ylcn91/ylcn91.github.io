@@ -24,6 +24,9 @@ entries:
               • AI Copilot: Cursor
               • Version Control: Git
               • Build Tools: Maven
+          - title: current focus
+            content: |
+              • Building AI-powered applications
       - title: thoughts
         entries:
           - title: Debugging
