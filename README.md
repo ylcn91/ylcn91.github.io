@@ -1,3 +1,3 @@
-# no style, please!
+# no style, please! - special thanks to riggraz
 
-Doksanbir Blog pages github
+who am i? 
