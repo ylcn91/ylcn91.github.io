@@ -1,7 +1,7 @@
-title: Code Beyond Logic - Yalcin Doksanbir # name of the site
+title: Code Beyond Logic # name of the site
 author: Yalcin Doksanbir # name of site's author
 email: yalcindoksanbir@gmail.com # email of site's author
-url: # root address of the site
+url: ylcn91.github.io/ # root address of the site
 baseurl: "" # subpath of the site, e.g. "/blog" (leave it blank "" if you're site shouldn't use a subpath)
 description: > # description of the site (multiple lines allowed)
   Who am i?
