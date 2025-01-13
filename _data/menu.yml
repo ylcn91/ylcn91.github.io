@@ -7,26 +7,26 @@ entries:
         entries:
           - title: Core Languages
             content: |
-              • Java (Primary)
-              • JavaScript
+              - Java (Primary)
+              - JavaScript
           - title: Frameworks & Libraries
             content: |
-              • Spring Framework
-              • Spring Boot
-              • React
+              - Spring Framework
+              - Spring Boot
+              - React
           - title: Expertise Domains
             content: |
-              • AI Enthusiast
-              • Big Data Engineering
+              - AI Enthusiast
+              - Big Data Engineering
           - title: Developer Tools
             content: |
-              • IDE: IntelliJ, NVIM
-              • AI Copilot: Cursor
-              • Version Control: Git
-              • Build Tools: Maven
+              - IDE: IntelliJ, NVIM
+              - AI Copilot: Cursor
+              - Version Control: Git
+              - Build Tools: Maven
           - title: current focus
             content: |
-              • Building AI-powered applications
+              - Building AI-powered applications
       - title: thoughts
         entries:
           - title: Debugging
