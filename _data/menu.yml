@@ -6,7 +6,7 @@ entries:
       - title : blog
         entries:
           - title: Technical Debt in the Age of AI
-            url: /2025-01-15-technical-debt-in-the-age-of-ai
+            url: /2025/01/15/tech-debt-ai-post
       - title: tech arsenal
         entries:
           - title: Core Languages

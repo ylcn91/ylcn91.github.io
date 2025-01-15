@@ -1,3 +1,11 @@
+---
+layout: post
+title: "Technical Debt in the Age of AI: A Modern Perspective"
+date: 2025-01-15
+permalink: /2025/01/15/technical-debt-in-the-age-of-ai
+categories: [technology, software-development, artificial-intelligence]
+---
+
 # Technical Debt in the Age of AI: A Modern Perspective
 
 ## Introduction
