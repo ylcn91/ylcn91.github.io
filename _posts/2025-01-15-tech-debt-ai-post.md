@@ -1,6 +1,5 @@
 ---
 layout: post
-title: technical debt in the age of ai
 category: blog
 ---
 
