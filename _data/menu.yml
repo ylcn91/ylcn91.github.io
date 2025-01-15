@@ -1,8 +1,5 @@
 entries:
-  - title: info
-    entries:
-      - title: Who am i
-        url: "/whoami/"  
+  - title: Doksanbir
       - title: blog posts
         post_list:
           limit: 5
