@@ -94,7 +94,7 @@ When implementing AI solutions, consider:
 
 ---
 
-## Additional References
+## References
 
 > "Technical debt isn't inherently bad—it can be a strategic choice. But without management, it becomes a silent killer of innovation."  
 
