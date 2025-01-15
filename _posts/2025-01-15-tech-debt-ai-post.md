@@ -2,6 +2,7 @@
 layout: post
 title: Technical Debt in the Age of AI - A Modern Perspective
 date: 2024-01-15
+permalink: /blog/tech-debt-ai-post/
 ---
 
 # Technical Debt in the Age of AI: A Modern Perspective
