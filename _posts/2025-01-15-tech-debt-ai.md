@@ -5,8 +5,6 @@ category: blog
 
 # Technical Debt in the Age of AI: A Modern Perspective
 
-## Introduction
-
 Technical debt has long been a critical concept in software development, representing the implied cost of additional rework caused by choosing an easy solution now instead of using a better approach that would take longer. As we enter the era of AI-driven development, this concept is evolving in fascinating and complex ways.
 
 ## Understanding Technical Debt
