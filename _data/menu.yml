@@ -3,10 +3,10 @@ entries:
     entries:
       - title: Who am i
         url: "/whoami/"  
-      - title : blog
-        entries:
-          - title: Technical Debt in the Age of AI
-            url: /blog/tech-debt-ai-post/
+      - title: blog posts
+        post_list:
+          limit: 5
+          show_more: false
       - title: tech arsenal
         entries:
           - title: Core Languages
