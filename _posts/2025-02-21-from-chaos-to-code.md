@@ -6,20 +6,20 @@ category: blog
 ---
 
 ## Table of Contents
-1. [Welcome to the AI Coding Circus: A Developer's Tale 🎪](#1-welcome-to-the-ai-coding-circus-a-developers-tale)
-2. [Meet the AI Dream Team: Your New Quirky Coding Companions 🤖](#2-meet-the-ai-dream-team-your-new-quirky-coding-companions)
-3. [Starting Fresh: How to Keep AI Models From Going Rogue 🚀](#3-starting-fresh-how-to-keep-ai-models-from-going-rogue)
-4. [Taming Legacy Code: When AI Meets Your Ancient Codebase 🏺](#4-taming-legacy-code-when-ai-meets-your-ancient-codebase)
-5. [AI Gone Wild: Tales From the Code Generation Trenches 😅](#5-ai-gone-wild-tales-from-the-code-generation-trenches)
-6. [Speaking AI's Language: How to Stop Getting Unexpected Microservices 🗣️](#6-speaking-ais-language-how-to-stop-getting-unexpected-microservices)
-7. [The Daily AI Dance: A Day in the Life of Modern Development 💃](#7-the-daily-ai-dance-a-day-in-the-life-of-modern-development)
-8. [AI Personality Types: Choosing the Right Tool for the Job 🎭](#8-ai-personality-types-choosing-the-right-tool-for-the-job)
-9. [Survival Guide: Embracing the Beautiful Chaos of AI Development 🌪️](#9-survival-guide-embracing-the-beautiful-chaos-of-ai-development)
-10. [Resources & Cheat Sheet: Your AI Coding Emergency Kit 🧰](#10-resources--cheat-sheet-your-ai-coding-emergency-kit)
+1. [Welcome to the AI Coding Circus: A Developer's Tale](#1-welcome-to-the-ai-coding-circus-a-developers-tale)
+2. [Meet the AI Dream Team: Your New Quirky Coding Companions](#2-meet-the-ai-dream-team-your-new-quirky-coding-companions)
+3. [Starting Fresh: How to Keep AI Models From Going Rogue](#3-starting-fresh-how-to-keep-ai-models-from-going-rogue)
+4. [Taming Legacy Code: When AI Meets Your Ancient Codebase](#4-taming-legacy-code-when-ai-meets-your-ancient-codebase)
+5. [AI Gone Wild: Tales From the Code Generation Trenches](#5-ai-gone-wild-tales-from-the-code-generation-trenches)
+6. [Speaking AI's Language: How to Stop Getting Unexpected Microservices](#6-speaking-ais-language-how-to-stop-getting-unexpected-microservices)
+7. [The Daily AI Dance: A Day in the Life of Modern Development](#7-the-daily-ai-dance-a-day-in-the-life-of-modern-development)
+8. [AI Personality Types: Choosing the Right Tool for the Job](#8-ai-personality-types-choosing-the-right-tool-for-the-job)
+9. [Survival Guide: Embracing the Beautiful Chaos of AI Development](#9-survival-guide-embracing-the-beautiful-chaos-of-ai-development)
+10. [Resources & Cheat Sheet: Your AI Coding Emergency Kit](#10-resources--cheat-sheet-your-ai-coding-emergency-kit)
 
 ---
 
-## 1. Welcome to the AI Coding Circus: A Developer's Tale 🎪
+## 1. Welcome to the AI Coding Circus: A Developer's Tale
 
 If you've ever wanted an **army of AI interns** to handle your repetitive tasks, find hidden references, or refactor messy code, you're in the right place. Over the past few months, I've built (and broken) enough projects with LLMs to fill a small library. I've used everything from **AST transformations and JavaParser** to the **Qdrant** vector database for advanced code searches—plus a handful of AI models that all think they know best.
 
@@ -44,7 +44,7 @@ The key is knowing when to use each one. Sometimes you need Claude's creativity,
 
 ---
 
-## 2. Meet the AI Dream Team: Your New Quirky Coding Companions 🤖
+## 2. Meet the AI Dream Team: Your New Quirky Coding Companions
 
 I rely on a **constellation** of tools to keep me sane:
 
@@ -79,7 +79,7 @@ No single tool does everything perfectly. I tend to let them **tag-team** each t
 
 ---
 
-## 3. Starting Fresh: How to Keep AI Models From Going Rogue 🚀
+## 3. Starting Fresh: How to Keep AI Models From Going Rogue
 
 ### 3.1 Planning & Brainstorming With o1 or o3
 
@@ -167,7 +167,7 @@ Lesson learned: Always set clear boundaries before the AI gets too creative!
 
 ---
 
-## 4. Taming Legacy Code: When AI Meets Your Ancient Codebase 🏺
+## 4. Taming Legacy Code: When AI Meets Your Ancient Codebase
 
 ### 4.1 Repomix & Qdrant: Bundling, Token Counting, and Advanced Searches
 
@@ -211,7 +211,7 @@ TDD is essential here. You can even force the AI:
 Once tests pass locally, you can trust the changes a bit more. (Still do a manual review, because AI might skip important corner cases.)
 
 ---
-## 5. AI Gone Wild: Tales From the Code Generation Trenches 😅
+## 5. AI Gone Wild: Tales From the Code Generation Trenches
 
 AI-generated code isn't always perfect. One time, I asked Claude to refactor a simple checkout flow.
 
@@ -240,7 +240,7 @@ And yes, some teams still use themed ASCII art in their codebases. Who am I to j
 
 ---
 
-## 6. Speaking AI's Language: How to Stop Getting Unexpected Microservices 🗣️
+## 6. Speaking AI's Language: How to Stop Getting Unexpected Microservices
 
 ### 6.1 LangChain as the Glue: Agentic Workflow in Action
 
@@ -391,7 +391,7 @@ Add a second test scenario simulating an API failure."
 
 ---
 
-## 7. The Daily AI Dance: A Day in the Life of Modern Development 💃
+## 7. The Daily AI Dance: A Day in the Life of Modern Development
 
 Sometimes, everything is going so smoothly—it's like skiing on fresh powder. Suddenly, you realize you're at the edge of a cliff. The AI decides to rename variables or restructure entire modules. Don't panic. Just revert, break tasks into smaller steps, and try again.
 
@@ -444,7 +444,7 @@ Pro Tips From the Trenches:
 
 
 ---
-## 8. AI Personality Types: Choosing the Right Tool for the Job 🎭
+## 8. AI Personality Types: Choosing the Right Tool for the Job
 
 | Tool/Model | What It Rocks At | Common Pitfalls |
 |------------|------------------|-----------------|
@@ -479,7 +479,7 @@ My Favorite Combinations:
 
 --- 
 
-## 9. Survival Guide: Embracing the Beautiful Chaos of AI Development 🌪️
+## 9. Survival Guide: Embracing the Beautiful Chaos of AI Development
 
 Building software with AI codegen is like riding a roller coaster that randomly decides to do an extra loop mid-ride. Scary? Sometimes. Exhilarating? Definitely.
 
@@ -497,7 +497,7 @@ I remember my first week trying this workflow. I ended up with:
 
 ---
 
-## 10. Resources & Cheat Sheet: Your AI Coding Emergency Kit 🧰
+## 10. Resources & Cheat Sheet: Your AI Coding Emergency Kit
 
 When juggling multiple AI models, costs can add up quickly. Here's how I optimize:
 
