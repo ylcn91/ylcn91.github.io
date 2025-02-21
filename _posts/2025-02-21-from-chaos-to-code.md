@@ -481,10 +481,10 @@ My Favorite Combinations:
 
 ### Case Study: Local vs Cloud AI Trade-offs
 
-Here's a theoretical cost analysis based on our early experiments with smaller codebases (note: full 200K LOC refactoring isn't feasible with current LLM limitations):
+Here's a theoretical cost analysis based on our early experiments with smaller codebases:
 
 **Project Goal**: Refactoring payment system components (~20K LOC initially)
-> Note: While I dream of refactoring entire 200K LOC systems, current LLMs work best on smaller, focused components. I'm sharing these numbers to help teams plan realistic approaches.
+> Important Note: While current LLMs excel at targeted refactoring of specific components, tackling entire legacy systems (like 200K LOC) remains a dream for now. I'm sharing these early experiments to help teams set realistic expectations and plan their AI adoption journey strategically.
 
 **Approach 1**: All Cloud (tested on ~5K LOC module)
 - Pros: Powerful models, no setup
