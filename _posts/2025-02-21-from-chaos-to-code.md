@@ -56,9 +56,9 @@ I rely on a **constellation** of tools to keep me sane:
 No single tool does everything perfectly. I tend to let them **tag-team** each task like an unstoppable pro-wrestling faction.
 
 ---
-## 3. Greenfield Adventures With Aider Architect + O1/O3: Planning First, Coding Later
+## 3. Greenfield Adventures With Aider Architect + o1/o3: Planning First, Coding Later
 
-### 3.1 Planning & Brainstorming With O1 or O3
+### 3.1 Planning & Brainstorming With o1 or o3
 
 1. **Craft a Brainstorm Prompt**:
    ```plaintext
@@ -128,7 +128,7 @@ into a new `DiscountHandler.java`.
 Keep everything else intact."
 ```
 
-- Aider + O1 ensures the plan is small. Then you:
+- Aider + o1 ensures the plan is small. Then you:
   - Generate code in small PRs
   - AST + JavaParser can help you detect references and dependencies
   - AI can suggest, "By the way, DiscountHandler also affects InvoiceGenerator."
@@ -168,7 +168,7 @@ Lesson learned: Always specify exactly how big a refactor you want. Avoid vague 
 
 I chain multiple steps together with LangChain. Here's the flow:
 
-1. LangChain receives your plan from Aider Architect + O1
+1. LangChain receives your plan from Aider Architect + o1
 2. LangChain calls Claude to generate code (with your "Do not create new services" instruction)
 3. LangChain calls GPT-4o to do a quick code review
 4. If GPT-4o sees issues, LangChain triggers another Claude pass
@@ -272,4 +272,4 @@ When juggling multiple AI models, costs can add up quickly. Here's how I optimiz
 
 Pro tip: Start with smaller, cheaper models and only escalate to more expensive ones when needed. Your wallet will thank you!
 
-> **Author's Note:** I'm still refining this workflow daily. Some days, it feels unstoppable. Other days, I'm frantically reverting commits. But that's the joy of pioneering an evolving technology. Let's keep exploring together!
+> **Author's Note:** I'm still refining this workflow daily. Some days, it feels unstoppable. Other days, I'm frantically reverting commits. But that's the joy of pioneering an evolving technology. Let's keep exploring!
