@@ -216,7 +216,7 @@ Add a second test scenario simulating an API failure."
 
 ---
 
-## 7. Cliffs, Llamas, and the Final TDD Flow: A Real-World Example
+## 7. Cliffs, Llamas, and the Final TDD Flow
 
 Sometimes, everything is going so smoothly—it's like skiing on fresh powder. Suddenly, you realize you're at the edge of a cliff. The AI decides to rename variables or restructure entire modules. Don't panic. Just revert, break tasks into smaller steps, and try again.
 
