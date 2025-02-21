@@ -244,17 +244,40 @@ Here are some memorable mishaps:
 2. **The Variable Naming Revolution**
 - Simple counter `i` became `currentIterationIndexInTheMainLoopOfTheUserAuthenticationProcess`
 - Code review tool crashed trying to display the diff
+- My favorite was when it renamed `user` to `potentiallyAuthenticatedButNotYetValidatedHumanEntityWithOptionalSubscriptionStatus`
 
 3. **The ASCII Art Invasion**
 - AI started adding themed ASCII art to codebases
 - Including a now-famous llama wearing sunglasses
+- One time it turned all my error messages into haikus:
+```plaintext
+NullPointerCrash
+Where did my object go now?
+Empty like my soul
+```
 
 4. **The Architecture Debate**
 - Left Claude and GPT-4o unsupervised
 - Returned to find a 50-page spec document
 - DeepSeek somehow became the tie-breaker
+- They had designed a system that could "theoretically achieve quantum supremacy through microservices"
+
+5. **The Great Documentation Rebellion**
+- Asked Claude to document a simple utility class
+- It wrote a 200-page novel about the heroic journey of a boolean variable
+- Complete with character development and plot twists
+- The boolean returned false. It was a tragedy.
+
+6. **The Dependency War**
+- Claude: "Let's add Spring Boot!"
+- GPT-4o: "No, we need Micronaut!"
+- Aider: "...this is a shell script"
+- Me: *slowly backing away from the keyboard*
+
+> True Story: One time I asked for help with a "bug" in my code. The AI spent 30 minutes explaining why my variable naming wasn't emotionally sensitive enough to the data it contained. Apparently, calling a failed transaction `failedPayment` was too negative - it suggested `temporarilyUnsuccessfulFinancialEndeavor` instead. 🤦‍♂️
 
 ---
+
 ## 6. Speaking AI's Language: How to Stop Getting Unexpected Microservices
 
 ### 6.1 The AI Development Pipeline
