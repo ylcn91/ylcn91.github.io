@@ -230,6 +230,77 @@ TDD is essential here. You can even force the AI:
 
 Once tests pass locally, you can trust the changes a bit more. (Still do a manual review, because AI might skip important corner cases.)
 
+### 4.4 Dependency Analysis Case Study
+
+Here's a example of using JavaParser to analyze dependencies in a legacy payment system:
+
+```java
+public class DependencyAnalyzer {
+    public List<DependencyInfo> analyzeDependencies(String sourceCode) {
+        CompilationUnit cu = StaticJavaParser.parse(sourceCode);
+        
+        // Find all class dependencies
+        List<DependencyInfo> dependencies = new ArrayList<>();
+        
+        // Analyze method calls
+        cu.findAll(MethodCallExpr.class).forEach(call -> {
+            dependencies.add(new DependencyInfo(
+                cu.getType(0).getNameAsString(),
+                call.getScope().map(Object::toString).orElse(""),
+                call.getNameAsString()
+            ));
+        });
+        
+        return dependencies;
+    }
+}
+
+// Example usage and output:
+/*
+Before Refactoring:
+PaymentProcessor -> OrderService -> InventoryService -> PaymentProcessor (Cycle!)
+
+After Analysis and Refactoring:
+PaymentProcessor -> PaymentGateway
+OrderService -> PaymentProcessor
+InventoryService -> OrderService
+*/
+```
+
+### 4.5 Legacy Refactoring: Before & After
+
+Here's a real-world refactoring example:
+
+```java
+// Before: Tangled responsibilities
+public class OrderProcessor {
+    public void processOrder(Order order) {
+        // Payment logic mixed with order processing
+        if (order.getTotal() > 1000) {
+            sendToApproval(order);
+        }
+        validateInventory(order);
+        processPayment(order);
+        updateInventory(order);
+        sendEmail(order);
+    }
+}
+
+// After: Clean separation using Chain of Responsibility
+public class OrderProcessor {
+    private final List<OrderHandler> handlers = Arrays.asList(
+        new ValidationHandler(),
+        new InventoryHandler(),
+        new PaymentHandler(),
+        new NotificationHandler()
+    );
+    
+    public void processOrder(Order order) {
+        handlers.forEach(handler -> handler.handle(order));
+    }
+}
+```
+
 ---
 
 ## 5. AI Gone Wild: Tales From the Code Generation Trenches
@@ -280,32 +351,48 @@ Empty like my soul
 
 ## 6. Speaking AI's Language: How to Stop Getting Unexpected Microservices
 
-### 6.1 The AI Development Pipeline
+### 6.1 Prompt Evolution: From Chaos to Control
 
-```mermaid
-graph TD
-    subgraph Planning
-        A[Plan: o1/o3] --> B[Break Down: Aider]
-        B --> C[Scope Check]
-    end
-    
-    subgraph Development
-        D[Generate: Claude] --> E[Local Test: Ollama]
-        E --> F[Review: GPT-4o]
-    end
-    
-    subgraph Review
-        G[Manual Review] --> H{Issues?}
-        H -->|Yes| D
-        H -->|No| I[Commit]
-    end
-    
-    C --> D
-    F --> G
-    
+Bad Prompt (Results in Scope Creep):
+```plaintext
+"We need to add payment processing to our e-commerce system"
 ```
 
-> Key Takeaway: Each phase has clear handoffs and validation steps to prevent scope creep.
+Result:
+```java
+// AI generated a distributed system with:
+@MicroserviceApplication
+public class PaymentOrchestrator {
+    @KafkaListener(topics = "payments")
+    public void processPayment(PaymentEvent event) {
+        // 500 lines of overengineered code...
+    }
+}
+```
+
+Good Prompt (Controlled Scope):
+```plaintext
+"Create a single PaymentProcessor class that:
+1. Takes payment details as input
+2. Calls Stripe API
+3. Returns success/failure
+NO additional services or message queues.
+File: src/main/java/com/example/PaymentProcessor.java only"
+```
+
+Result:
+```java
+public class PaymentProcessor {
+    public PaymentResult processPayment(PaymentDetails details) {
+        try {
+            // 20 lines of focused Stripe integration
+            return PaymentResult.success();
+        } catch (Exception e) {
+            return PaymentResult.failure(e);
+        }
+    }
+}
+```
 
 ### 6.2 Java Snippet: Example Prompt & Code Refinement
 
@@ -433,6 +520,23 @@ Here's a simplified final TDD flow I often use (when everyone behaves):
 7. Repeat for the next feature or refactor
 
 Yes, occasionally it adds ASCII llamas in the file headers (true story). Embrace the whimsy or remove it—your call.
+
+### Common Debug Scenarios
+
+```plaintext
+# Actual debug log from a memorable AI interaction:
+
+[10:15] Me: Why is the payment failing?
+[10:15] GPT-4o: Let me analyze the logs...
+[10:16] GPT-4o: *writes essay about payment systems*
+[10:20] DeepSeek: The API key is missing.
+[10:21] Me: 🤦‍♂️
+
+Error log:
+com.stripe.exception.AuthenticationException: No API key provided
+    at com.stripe.net.StripeRequest.validate(StripeRequest.java:109)
+    at com.example.PaymentProcessor.processPayment(PaymentProcessor.java:42)
+```
 
 ---
 
