@@ -3,9 +3,6 @@ layout: post
 category: blog
 ---
 
-**Date:** 2025-02-21  
-**Author:** [Yalçın Doksanbir]
-
 ---
 
 ## Table of Contents
@@ -40,6 +37,8 @@ In the following sections, I'll show you:
 - Why I sometimes **loop in GPT-4o** to review code and do final touches.  
 - The wonders of **LangChain** to coordinate all these steps, so you can have an "agentic workflow" that orchestrates planning, coding, testing, and more.
 
+---
+
 ## 2. My Magical Toolkit: From Ollama to LangChain
 
 I rely on a **constellation** of tools to keep me sane:
@@ -56,6 +55,7 @@ I rely on a **constellation** of tools to keep me sane:
 
 No single tool does everything perfectly. I tend to let them **tag-team** each task like an unstoppable pro-wrestling faction.
 
+---
 ## 3. Greenfield Adventures With Aider Architect + O1/O3: Planning First, Coding Later
 
 ### 3.1 Planning & Brainstorming With O1 or O3
@@ -101,6 +101,8 @@ Now that we have a sane plan, let's do incremental coding:
 2. **Refine**: If GPT-4o finds something, feed that feedback back into Claude or do it manually.
 3. **Commit**: Once everything checks out, you move on to the next task. Rinse and repeat until your MVP is up and running.
 
+---
+
 ## 4. Legacy Code Gone Right: Refactoring With ASTs, JavaParser, and TDD
 
 ### 4.1 Repomix & Qdrant: Bundling, Token Counting, and Advanced Searches
@@ -144,6 +146,7 @@ TDD is essential here. You can even force the AI:
 
 Once tests pass locally, you can trust the changes a bit more. (Still do a manual review, because AI might skip important corner cases.)
 
+---
 ## 5. When AI Went Completely Off the Rails
 
 AI-generated code isn't always perfect. One time, I asked Claude to refactor a simple checkout flow.
@@ -156,6 +159,8 @@ Claude responded with extreme enthusiasm and:
 
 Time lost: about half a day reverting changes.
 Lesson learned: Always specify exactly how big a refactor you want. Avoid vague terms like "improve" or "make it scalable."
+
+---
 
 ## 6. Prompt Engineering: Embeddings, Dependencies, and "Please Don't Invent New Microservices"
 
@@ -209,6 +214,8 @@ GPT-4o might respond with:
 "Consider adding more robust exception handling, especially for Stripe API timeouts. 
 Add a second test scenario simulating an API failure."
 
+---
+
 ## 7. Cliffs, Llamas, and the Final TDD Flow: A Real-World Example
 
 Sometimes, everything is going so smoothly—it's like skiing on fresh powder. Suddenly, you realize you're at the edge of a cliff. The AI decides to rename variables or restructure entire modules. Don't panic. Just revert, break tasks into smaller steps, and try again.
@@ -225,6 +232,7 @@ Here's a simplified final TDD flow I often use:
 
 Yes, occasionally it adds ASCII llamas in the file headers (true story). Embrace the whimsy or remove it—your call.
 
+---
 ## 8. Comparing the Cast: Claude, GPT-4o, Aider, DeepSeek, and More
 
 | Tool/Model | What It Rocks At | Common Pitfalls |
@@ -239,6 +247,8 @@ Yes, occasionally it adds ASCII llamas in the file headers (true story). Embrace
 | Repomix | Bundles entire repo, token counts, respects .gitignore, security checks | If your repo is massive, the generated file might be huge, risking token limit issues |
 | Qdrant | Vector-based code searching for "where is X used?" queries | Additional overhead & indexing steps needed |
 
+--- 
+
 ## 9. Wrapping Up: Embrace the Madness and Have Fun
 
 Building software with AI codegen is like riding a roller coaster that randomly decides to do an extra loop mid-ride. Scary? Sometimes. Exhilarating? Definitely.
@@ -249,6 +259,7 @@ Building software with AI codegen is like riding a roller coaster that randomly 
 - Refactor legacy code piece by piece using Repomix, Qdrant, and AST-based checks so you know exactly what you're messing with
 - Laugh when it tries to add Python tests to a Java repo, then calmly revert and try again
 
+---
 
 ## 10. Managing Costs and Resources
 
@@ -260,6 +271,5 @@ When juggling multiple AI models, costs can add up quickly. Here's how I optimiz
 - Use token counting in Repomix to stay within model context limits
 
 Pro tip: Start with smaller, cheaper models and only escalate to more expensive ones when needed. Your wallet will thank you!
-
 
 > **Author's Note:** I'm still refining this workflow daily. Some days, it feels unstoppable. Other days, I'm frantically reverting commits. But that's the joy of pioneering an evolving technology. Let's keep exploring together!
