@@ -23,7 +23,7 @@ category: blog
 
 If you've ever wanted an **army of AI interns** to handle your repetitive tasks, find hidden references, or refactor messy code, you're in the right place. Over the past few months, I've built (and broken) enough projects with LLMs to fill a small library.
 
-Here's what we'll cover:
+Here's what I'll cover:
 - How to **plan** new features using **Aider Architect** + **o1/o3** reasoning models
 - How to **generate code** using **Claude** while keeping scope in check
 - How to use **GPT-4o** for thorough code reviews
@@ -325,7 +325,7 @@ public class PaymentHandler {
 }
 ```
 
-Then we show it to GPT-4o:
+Then I show it to GPT-4o:
 
 Me: "Review this for issues?"
 
