@@ -11,8 +11,8 @@ category: blog
 ## Table of Contents
 1. [A Quick Hello (Why Am I Doing This?)](#1-a-quick-hello-why-am-i-doing-this)
 2. [My Magical Toolkit: From Ollama to LangChain (and More!)](#2-my-magical-toolkit-from-ollama-to-langchain-and-more)
-3. [Greenfield Adventures With Aider Architect + O1/O3: Planning First, Coding Later](#3-greenfield-adventures-with-aider-architect--o1o3-planning-first-coding-later)
-   - [3.1 Planning & Brainstorming With O1 or O3](#31-planning--brainstorming-with-o1-or-o3)
+3. [Greenfield Adventures With Aider Architect + o1/o3: Planning First, Coding Later](#3-greenfield-adventures-with-aider-architect--o1o3-planning-first-coding-later)
+   - [3.1 Planning & Brainstorming With o1 or o3](#31-planning--brainstorming-with-o1-or-o3)
    - [3.2 Code Generation With Claude](#32-code-generation-with-claude)
    - [3.3 Review & Refinement With GPT-4o (and More Claude!)](#33-review--refinement-with-gpt-4o-and-more-claude)
 4. [Legacy Code Gone Right: Refactoring With ASTs, JavaParser, and TDD](#4-legacy-code-gone-right-refactoring-with-asts-javaparser-and-tdd)
@@ -35,12 +35,12 @@ If you've ever wanted an **army of AI interns** to handle your repetitive tasks,
 
 In the following sections, I'll show you:
 
-- How I **plan** new features using **Aider Architect** + **O1/O3** reasoning models (since planning is half the battle).  
+- How I **plan** new features using **Aider Architect** + **o1/o3** reasoning models (since planning is half the battle).  
 - How I **generate code** using **Claude** but also keep it from going on a microservices rampage.  
 - Why I sometimes **loop in GPT-4o** to review code and do final touches.  
 - The wonders of **LangChain** to coordinate all these steps, so you can have an "agentic workflow" that orchestrates planning, coding, testing, and more.
 
-## 2. My Magical Toolkit: From Ollama to LangChain (and More!)
+## 2. My Magical Toolkit: From Ollama to LangChain
 
 I rely on a **constellation** of tools to keep me sane:
 
@@ -232,7 +232,7 @@ Yes, occasionally it adds ASCII llamas in the file headers (true story). Embrace
 | Claude | Large-scale changes, rewriting entire modules with clarity | Sometimes decides you need 3 new microservices and a queue |
 | GPT-4o | Thorough reviews, final checks, deeper logic analysis | Can be verbose; might suggest design patterns you don't need |
 | Aider | Step-by-step TDD, structured incremental changes | Needs super-clear prompts or it'll do exactly what you say |
-| O1/O3 | Reasoning about tasks, planning and specs | Doesn't generate code directly—just sets up a plan |
+| o1/o3 | Reasoning about tasks, planning and specs | Doesn't generate code directly—just sets up a plan |
 | Ollama | Local usage for embeddings or smaller model codegen | Might run out of capacity for huge refactors |
 | DeepSeek | Thorough local code reasoning, finds deep references | Slower, heavier on system resources |
 | LangChain | Orchestrates multiple LLM calls, chain-of-thought flows, agentic workflows | Setup can be tricky if you're new to chaining concepts |
@@ -243,7 +243,7 @@ Yes, occasionally it adds ASCII llamas in the file headers (true story). Embrace
 
 Building software with AI codegen is like riding a roller coaster that randomly decides to do an extra loop mid-ride. Scary? Sometimes. Exhilarating? Definitely.
 
-- Plan first with Aider Architect + O1/O3
+- Plan first with Aider Architect + o1/o3
 - Generate code in small, test-driven increments (Claude is your buddy, but keep it on a leash)
 - Review everything with GPT-4o or your own eyes (or both!)
 - Refactor legacy code piece by piece using Repomix, Qdrant, and AST-based checks so you know exactly what you're messing with
@@ -260,7 +260,6 @@ When juggling multiple AI models, costs can add up quickly. Here's how I optimiz
 - Use token counting in Repomix to stay within model context limits
 
 Pro tip: Start with smaller, cheaper models and only escalate to more expensive ones when needed. Your wallet will thank you!
-
 
 
 > **Author's Note:** I'm still refining this workflow daily. Some days, it feels unstoppable. Other days, I'm frantically reverting commits. But that's the joy of pioneering an evolving technology. Let's keep exploring together!
