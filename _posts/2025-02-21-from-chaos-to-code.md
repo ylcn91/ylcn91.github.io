@@ -80,7 +80,7 @@ No single tool does everything perfectly. I tend to let them **tag-team** each t
 
 ### 3.1 Incremental Development in Practice
 
-Here's how we build features step by step:
+Here's how I build features step by step:
 
 ```java
 // Initial task: Add user preferences
@@ -280,9 +280,6 @@ graph TD
     C --> D
     F --> G
     
-    style A fill:#f9f,stroke:#333
-    style D fill:#bbf,stroke:#333
-    style F fill:#bfb,stroke:#333
 ```
 
 > Key Takeaway: Each phase has clear handoffs and validation steps to prevent scope creep.
@@ -461,7 +458,7 @@ My Favorite Combinations:
 
 ❌ Don't:
 - Send entire files when a snippet will do
-- Use GPT-4 for simple linting
+- Use GPT-4o for simple linting
 - Let models run unsupervised without token limits
 - Regenerate code that only needs minor tweaks
 
@@ -484,25 +481,31 @@ My Favorite Combinations:
 
 ### Case Study: Local vs Cloud AI Trade-offs
 
-Real-world scenario from our team:
+Here's a theoretical cost analysis based on our early experiments with smaller codebases (note: full 200K LOC refactoring isn't feasible with current LLM limitations):
 
-**Project**: Refactoring a 200K LOC legacy payment system
+**Project Goal**: Refactoring payment system components (~20K LOC initially)
+> Note: While I dream of refactoring entire 200K LOC systems, current LLMs work best on smaller, focused components. I'm sharing these numbers to help teams plan realistic approaches.
 
-**Approach 1**: All Cloud
+**Approach 1**: All Cloud (tested on ~5K LOC module)
 - Pros: Powerful models, no setup
-- Cons: $1200 in API costs
+- Cons: ~$400 in API costs for just this module
 - Result: Fast but expensive
+- Reality Check: Scaling this to 200K LOC would be prohibitively expensive and likely hit context limits
 
-**Approach 2**: Hybrid
+**Approach 2**: Hybrid (my current approach)
 - Local: Code analysis, simple refactoring (Ollama + DeepSeek)
-- Cloud: Architecture decisions, complex logic (Claude + GPT-4)
-- Cost: $300
+- Cloud: Architecture decisions, complex logic (Claude + GPT-4o)
+- Cost: ~$100 per 5K LOC module
 - Result: Best balance of speed and cost
+- Reality Check: We process modules incrementally, focusing on high-impact areas first
 
 **Approach 3**: Mostly Local
 - Pros: Minimal cost
 - Cons: Slower, more manual work
 - Result: Budget-friendly but time-consuming
+- Reality Check: Best for teams who can't risk cloud API exposure
+
+> Important Note: As of early 2025, LLMs are best used for targeted refactoring of specific components rather than entire legacy systems. I'm sharing these early experiments to help teams set realistic expectations and budget accordingly.
 
 #### Decision Matrix: Choosing Your AI Approach
 
@@ -539,28 +542,8 @@ Before choosing your approach, answer these questions:
    - [ ] Development velocity needs
    - [ ] Integration requirements
 
-#### Quick Decision Guide
-
-Choose **Local-First** if you have:
-- Tight budget
-- Strong security requirements
-- Experienced DevOps team
-- Time for setup and maintenance
-
-Choose **Hybrid** if you need:
-- Balance of cost and speed
-- Mix of simple and complex tasks
-- Flexibility to scale up/down
-- Best overall value
-
-Choose **Cloud-First** if you require:
-- Rapid development
-- No infrastructure management
-- Advanced AI capabilities
-- Immediate startup
-
 Our sweet spot (Hybrid approach) with:
-- Local models for 80% of tasks
+- Local models for 30% of tasks becaue of system limits (try to run deepseek-r1:14b locally you will see)
 - Cloud models for critical decisions
 - Caching common responses
 - Batching similar queries
@@ -573,15 +556,15 @@ Our sweet spot (Hybrid approach) with:
 
 | Task | First Try | If Needed | Last Resort |
 |------|-----------|-----------|-------------|
-| Syntax Check | Ollama | Claude | GPT-4 |
+| Syntax Check | Ollama | Claude | GPT-4o |
 | Architecture | o1/o3 | Claude | Team Discussion |
-| Code Review | Local Tools | GPT-4 | Senior Dev |
+| Code Review | Local Tools | GPT-4o | Senior Dev |
 | Legacy Analysis | DeepSeek | Qdrant | Full Analysis |
 
 When juggling multiple AI models, costs can add up quickly. Here's how I optimize:
 
 - Use local models (Ollama, DeepSeek) for initial code analysis and simple generations
-- Reserve Claude and GPT-4 for complex architectural decisions or thorough code reviews
+- Reserve Claude and GPT-4o for complex architectural decisions or thorough code reviews
 - Batch similar tasks together to minimize API calls
 - Use token counting in Repomix to stay within model context limits
 
