@@ -3,8 +3,6 @@ layout: post
 category: blog
 ---
 
-# From Chaos to Code: My Grand AI Codegen Workflow
-
 **Date:** 2025-02-21  
 **Author:** [Yalçın Doksanbir]
 
@@ -251,6 +249,18 @@ Building software with AI codegen is like riding a roller coaster that randomly 
 - Refactor legacy code piece by piece using Repomix, Qdrant, and AST-based checks so you know exactly what you're messing with
 - Laugh when it tries to add Python tests to a Java repo, then calmly revert and try again
 
-I hope these tips, stories, and code snippets give you the confidence (and the sense of humor) to dive into LLM-based development. If you have your own wacky tales—like entire microservices spontaneously appearing—please share them. The more we swap stories, the better we'll all handle this brave new frontier.
 
-**Author's Note:** I'm still refining this workflow daily. Some days, it feels unstoppable. Other days, I'm frantically reverting commits. But that's the joy of pioneering an evolving technology. Let's keep exploring together!
+## 10. Managing Costs and Resources
+
+When juggling multiple AI models, costs can add up quickly. Here's how I optimize:
+
+- Use local models (Ollama, DeepSeek) for initial code analysis and simple generations
+- Reserve Claude and GPT-4 for complex architectural decisions or thorough code reviews
+- Batch similar tasks together to minimize API calls
+- Use token counting in Repomix to stay within model context limits
+
+Pro tip: Start with smaller, cheaper models and only escalate to more expensive ones when needed. Your wallet will thank you!
+
+
+
+> **Author's Note:** I'm still refining this workflow daily. Some days, it feels unstoppable. Other days, I'm frantically reverting commits. But that's the joy of pioneering an evolving technology. Let's keep exploring together!
