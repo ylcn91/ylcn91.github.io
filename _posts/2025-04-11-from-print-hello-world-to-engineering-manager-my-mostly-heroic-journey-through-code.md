@@ -16,7 +16,6 @@ Table of Contents
 
 ⸻
 
-<a name="prologue"></a>
 ## 1. Prologue: A Young Coder and a Broken Keyboard
 
 I was eight, huddled in front of our family's ancient desktop—its CRT monitor flickering like an old sci-fi prop. I typed my very first BASIC program:
@@ -34,7 +33,6 @@ That broken key became my first trophy, pinned firmly in my mind as the start of
 
 ⸻
 
-<a name="java-apprentice"></a>
 ## 2. Level 1 → Java Apprentice: The "OOP Spellbook"
 
 High school brought me Java 1.4, and I approached it like a wizard's tome:
@@ -57,11 +55,10 @@ Eager to impress, I once extended a base class until all my business logic lived
 
 **Mastering the Debug Print**
 
-Long before I embraced IDE debuggers or log frameworks, `System.out.println` was my torch in the dark. Years later, I still sneak in quick prints when chasing down a nasty timing bug—sometimes the simplest tool remains the fastest path to truth.
+Long before I embraced IDE debuggers or log frameworks, `System.out.println` was my torch in the dark. Years later, I still sneak in quick prints when chasing down a nasty timing bug—sometimes the simplest tool remains the fastest path to truth. Then say hello to `@Slf4j`.
 
 ⸻
 
-<a name="grinding-xp"></a>
 ## 3. Grinding XP: Open-Source Quests & Stack Overflow Boss Fights
 
 University unlocked a world of open-source collaboration and community-driven bug hunts.
@@ -80,7 +77,6 @@ I once fixed a C++ memory leak after scouring 47 answers across three languages 
 
 ⸻
 
-<a name="architects-gauntlet"></a>
 ## 4. The "Architect's Gauntlet": Scaling Monoliths & Microservices
 
 After several promotions, I stepped into the architect's ring—juggling diagrams, clusters, and heated debates over single versus multiple databases.
@@ -99,17 +95,18 @@ When our caching strategy went awry, Redis clusters crashed under TTL storms. We
 
 ⸻
 
-<a name="developer-to-em"></a>
 ## 5. From Developer to Engineering Manager: The Ultimate Raid
 
 Today, as Engineering Manager at Idenfit, I coordinate a cross-functional squad of 25 heroes: backend, frontend, data engineers, and SREs.
 
 Our Loot Table
+
 *   ⚔️ Self-Driving SDLC Agents: AI-driven pipelines that auto-review code style, run security scans, and even generate release notes.
 *   🛡️ Observability Command Center: Central dashboards that light up when error rates climb or latency spikes—no more midnight surprises.
 *   📈 AI-Powered Feature Insights: Predictive analytics that suggest UI tweaks, performance optimizations, and priority shifts based on user telemetry.
 
 My Leadership Build
+
 *   Tank: Block distractions—only the essential meetings make the calendar.
 *   DPS: Provide clear goals, unblock dependencies, and align with product vision.
 *   Healer: Mentor, coach, and celebrate—all wins, big or small, get a highlight in our team Slack.
@@ -118,7 +115,6 @@ The final boss remains an ever-shifting combo of technical debt, business urgenc
 
 ⸻
 
-<a name="epilogue"></a>
 ## 6. Epilogue: What's Next on the Skill Tree?
 
 The journey never ends. Here's my roadmap for the coming seasons:
