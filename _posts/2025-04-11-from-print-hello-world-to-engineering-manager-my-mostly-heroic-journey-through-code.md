@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "From 'print \"Hello, World!\"...' to Engineering Manager"
+title: "From 'print \"Hello, World!\" to Engineering Manager"
 date: 2025-04-11
 tags: [career, engineering-management, java, ai-agents]
 description: "How I level-grinded from BASIC loops to running a 25-person team."
