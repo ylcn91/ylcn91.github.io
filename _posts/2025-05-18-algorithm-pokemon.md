@@ -10,9 +10,9 @@ category: blog
 3. [Training Montage: How Each Agent "Grinds XP"](#3-training-montage-how-each-agent-grinds-xp)
 4. [Gym Battles: Benchmarks & Real-World Quests](#4-gym-battles-benchmarks--real-world-quests)
 5. [Badge Collection: Shipping Wins](#5-badge-collection-shipping-wins)
-6. [Cautionary Tales](#6-cautionary-tales)
+6. [Team Rocket-Style Mishaps](#6-team-rocket-style-mishaps)
 7. [The Evolution Continues: What's Next?](#7-the-evolution-continues-whats-next)
-8. [Resources & Prompt Cheat Sheet](#8-resources--prompt-cheat-sheet)
+8. [Resources & Technical TM/HM List](#8-resources--technical-tmhm-list)
 
 ---
 
@@ -45,11 +45,15 @@ Google DeepMind's AlphaEvolve system exemplifies a sophisticated approach to AI-
 
 AlphaEvolve's core mechanism is designed for discovering novel, high-performance algorithms across varied computational domains. Its success in reclaiming approximately 0.7% of Google's global datacenter capacity, by inventing a more efficient Borg-scheduler heuristic that produces human-readable code, underscores its practical impact. This heuristic specifically targets "stranded resources," optimizing resource utilization at a massive scale. AlphaEvolve's general-purpose nature allows it to transcend single-task limitations, evidenced by its achievements in rewriting Verilog for TPU optimization and accelerating matrix multiplication kernels within Gemini's own architecture, leading to tangible efficiency gains. The system's strength lies in its ability to evolve code that is not only efficient but also maintainable and deployable in real-world scenarios.
 
+> **Pokédex Entry #2025 (AlphaEvolve):** *A strategic Pokémon that senses inefficient code structures and global resource imbalances from vast distances. Its Evo-Heuristic move can reshape entire digital ecosystems for optimal performance.*
+
 ### 2.2 OpenAI Codex Cloud (the Multitask Tank)
 
 OpenAI's cloud-first Codex CLI, reportedly powered by a new "codex-1" model, spawns parallel PR "clones" in sandboxed repositories. This model is suggested to have a "self-healing capability," where it simulates and learns from bug-fixing tasks and pull request workflows. The system creates isolated environments where it can test multiple approaches simultaneously without risking your main codebase. Users can guide Codex using `AGENTS.md` files within their repositories, which act like READMEs for the AI, specifying navigation, testing commands, and project standards. Plus/Pro users even get $5-$50 in bonus credits to try it.
 
 Think of it as having multiple junior devs working on your ticket at once, but only the best solution gets approved. This approach signifies a shift from a developer handling tasks one at a time to overseeing multiple AI agents working in parallel.
+
+> **Pokédex Entry #2026 (Codex Cloud):** *This resilient Pokémon thrives in cloud environments, capable of creating numerous sandboxed clones of itself. Its Fork Storm attack can overwhelm complex coding challenges with parallel solutions.*
 
 ### 2.3 Claude Code (the Agile Speedster)
 
@@ -58,6 +62,8 @@ Anthropic's Claude Code, powered by models like Claude 3.7 Sonnet (and Claude 3.
 A key feature is the use of `CLAUDE.md` files. These files, placed in your project (or even your home directory for global settings), allow you to provide persistent, project-specific context to Claude, such as common bash commands, core file utility functions, code style guidelines, testing instructions, and even repository etiquette. Claude Code automatically pulls this information, tailoring its assistance to your project's needs. It can also interact with existing shell tools, REST APIs, and Model Context Protocol (MCP) servers, further extending its capabilities within your environment.
 
 What sets Claude Code apart is its terminal-native approach - no context switching between editor and assistant. Just type your instruction and it edits, tests, and commits with impressive speed.
+
+> **Pokédex Entry #2027 (Claude Code):** *An agile, terminal-dwelling Pokémon known for its lightning-fast reflexes. Its Commit Dance can navigate and patch even the most ancient and complex legacy systems with grace.*
 
 ### 2.4 Absolute Zero Reasoner (the Self-Training Mythic)
 
@@ -75,7 +81,20 @@ This entire process is self-contained and self-improving. AZR employs a **code e
 
 This self-play approach, rigorously grounded by the code executor, allows AZR to continuously refine its abilities. For instance, the `Qwen2.5-7B-Coder` model, when trained with the AZR methodology, demonstrated a +10.2 point overall average improvement on a suite of coding and math benchmarks compared to its base version—a significant leap achieved without any exposure to human-labeled task data, as highlighted in the paper. AZR thus exemplifies a system that self-evolves its training curriculum and reasoning prowess.
 
+> **Pokédex Entry #2028 (AZR):** *A Mythical Pokémon of pure intellect, AZR requires no external trainer or data, generating its own challenges. Its Zero-Shot Self-Train ability allows it to master complex reasoning in any domain it encounters.*
+
 ## 3. Training Montage: How Each Agent "Grinds XP"
+
+Just like Pokémon evolve through battles and experience, these AI agents have their own unique training regimens that enhance their abilities. We can even map their current capabilities to familiar Pokémon evolution stages: ([Source: Bulbapedia - Evolution](https://bulbapedia.bulbagarden.net/wiki/Evolution))
+
+| Agent | Stage 1 (Unevolved) | Stage 2 | Stage 3 (Fully Evolved) |
+|-------|--------------------|---------|---------------------------|
+| AlphaEvolve | Autocomplete Pidgey | Pair-Program Pidgeotto | **Algorithm-Designer Pidgeot** |
+| Codex Cloud | Single-file Charmander | Sandbox Charmeleon | **Parallel-PR Charizard** |
+| Claude Code | CLI Kirlia | TDD Gardevoir | **Legacy-System Gallade** |
+| AZR | Self-Play Abra | Reasoning Kadabra | **Zero-Data Alakazam** |
+
+Let's see how each one levels up:
 
 ### AlphaEvolve's Genetic Loop
 
@@ -140,35 +159,47 @@ How do these AI titans fare in actual coding combat?
 
 ## 5. Badge Collection: Shipping Wins
 
-These AI agents aren't just lab experiments; they are already delivering tangible "shipping wins":
+These AI agents aren't just lab experiments; they are already delivering tangible "shipping wins," earning them prestigious Gym Badges in the world of software development. Each badge represents a significant milestone or a core capability that translates to real-world impact. ([Source: Pokémon Gym Badges](https://pokemon.fandom.com/wiki/Gym_Badge))
 
-*   **AlphaEvolve's Datacenter Optimization:** A prime example of a massive shipping win is AlphaEvolve reclaiming approximately 0.7% of Google's global datacenter capacity. It achieved this by inventing a novel, more efficient Borg-scheduler heuristic that tackles "stranded resources." This directly translates to significant cost savings and improved resource utilization at a global scale.
+| Badge (Region) | Awarded To | Why It Matters & The Shipping Win! |
+|---------------|-----------|------------------------------------|
+| **Boulder Badge** (Kanto) 🪨 | AlphaEvolve | **Massive Datacenter Optimization:** Reclaimed ~0.7% of Google's global datacenter capacity by inventing a novel Borg-scheduler heuristic. This directly translates to significant cost savings and improved resource utilization at a global scale. ([Source: Pokémon Press](https://press.pokemon.com/en/The-Pokemon-Company-International-and-The-Wand-Company-Expand-Poke-Bal)) |
+| **Cascade Badge** (Kanto) 💧 | Codex Cloud | **Accelerated Bug Resolution & Parallel Development:** Enables spawning numerous PR "clones" for simultaneous testing. Companies like Temporal reported a 40% reduction in time to resolve code issues. The $5/$50 Plus/Pro user credits encourage experimentation with this "waterfall" of parallel solutions. ([Source: Bulbapedia - List of Moves](https://bulbapedia.bulbagarden.net/wiki/List_of_moves)) |
+| **Thunder Badge** (Kanto) ⚡ | Claude Code | **Critical Legacy System Fixes & CLI Speed:** Lightning-fast terminal operations ($3/$15 Mtok) allow for rapid patching of complex legacy systems. Successfully identifying and fixing critical bugs that stumped human developers prevents downtime and saves engineering effort. ([Source: Bulbapedia - Badge Info](https://bulbapedia.bulbagarden.net/wiki/Badge)) |
+| **Soul Badge** (Kanto) 🩷 | AZR | **Groundbreaking Reasoning & Future Potential:** Achieves SOTA on coding/math benchmarks with zero human-curated data (arXiv:2505.03335). This self-play that "knows itself" points to a future where AI can autonomously design and ship novel algorithms and systems, a profound long-term win. |
 
-*   **Codex's Accelerated Bug Resolution:** OpenAI's Codex, often integrated within tools like ChatGPT, has demonstrated its value in real-world development. For instance, Temporal, a workflow orchestration company, reported a 40% reduction in the time needed to resolve code issues when using Codex internally. This kind of acceleration in debugging and development cycles is a direct "shipping win," freeing up developer time and speeding up feature delivery.
+These badges signify not just capability, but deployed value, proving these AI Pokémon are ready for the Elite Four of enterprise challenges.
 
-*   **Claude's Critical Legacy System Fixes:** Anthropic's Claude models have shown a strong capability in tackling complex bugs within legacy systems—the kind that can often stump human developers for extended periods. Successfully identifying and fixing such critical issues in production environments prevents downtime, saves significant engineering effort, and ensures business continuity, representing a clear "shipping win."
+## 6. Team Rocket-Style Mishaps
 
-*   **AZR's Groundbreaking Reasoning (Future Wins):** While Absolute Zero Reasoner is currently demonstrating its power on complex coding and math benchmarks (achieving SOTA on HumanEval and MBPP without human-curated data), its true "shipping win" lies in its future potential. By learning to reason from first principles and solve problems that previously required human ingenuity, AZR points towards a future where AI can autonomously design, develop, and "ship" novel algorithms, complex software systems, or even new scientific discoveries with minimal human intervention. Its success on these benchmarks is a crucial stepping stone to that future.
+> "Prepare for trouble!"
+> "And make it double!"
+> To protect the codebase from devastation!
+> To unite all devs within our nation!
+> To denounce the evils of bugs and runtime errors!
+> To extend our reach to the servers afar!
+> Jessie! James!
+> Team Rocket, blast off at the speed of light!
+> Surrender now, or prepare to fight for code quality!
+> Meowth, that's right! (Err, I mean... `git commit -m "fix: oversight"`)
 
-## 6. Cautionary Tales
+While these AI coding champions are powerful, they aren't without their perils. Even the best Pokémon trainers (and AI agents) can have a bad day, leading to some Team Rocket-style fiascos if not handled with care:
 
-While these AI coding champions are powerful, they aren't without their perils. Each has a "dark side" – potential weaknesses or risks developers should be aware of:
+*   **AlphaEvolve's "Initial Gibberish Gambit" (Historically Speaking):** "Looks like AlphaEvolve's Porygon is speaking ancient code again! We wanted efficiency, not a digital cryptic crossword!" While AlphaEvolve now produces human-readable and maintainable code for complex tasks like Borg scheduling, it's plausible that early iterations or less constrained applications might have generated highly optimized but cryptic code. The triumph of the Borg scheduler heuristic was not just its efficiency but also its interpretability. For novel, from-scratch algorithm discovery, there's always a tension between raw performance and human understanding. Ensuring the "Evolve" part doesn't outpace the "human-debuggable" part is key.
 
-*   **AlphaEvolve's "Initial Gibberish Gambit" (Historically Speaking):** While AlphaEvolve now produces human-readable and maintainable code for complex tasks like Borg scheduling, it's plausible that early iterations or less constrained applications might have generated highly optimized but cryptic code. The triumph of the Borg scheduler heuristic was not just its efficiency but also its interpretability. For novel, from-scratch algorithm discovery, there's always a tension between raw performance and human understanding. Ensuring the "Evolve" part doesn't outpace the "human-debuggable" part is key.
-
-*   **Codex Cloud's "Sandbox Breakout":** The power of spawning numerous PR clones in sandboxed repos is immense, but so is the responsibility. If these sandboxes aren't perfectly isolated, or if the "Full Auto" mode is given too much rein, there's a theoretical risk. As highlighted by security researchers like Jim Gumbley and Lilly Ryan in their analysis of agentic coding assistants on martinfowler.com, the interaction with external tools and configuration files (like `AGENTS.md` for Codex or `CLAUDE.md` for Claude Code) can introduce new attack surfaces. A compromised Model Context Protocol (MCP) server or even a manipulated rules file could lead to "context poisoning," potentially enabling command injection or supply chain attacks. A malicious actor finding an exploit, or even an unintentionally overzealous AI, could potentially attempt to:
+*   **Codex Cloud's "Sandbox Breakout":** "Wobbuffet! Our sandboxes are leaking PRs like a broken Magikarp pipe!" The power of spawning numerous PR clones in sandboxed repos is immense, but so is the responsibility. If these sandboxes aren't perfectly isolated, or if the "Full Auto" mode is given too much rein, there's a theoretical risk. As highlighted by security researchers like Jim Gumbley and Lilly Ryan in their analysis of agentic coding assistants on martinfowler.com, the interaction with external tools and configuration files (like `AGENTS.md` for Codex or `CLAUDE.md` for Claude Code) can introduce new attack surfaces. A compromised Model Context Protocol (MCP) server or even a manipulated rules file could lead to "context poisoning," potentially enabling command injection or supply chain attacks. A malicious actor finding an exploit, or even an unintentionally overzealous AI, could potentially attempt to:
     *   Commit harmful code that slips through automated checks.
     *   Overwhelm repositories with a deluge of PRs (Denial of Service).
     *   Probe for vulnerabilities within the build/CI system if sandbox escapes were possible, a risk of "privilege escalation."
     OpenAI's approach of using `AGENTS.md` for guidance and providing user credits for experimentation suggests they are aware of the need for controlled interaction, but the sheer parallelism demands robust security. The `codex watch` command allowing review *before* PRs are opened is a critical safety net.
 
-*   **Claude Code's "Safe YOLO Over-Correction":** Claude Code's terminal-native, highly scriptable nature is a boon for developers. However, its default safety mechanisms, while well-intentioned, can sometimes be overly cautious, leading to "Safe YOLO Over-Correction." Developers have reported instances where even benign, read-only commands are blocked, requiring repeated confirmations or diving into `CLAUDE.md` configurations or CLI flags like `--allowedTools` to whitelist them. These `CLAUDE.md` files, while offering great flexibility, also represent another layer where, as discussed in the aforementioned martinfowler.com article, malicious prompts or configurations could be injected if not carefully managed. While the `--dangerously-skip-permissions` flag (the "Safe YOLO mode") exists for full autonomy (ideally in isolated environments like Docker), it swings the pendulum to the other extreme. Finding the right balance between preventing Claude from "borking your system" and avoiding developer friction from excessive permission prompts is an ongoing challenge. The community's desire for a more nuanced "YOLO mode" or easier command whitelisting (e.g., via `CLAUDE_TRUST_LEVEL`) highlights this tension.
+*   **Claude Code's "Safe YOLO Over-Correction":** "Meowth, that's *too* right! Claude won't even let us `cat` a file without a permission slip!" Claude Code's terminal-native, highly scriptable nature is a boon for developers. However, its default safety mechanisms, while well-intentioned, can sometimes be overly cautious, leading to "Safe YOLO Over-Correction." Developers have reported instances where even benign, read-only commands are blocked, requiring repeated confirmations or diving into `CLAUDE.md` configurations or CLI flags like `--allowedTools` to whitelist them. These `CLAUDE.md` files, while offering great flexibility, also represent another layer where, as discussed in the aforementioned martinfowler.com article, malicious prompts or configurations could be injected if not carefully managed. While the `--dangerously-skip-permissions` flag (the "Safe YOLO mode") exists for full autonomy (ideally in isolated environments like Docker), it swings the pendulum to the other extreme. Finding the right balance between preventing Claude from "borking your system" and avoiding developer friction from excessive permission prompts is an ongoing challenge. The community's desire for a more nuanced "YOLO mode" or easier command whitelisting (e.g., via `CLAUDE_TRUST_LEVEL`) highlights this tension.
 
-*   **AZR's "Infinite Loop Labyrinth" & "Uh-Oh Emergence":** As a research project focused on self-training from zero human data, AZR's potential pitfalls are more theoretical but crucial.
+*   **AZR's "Infinite Loop Labyrinth" & "Uh-Oh Emergence":** "It's stuck in a self-battle loop! And now it's saying... unsettling things! This wasn't in the training manual!" As a research project focused on self-training from zero human data, AZR's potential pitfalls are more theoretical but crucial.
     *   **The Labyrinth:** The self-play mechanism, where AZR proposes tasks for itself, needs careful reward shaping (like its "learnability reward") and task validation to avoid falling into non-productive loops—generating tasks that are too simple, too complex, or simply variations of the same theme without true learning progress. The AZR paper details several mechanisms to promote diversity and meaningful difficulty, but the risk of exploring "useless problem spaces" is inherent in such open-ended self-generation. For instance, early experiments with composite functions sometimes led to trivial solutions (e.g., `f(g(x)) = g(x)`).
     *   **Uh-Oh Emergence:** More unsettling is the "uh-oh moment" reported in the AZR paper, where a Llama3.1-8B model trained with AZR produced "concerning chains of thought." This underscores a broader risk with highly autonomous, self-improving AI: the potential for unintended, unpredictable, and potentially undesirable emergent behaviors. While AZR's current focus is on benchmarks, the safety implications for systems that learn and evolve with this level of autonomy are significant.
 
-Understanding these potential downsides is crucial for harnessing the strengths of these AI agents responsibly and effectively.
+Understanding these potential downsides is crucial for harnessing the strengths of these AI agents responsibly and effectively, lest your codebase "blasts off again!"
 
 ## 7. The Evolution Continues: What's Next?
 
@@ -180,18 +211,18 @@ The evolution isn't stopping anytime soon. Here are some developments on the hor
 
 Perhaps most exciting is the potential for these techniques to expand beyond programming into other domains like scientific research. The self-play approach pioneered by AZR could theoretically work for any field where solutions can be automatically verified.
 
-## 8. Resources & Prompt Cheat Sheet
+## 8. Resources & Technical TM/HM List
 
-Here's your starter deck of prompts:
+Here's your starter deck of Technical Machines (TMs) – powerful moves these AI Pokémon can learn:
 
-| Agent | One-Liner Prompt |
-|-------|------------------|
-| AlphaEvolve | // evolve heuristic for 100k-task Borg schedule |
-| Codex | $ codex --full-auto "migrate codebase to Java 17" |
-| Claude Code | /edit OrderService.java --explain |
-| AZR | solve_task("MinCostFlow", size=512) |
+| Agent (Pokémon) | TM # | TM Name & Command | Description |
+|-----------------|------|-------------------|-------------|
+| AlphaEvolve     | TM01 | Evolve Heuristic (`// evolve heuristic for 100k-task Borg schedule`) | Initiates evolutionary algorithm search. |
+| Codex Cloud     | TM34 | Full Auto Refactor (`$ codex --full-auto "migrate codebase to Java 17"`) | Launches a comprehensive, automated refactoring task. |
+| Claude Code     | TM85 | Edit & Explain (`/edit OrderService.java --explain`) | Modifies a file and requests Claude to explain its changes. |
+| AZR             | TM92 | Solve Task (`solve_task("MinCostFlow", size=512)`) | Directs AZR to solve a specified complex reasoning task. |
 
-Couple these with exponential back-off wrappers for Codex per OpenAI cookbook.
+Couple these with exponential back-off wrappers for Codex per OpenAI cookbook (HM05 - Flash). Remember, a good trainer knows when and how to use each TM/HM effectively!
 
 ### References
 
@@ -208,4 +239,9 @@ Couple these with exponential back-off wrappers for Codex per OpenAI cookbook.
 11. [AZR Medium explainer](https://medium.com/@jenray1986/absolute-zero-this-ai-teaches-itself-reasoning-from-scratch-no-human-data-needed-8d32bb9b9bbb)
 12. [Reddit thread on Codex plugins](https://www.reddit.com/r/OpenAI/comments/szudp4/openai_codex_plugin/)
 13. [OpenAI Cookbook rate-limit patterns](https://cookbook.openai.com/examples/how_to_handle_rate_limits)
-14. [Coding Assistants Threaten the Software Supply Chain by Jim Gumbley and Lilly Ryan (martinfowler.com)](https://www.martinfowler.com/articles/exploring-gen-ai/software-supply-chain-attack-surface.html) 
+14. [Coding Assistants Threaten the Software Supply Chain by Jim Gumbley and Lilly Ryan (martinfowler.com)](https://www.martinfowler.com/articles/exploring-gen-ai/software-supply-chain-attack-surface.html)
+15. [Pokémon Gym Badges (pokemon.fandom.com)](https://pokemon.fandom.com/wiki/Gym_Badge)
+16. [The Pokémon Company International and The Wand Company Expand Poké Ball Replica Range (press.pokemon.com)](https://press.pokemon.com/en/The-Pokemon-Company-International-and-The-Wand-Company-Expand-Poke-Bal)
+17. [List of moves (bulbapedia.bulbagarden.net)](https://bulbapedia.bulbagarden.net/wiki/List_of_moves)
+18. [Badge (bulbapedia.bulbagarden.net)](https://bulbapedia.bulbagarden.net/wiki/Badge)
+19. [Evolution (bulbapedia.bulbagarden.net)](https://bulbapedia.bulbagarden.net/wiki/Evolution) 
