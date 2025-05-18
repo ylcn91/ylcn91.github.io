@@ -142,4 +142,4 @@ Useful resources for your own V60 journey:
 *   [James Hoffmann – "The Ultimate V60 Technique" (YouTube)](https://www.youtube.com/watch?v=AI4ynXzkSQo)
 *   [Barista Hustle – Community V60 Recipes](https://community.baristahustle.com/t/favorite-v60-02-recipes/2767)
 
-Whether you're debugging your first script or leading global teams, remember: every error is XP, every PR is progress, and every broken keyboard has its own legend. Now suit up—your next epic awaits! 
+>  Whether you're debugging your first script or leading global teams, remember: every error is XP, every PR is progress, and every broken keyboard has its own legend. Now suit up—your next epic awaits! 
