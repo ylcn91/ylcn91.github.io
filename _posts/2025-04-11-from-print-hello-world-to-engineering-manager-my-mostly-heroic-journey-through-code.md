@@ -137,4 +137,9 @@ Mirror production with synthetic data in the cloud, run chaos-engineering drills
 ### 6. Coffee Brewing Mastery
 Because no raid is complete without the perfect pour-over. My next milestone: mastering the V60 technique and leveling up to ☕ Artisan Barista.
 
+Useful resources for your own V60 journey:
+*   [Stumptown Coffee – Hario V60 Brew Guide](https://www.stumptowncoffee.com/pages/brew-guide-hario-v60)
+*   [James Hoffmann – "The Ultimate V60 Technique" (YouTube)](https://www.youtube.com/watch?v=AI4ynXzkSQo)
+*   [Barista Hustle – Community V60 Recipes](https://community.baristahustle.com/t/favorite-v60-02-recipes/2767)
+
 Whether you're debugging your first script or leading global teams, remember: every error is XP, every PR is progress, and every broken keyboard has its own legend. Now suit up—your next epic awaits! 
