@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "From 'print …' to Engineering Manager"
+title: "From 'print \"Hello, World!\"...' to Engineering Manager"
 date: 2025-04-11
 tags: [career, engineering-management, java, ai-agents]
 description: "How I level-grinded from BASIC loops to running a 25-person team."
@@ -42,7 +42,7 @@ High school brought me Java 1.4, and I approached it like a wizard's tome:
 ```java
 public class Spellbook {
     public static void main(String[] args) {
-        System.out.println("I cast NullReferenceException at the compiler!");
+        System.out.println("I cast NullPointerException at the compiler!");
     }
 }
 ```
@@ -87,7 +87,7 @@ After several promotions, I stepped into the architect's ring—juggling diagram
 
 **Monolith Migration Quest**
 
-Facing a 1M-LOC legacy beast, our team carved out the Payment domain first. We built a standalone billing service, introduced API gateways, and rewrote critical flows in Kotlin. This strategic move reduced deployment time for the payments module by a staggering 70%. Each successful extraction felt like removing a dragon's talon—painful, but liberating.
+Facing a 1M-LOC legacy beast, our team carved out the Payment domain first. We built a standalone billing service, introduced API gateways, and rewrote critical flows in Kotlin (a process reminiscent of the refactoring strategies discussed in my ["From Chaos to Code"](/from-chaos-to-code.html) post). This strategic move reduced deployment time for the payments module by a staggering 70%. Each successful extraction felt like removing a dragon's talon—painful, but liberating.
 
 **Redis vs. Postgres Showdown**
 
@@ -124,13 +124,13 @@ The final boss remains an ever-shifting combo of technical debt, business urgenc
 The journey never ends. Here's my roadmap for the coming seasons:
 
 ### 1. AI Agent-Assisted Coding
-Training bespoke LLM agents (much like the concepts discussed in my [Algorithm Pokémon](/2025/05/18/algorithm-pokemon.html) post) that draft service skeletons, auto-generate test suites, and propose refactors from plain-English tickets.
+Training bespoke LLM agents (much like the concepts discussed in my [Algorithm Pokémon](/algorithm-pokemon.html) post) that draft service skeletons, auto-generate test suites, and propose refactors from plain-English tickets.
 
 ### 2. Inner-Source Ecosystem
 Fostering a culture where internal libraries are first-class "open-source" projects: public docs, versioned releases, and community contributions across teams.
 
 ### 3. Quantum-Resistant Cryptography
-Prototyping lattice-based algorithms to future-proof user data—and maybe snag a patent.
+Prototyping lattice-based algorithms to future-proof user data—and maybe snag a patent. For those interested in the ongoing standardization efforts, [NIST's post-quantum cryptography project](https://csrc.nist.gov/projects/post-quantum-cryptography) is a great resource.
 
 ### 4. Ephemeral Dev Environments
 Building server-less branches: spin up isolated stacks per Git branch, run end-to-end tests in parallel, then tear down automatically.
