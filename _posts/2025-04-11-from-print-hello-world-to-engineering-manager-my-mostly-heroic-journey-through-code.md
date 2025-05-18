@@ -7,12 +7,12 @@ description: "How I level-grinded from BASIC loops to running a 25-person team."
 ---
 
 Table of Contents
-1.  [Prologue: A Young Coder and a Broken Keyboard](#prologue)
-2.  [Level 1 → Java Apprentice: The "OOP Spellbook"](#java-apprentice)
-3.  [Grinding XP: Open-Source Quests & Stack Overflow Boss Fights](#grinding-xp)
-4.  [The "Architect's Gauntlet": Scaling Monoliths & Microservices](#architects-gauntlet)
-5.  [From Developer to Engineering Manager: The Ultimate Raid](#developer-to-em)
-6.  [Epilogue: What's Next on the Skill Tree?](#epilogue)
+1.  [Prologue: A Young Coder and a Broken Keyboard](#1-prologue-a-young-coder-and-a-broken-keyboard)
+2.  [Level 1 → Java Apprentice: The "OOP Spellbook"](#2-level-1--java-apprentice-the-oop-spellbook)
+3.  [Grinding XP: Open-Source Quests & Stack Overflow Boss Fights](#3-grinding-xp-open-source-quests--stack-overflow-boss-fights)
+4.  [The "Architect's Gauntlet": Scaling Monoliths & Microservices](#4-the-architects-gauntlet-scaling-monoliths--microservices)
+5.  [From Developer to Engineering Manager: The Ultimate Raid](#5-from-developer-to-engineering-manager-the-ultimate-raid)
+6.  [Epilogue: What's Next on the Skill Tree?](#6-epilogue-whats-next-on-the-skill-tree)
 
 ⸻
 
