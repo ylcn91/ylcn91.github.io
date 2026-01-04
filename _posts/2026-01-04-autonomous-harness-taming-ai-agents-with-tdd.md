@@ -1207,6 +1207,12 @@ For those who prefer a GUI, the harness includes a React + FastAPI dashboard. He
 ![Harness Monitor Dashboard](/assets/images/harness-monitor.png)
 *The Harness Monitor showing a live TDD session: 38 features queued, real-time model logs, and event tracking*
 
+![Test Created State](/assets/images/test-created.png)
+*feat-001 enters TEST_CREATED state after Opus writes the tests. The event log shows TDD_RED_VERIFIED—tests fail as expected.*
+
+![Implementing State](/assets/images/implementing-state.png)
+*feat-001 transitions to IMPLEMENTING state. Sonnet takes over and begins writing the minimal code to pass the tests.*
+
 The dashboard provides:
 - **Status Overview**: Verified/Failed/Blocked counts at a glance
 - **Current Feature**: What's being worked on right now
