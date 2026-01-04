@@ -1213,6 +1213,9 @@ For those who prefer a GUI, the harness includes a React + FastAPI dashboard. He
 ![Implementing State](/assets/images/implementing-state.png)
 *feat-001 transitions to IMPLEMENTING state. Sonnet takes over and begins writing the minimal code to pass the tests.*
 
+![Git Commit History](/assets/images/gitlog.png)
+*The TDD cycle reflected in git history: test → impl → VERIFIED. Each phase creates a checkpoint for safe rollback.*
+
 The dashboard provides:
 - **Status Overview**: Verified/Failed/Blocked counts at a glance
 - **Current Feature**: What's being worked on right now
