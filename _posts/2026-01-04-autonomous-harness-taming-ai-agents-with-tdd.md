@@ -72,15 +72,15 @@ No exceptions. No workarounds. No "I'll add tests later."
 
 The harness achieves this through a multi-phase pipeline:
 
-```
-┌─────────────┐    ┌───────────┐    ┌─────────────┐    ┌─────────────┐    ┌────────┐
-│  ARCHITECT  │ → │ RED CHECK │ → │  IMPLEMENT  │ → │ GREEN CHECK │ → │ VERIFY │
-│  (Opus)     │    │ (Harness) │    │  (Sonnet)   │    │  (Harness)  │    │ (Multi)│
-└─────────────┘    └───────────┘    └─────────────┘    └─────────────┘    └────────┘
-     │                  │                  │                  │               │
-   Tests             Must              Code              Must            5 Layers
-   Created           FAIL             Written           PASS            of Verify
-```
+**ARCHITECT** (Opus) → **RED CHECK** (Harness) → **IMPLEMENT** (Sonnet) → **GREEN CHECK** (Harness) → **VERIFY** (Multi)
+
+| Phase | Agent | What Happens |
+|-------|-------|--------------|
+| ARCHITECT | Opus | Tests created |
+| RED CHECK | Harness | Tests must FAIL |
+| IMPLEMENT | Sonnet | Code written |
+| GREEN CHECK | Harness | Tests must PASS |
+| VERIFY | Multi-layer | 5 verification layers |
 
 The magic happens in those "RED CHECK" and "GREEN CHECK" phases. The harness literally runs the tests and verifies:
 1. **RED CHECK**: Tests must return a non-zero exit code (failure)
@@ -94,52 +94,40 @@ If tests pass during RED CHECK—meaning they didn't actually test anything that
 
 Let me walk you through the complete architecture. This isn't a simple wrapper script—it's a full orchestration system with state management, security enforcement, and multi-layer verification.
 
-```
-AUTONOMOUS HARNESS ARCHITECTURE
-═══════════════════════════════════════════════════════════════════════════════
+### Layer 1: CLI Entry Points
 
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                              CLI LAYER                                       │
-│  ┌─────────────────┐    ┌──────────────────┐    ┌─────────────────────────┐ │
-│  │  tdd_harness.py │    │ autonomous_loop  │    │  Argument Parser        │ │
-│  │  (Entry Point)  │    │ (Daemon Mode)    │    │  --project-dir          │ │
-│  │  710 lines      │    │ 456 lines        │    │  --task, --prompt       │ │
-│  └────────┬────────┘    └────────┬─────────┘    │  --continuous, --daemon │ │
-│           │                      │              └─────────────────────────┘ │
-└───────────┼──────────────────────┼──────────────────────────────────────────┘
-            │                      │
-            ▼                      ▼
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                           TDD ORCHESTRATOR                                   │
-│  ┌──────────────────────────────────────────────────────────────────────┐   │
-│  │  harness/tdd/orchestrator.py (697 lines)                             │   │
-│  │  • Phase coordination                                                 │   │
-│  │  • Agent invocation                                                   │   │
-│  │  • State transitions                                                  │   │
-│  │  • Error handling & retry logic                                       │   │
-│  └──────────────────────────────────────────────────────────────────────┘   │
-└───────────────────────────────────────────────────────────────────────────── ┘
-            │
-            ▼
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                            PHASE RUNNERS                                     │
-│  ┌──────────┐  ┌───────────┐  ┌───────────┐  ┌─────────────┐  ┌──────────┐  │
-│  │ ARCHITECT│  │ RED_CHECK │  │ IMPLEMENT │  │ GREEN_CHECK │  │  VERIFY  │  │
-│  │  (Opus)  │  │ (Harness) │  │ (Sonnet)  │  │  (Harness)  │  │ (Multi)  │  │
-│  └──────────┘  └───────────┘  └───────────┘  └─────────────┘  └──────────┘  │
-└─────────────────────────────────────────────────────────────────────────────┘
-            │
-            ▼
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                          SUPPORT SYSTEMS                                     │
-│  ┌────────────────┐  ┌────────────────┐  ┌────────────────┐  ┌────────────┐ │
-│  │ State Manager  │  │ Security Hooks │  │ Tracing System │  │ Git Ops    │ │
-│  │ feature_list   │  │ Bash whitelist │  │ events.jsonl   │  │ Commits    │ │
-│  │ State machine  │  │ Scope enforce  │  │ Artifacts      │  │ Rollback   │ │
-│  │ Transitions    │  │ Test protect   │  │ Progress       │  │ Diff check │ │
-│  └────────────────┘  └────────────────┘  └────────────────┘  └────────────┘ │
-└─────────────────────────────────────────────────────────────────────────────┘
-```
+| Component | File | Purpose |
+|-----------|------|---------|
+| Main CLI | `tdd_harness.py` | Entry point, argument parsing |
+| Daemon Mode | `autonomous_loop.py` | Continuous execution |
+| Arguments | `--project-dir`, `--task`, `--prompt`, `--daemon` | Configuration |
+
+### Layer 2: TDD Orchestrator
+
+**`harness/tdd/orchestrator.py`** - The brain of the operation:
+- Phase coordination
+- Agent invocation
+- State transitions
+- Error handling & retry logic
+
+### Layer 3: Phase Runners
+
+| Phase | Model | Location |
+|-------|-------|----------|
+| ARCHITECT | Opus | `phases/architect.py` |
+| RED_CHECK | Harness | `phases/red_check.py` |
+| IMPLEMENT | Sonnet | `phases/implement.py` |
+| GREEN_CHECK | Harness | `phases/green_check.py` |
+| VERIFY | Multi | `phases/verify.py` |
+
+### Layer 4: Support Systems
+
+| System | Purpose | Key Files |
+|--------|---------|-----------|
+| **State Manager** | Feature tracking, state machine | `feature_list.json` |
+| **Security Hooks** | Bash whitelist, scope enforcement, test protection | `hooks/security.py` |
+| **Tracing** | Event log, artifacts, progress | `events.jsonl` |
+| **Git Ops** | Commits, rollback, diff check | `git/operations.py` |
 
 Let's dive deep into each phase.
 
@@ -977,49 +965,34 @@ class StateManager:
 Features follow a strict state machine:
 
 ```
-                    ┌──────────────────────────────────────────────┐
-                    │                    PENDING                   │
-                    │              (Initial state)                 │
-                    └─────────────────────┬────────────────────────┘
-                                          │ ARCHITECT phase completes
-                                          ▼
-                    ┌──────────────────────────────────────────────┐
-                    │                TEST_CREATED                  │
-                    │           (Tests written by Opus)            │
-                    └─────────────────────┬────────────────────────┘
-                                          │ RED CHECK passes
-                                          ▼
-                    ┌──────────────────────────────────────────────┐
-                    │               IMPLEMENTING                   │
-                    │         (Sonnet writing code)                │
-                    └─────────────────────┬────────────────────────┘
-                                          │ GREEN CHECK passes
-                                          ▼
-                    ┌──────────────────────────────────────────────┐
-                    │                TEST_PASSED                   │
-                    │           (Tests pass, verifying)            │
-                    └─────────────────────┬────────────────────────┘
-                                          │ All verify layers pass
-                                          ▼
-                    ┌──────────────────────────────────────────────┐
-                    │                 VERIFIED ✓                   │
-                    │          (Terminal success state)            │
-                    └──────────────────────────────────────────────┘
+PENDING (Initial)
+    |
+    v  [ARCHITECT completes]
+TEST_CREATED (Tests written by Opus)
+    |
+    v  [RED CHECK passes]
+IMPLEMENTING (Sonnet writing code)
+    |
+    v  [GREEN CHECK passes]
+TEST_PASSED (Tests pass, verifying)
+    |
+    v  [All verify layers pass]
+VERIFIED (Terminal success)
+```
 
-    At any point, failure can occur:
+**Failure handling:**
 
-                    ┌──────────────────────────────────────────────┐
-                    │                  FAILED                      │
-                    │  (retry_count < 3 → reset to PENDING)        │
-                    │  (retry_count >= 3 → auto-block)             │
-                    └─────────────────────┬────────────────────────┘
-                                          │ if retry_count >= 3
-                                          ▼
-                    ┌──────────────────────────────────────────────┐
-                    │                  BLOCKED                     │
-                    │       (Terminal failure state)               │
-                    │     (Requires human intervention)            │
-                    └──────────────────────────────────────────────┘
+```
+Any phase fails --> FAILED
+                      |
+                      v
+              retry_count < 3?
+               /           \
+             YES            NO
+              |              |
+              v              v
+           PENDING        BLOCKED
+         (retry)     (manual fix needed)
 ```
 
 The auto-retry mechanism is key. Features don't get immediately blocked on first failure. They get three chances:
@@ -1046,17 +1019,36 @@ When things go wrong (and they will), you need to know exactly what happened. Th
 
 ### 1. Event Log (events.jsonl)
 
-An append-only log of every event:
+An append-only log of every event. Each line is a JSON object:
 
-```jsonl
-{"timestamp":"2024-01-04T15:22:33.123Z","type":"HARNESS_STARTED","run_id":"run-20240104-152233"}
-{"timestamp":"2024-01-04T15:22:34.456Z","type":"FEATURE_SELECTED","feature_id":"feat-001","name":"Database Connection Pool"}
-{"timestamp":"2024-01-04T15:22:34.789Z","type":"PHASE_STARTED","phase":"ARCHITECT","feature_id":"feat-001"}
-{"timestamp":"2024-01-04T15:23:02.123Z","type":"PHASE_FINISHED","phase":"ARCHITECT","feature_id":"feat-001","duration_ms":27334}
-{"timestamp":"2024-01-04T15:23:02.456Z","type":"PHASE_STARTED","phase":"RED_CHECK","feature_id":"feat-001"}
-{"timestamp":"2024-01-04T15:23:05.789Z","type":"TDD_RED_VERIFIED","feature_id":"feat-001"}
-{"timestamp":"2024-01-04T15:23:05.890Z","type":"PHASE_FINISHED","phase":"RED_CHECK","feature_id":"feat-001","duration_ms":3434}
+```json
+{
+  "timestamp": "2024-01-04T15:22:33.123Z",
+  "type": "HARNESS_STARTED",
+  "run_id": "run-20240104-152233"
+}
 ```
+
+```json
+{
+  "timestamp": "2024-01-04T15:22:34.456Z",
+  "type": "FEATURE_SELECTED",
+  "feature_id": "feat-001",
+  "name": "Database Connection Pool"
+}
+```
+
+```json
+{
+  "timestamp": "2024-01-04T15:23:02.123Z",
+  "type": "PHASE_FINISHED",
+  "phase": "ARCHITECT",
+  "feature_id": "feat-001",
+  "duration_ms": 27334
+}
+```
+
+**Event types include:** `HARNESS_STARTED`, `FEATURE_SELECTED`, `PHASE_STARTED`, `PHASE_FINISHED`, `TDD_RED_VERIFIED`, `TDD_GREEN_VERIFIED`, `VERIFICATION_PASSED`, `VERIFICATION_FAILED`, and more.
 
 Key properties:
 - **Append-only**: Never modified, only appended
@@ -2058,36 +2050,13 @@ Compared to Opus-only: ~$0.75/feature (58% savings!)
 
 Subagents don't communicate directly—they pass information through artifacts and state:
 
-```
-┌─────────────────┐
-│  code-architect │
-│     (Opus)      │
-└────────┬────────┘
-         │ Creates test files
-         ▼
-┌─────────────────┐
-│ context-analyzer│
-│    (Haiku)      │
-└────────┬────────┘
-         │ Returns relevant_files.json
-         ▼
-┌─────────────────┐
-│   implementer   │
-│    (Sonnet)     │
-└────────┬────────┘
-         │ Creates implementation
-         ▼
-┌─────────────────┐
-│ build-validator │
-│    (Sonnet)     │
-└────────┬────────┘
-         │ Returns test_results.json
-         ▼
-┌─────────────────┐
-│   verify-app    │
-│    (Sonnet)     │
-└─────────────────┘
-```
+| Step | Subagent | Model | Output |
+|------|----------|-------|--------|
+| 1 | code-architect | Opus | Creates test files |
+| 2 | context-analyzer | Haiku | Returns `relevant_files.json` |
+| 3 | implementer | Sonnet | Creates implementation |
+| 4 | build-validator | Sonnet | Returns `test_results.json` |
+| 5 | verify-app | Sonnet | Final verification |
 
 Each subagent:
 1. Reads artifacts from previous phases
@@ -2249,66 +2218,18 @@ Picture this: A product manager creates a Jira ticket. They write some acceptanc
 
 No, I haven't been drinking. This is the actual roadmap:
 
-```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                    THE AUTONOMOUS DEVELOPMENT PIPELINE                       │
-│                        (a.k.a. "The Dream")                                  │
-└─────────────────────────────────────────────────────────────────────────────┘
+**THE AUTONOMOUS DEVELOPMENT PIPELINE** (a.k.a. "The Dream")
 
-    ┌──────────────┐
-    │  JIRA TICKET │  PM creates "Add dark mode toggle"
-    │   Created    │  with acceptance criteria
-    └──────┬───────┘
-           │
-           │ Webhook fires
-           ▼
-    ┌──────────────┐
-    │   WEBHOOK    │  "Ah, fresh meat."
-    │   LISTENER   │  - The Harness, probably
-    └──────┬───────┘
-           │
-           │ Parse ticket, extract requirements
-           ▼
-    ┌──────────────┐
-    │  REPO SCOUT  │  Finds relevant repos in GitHub/Bitbucket
-    │              │  "This looks like a frontend task..."
-    └──────┬───────┘  "Found: ui-components, design-system"
-           │
-           │ Clone repos
-           ▼
-    ┌──────────────┐
-    │   SANDBOX    │  Spins up isolated Docker environment
-    │   FACTORY    │  with all dependencies
-    └──────┬───────┘
-           │
-           │ Environment ready
-           ▼
-    ┌──────────────┐
-    │  AUTONOMOUS  │  The harness does its thing:
-    │   HARNESS    │  ARCHITECT → RED → IMPLEMENT → GREEN → VERIFY
-    └──────┬───────┘
-           │
-           │ All features verified
-           ▼
-    ┌──────────────┐
-    │    BRANCH    │  Creates feature/JIRA-1234-dark-mode
-    │   CREATOR    │  Pushes to test branch
-    └──────┬───────┘
-           │
-           │ PR created
-           ▼
-    ┌──────────────┐
-    │    JIRA      │  Updates ticket:
-    │   UPDATER    │  Status: "Ready for QA"
-    └──────┬───────┘  Assignee: QA Team
-           │         Comment: "Implementation complete.
-           │                   PR: github.com/org/repo/pull/42
-           ▼                   Test coverage: 94%"
-    ┌──────────────┐
-    │   QA TEAM    │  *Spits out coffee*
-    │              │  "Wait, it's already done?!"
-    └──────────────┘
-```
+| Step | Component | What Happens |
+|------|-----------|--------------|
+| 1 | **JIRA TICKET** | PM creates "Add dark mode toggle" with acceptance criteria |
+| 2 | **WEBHOOK LISTENER** | Webhook fires. *"Ah, fresh meat."* - The Harness, probably |
+| 3 | **REPO SCOUT** | Finds relevant repos in GitHub/Bitbucket. *"Found: ui-components, design-system"* |
+| 4 | **SANDBOX FACTORY** | Spins up isolated Docker environment with all dependencies |
+| 5 | **AUTONOMOUS HARNESS** | ARCHITECT → RED → IMPLEMENT → GREEN → VERIFY |
+| 6 | **BRANCH CREATOR** | Creates `feature/JIRA-1234-dark-mode`, pushes to test branch |
+| 7 | **JIRA UPDATER** | Status: "Ready for QA", adds PR link, test coverage |
+| 8 | **QA TEAM** | *Spits out coffee* - "Wait, it's already done?!"
 
 The technical implementation would look something like this:
 
