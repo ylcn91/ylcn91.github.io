@@ -7,10 +7,6 @@ tags: [ai-agents, tdd, claude, autonomous-coding, orchestration, python]
 description: "How I built a production-grade orchestration system that forces AI coding agents to follow TDD—because sometimes even the smartest AI needs a leash."
 ---
 
-# Autonomous Harness: Taming Wild AI Agents with Test-Driven Development
-
----
-
 ## Table of Contents
 
 1. [The Problem: AI Agents Are Like Caffeinated Interns](#the-problem-ai-agents-are-like-caffeinated-interns)
