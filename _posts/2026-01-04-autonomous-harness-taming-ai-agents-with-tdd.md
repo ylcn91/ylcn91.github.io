@@ -135,7 +135,7 @@ Before any TDD can happen, we need a plan. The Initialize phase is where the mag
 
 **Input**: A markdown file describing what you want to build, or a direct prompt.
 
-**Agent**: Claude Opus 4.5 with Extended Thinking (20,000 token budget)
+**Agent**: Claude Opus 4.5
 
 **Output**: A `feature_list.json` containing 30-50+ atomic features with dependencies.
 
@@ -145,14 +145,11 @@ Here's what happens:
 async def run_initialize_phase(task: str, project_dir: Path) -> FeatureList:
     """
     Opus analyzes the task and creates a complete feature breakdown.
-    This is the ONLY time we use extended thinking—it's expensive but worth it.
     """
 
     # Create fresh context (no pollution from previous tasks)
     client = ClaudeAgentOptions(
-        model="claude-opus-4-5-20251101",
-        extended_thinking=True,
-        thinking_budget=20000
+        model="claude-opus-4-5-20251101"
     )
 
     prompt = f"""
@@ -1450,38 +1447,6 @@ async def run_with_streaming(
     )
 ```
 
-### Extended Thinking
-
-For complex planning tasks, the SDK supports extended thinking with configurable token budgets:
-
-```python
-# Constants for thinking budgets
-DEFAULT_ARCHITECT_THINKING_BUDGET = 20_000  # 20K tokens for test design
-DEFAULT_INIT_THINKING_BUDGET = 20_000       # 20K tokens for project planning
-
-async def run_architect_with_thinking(
-    self,
-    feature: Feature,
-) -> PhaseResult:
-    """Use extended thinking for complex test design."""
-
-    client = ClaudeAgentOptions(
-        model="claude-opus-4-5-20251101",
-        extended_thinking=True,
-        thinking_budget=DEFAULT_ARCHITECT_THINKING_BUDGET,
-    )
-
-    # Opus gets 20K tokens to "think" before responding
-    # This enables deeper analysis and better test coverage
-    result = await client.run(self.architect_prompt(feature))
-
-    return PhaseResult(
-        status="success",
-        thinking_tokens=result.thinking_tokens_used,
-        output_tokens=result.output_tokens,
-    )
-```
-
 ---
 
 ## Plugin Architecture: Extensibility by Design
@@ -2031,7 +1996,7 @@ This strategy optimizes for both **quality** (Opus for critical thinking) and **
 
 ```
 Cost breakdown per feature (approximate):
-- Architect (Opus + Extended Thinking): ~$0.15
+- Architect (Opus): ~$0.15
 - Context Analysis (Haiku): ~$0.01
 - Implementation (Sonnet): ~$0.05
 - Validation (Sonnet): ~$0.02
