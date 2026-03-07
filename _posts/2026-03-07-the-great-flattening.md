@@ -303,11 +303,11 @@ The companies that grasp both halves of it will ship circles around the ones tha
 
 1. **Noy & Zhang (2023)** — "Experimental Evidence on the Productivity Effects of Generative AI." *Science.* Preregistered experiment with 444 professionals showing ChatGPT compressed the productivity distribution. [[SSRN]](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4375283)
 
-2. **Brynjolfsson, Li & Raymond (2023)** — "Generative AI at Work." *NBER / Quarterly Journal of Economics.* Study of 5,172 customer-support agents at a Fortune 500 company; less skilled workers improved 30%. [[Oxford Academic]](https://academic.oup.com/qje/article/139/4/1919/7762763)
+2. **Brynjolfsson, Li & Raymond (2025)** — "Generative AI at Work." *The Quarterly Journal of Economics, 140(2), 889-942.* Study of 5,179 customer-support agents at a Fortune 500 company; less skilled workers improved 34%. [[Oxford Academic]](https://academic.oup.com/qje/article/140/2/889/7990658)
 
 3. **Dell'Acqua et al. (2023)** — "Navigating the Jagged Technological Frontier." *Harvard Business School.* BCG-Harvard field experiment with 758 consultants; below-average performers improved 43% vs 17% for above-average. [[SSRN]](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4573321)
 
-4. **Cui et al. (2025)** — "AI-Assisted Software Development: Field Experiments." *Microsoft Research.* Three field experiments with 4,867 developers across Microsoft, Accenture, and a Fortune 100 company. [[Microsoft Research]](https://www.microsoft.com/en-us/research/publication/the-effects-of-generative-ai-on-computing-professionals/)
+4. **Cui et al. (2025)** — "The Effects of Generative AI on High-Skilled Work: Evidence from Three Field Experiments with Software Developers." *Management Science.* 4,867 developers across Microsoft, Accenture, and a Fortune 100 company. [[Microsoft Research]](https://www.microsoft.com/en-us/research/publication/the-effects-of-generative-ai-on-high-skilled-work-evidence-from-three-field-experiments-with-software-developers/)
 
 5. **METR (2025)** — "Measuring the Impact of AI Coding Tools on Developer Productivity." Study of experienced open-source developers finding AI tools made them 19% slower on their own repos. [[METR]](https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/)
 
@@ -315,13 +315,13 @@ The companies that grasp both halves of it will ship circles around the ones tha
 
 7. **Microsoft (2025)** — "2025 Work Trend Index." 31,000 workers across 31 countries; 82% of leaders see pivotal year; 81% expect agents within 12-18 months. [[Microsoft]](https://www.microsoft.com/en-us/worklab/work-trend-index/2025)
 
-8. **Gartner (2025)** — AI-driven organizational flattening prediction: 20% of organizations will eliminate more than half of middle-management positions through 2026. [[Gartner]](https://www.gartner.com/en/articles/what-will-ai-mean-for-middle-managers)
+8. **Gartner (2024)** — "Top Predictions for IT Organizations and Users in 2025 and Beyond." 20% of organizations will use AI to flatten structures, eliminating 50%+ of middle-management positions through 2026. [[Gartner Newsroom]](https://www.gartner.com/en/newsroom/press-releases/2024-10-22-gartner-unveils-top-predictions-for-it-organizations-and-users-in-2025-and-beyond)
 
-9. **Gallup (2025)** — Average manager span of control increased from 10.9 to 12.1 in one year. [[Gallup]](https://www.gallup.com/workplace/trend-report)
+9. **Gallup (2025)** — Average manager span of control increased from 10.9 to 12.1 in one year. [[Gallup]](https://www.gallup.com/workplace/700718/span-control-optimal-team-size-managers.aspx)
 
-10. **Amazon (2025)** — Amazon Q migrated tens of thousands of production apps from Java 8/11 to 17, saving 4,500 years of dev work and ~$260M annually. [[AWS Blog]](https://aws.amazon.com/blogs/devops/how-amazon-q-developer-transformed-amazons-software-development/)
+10. **Amazon (2025)** — Amazon Q migrated 30,000+ production apps from Java 8/11 to 17, saving 4,500 years of dev work and ~$260M annually. [[AWS DevOps Blog]](https://aws.amazon.com/blogs/devops/amazon-q-developer-just-reached-a-260-million-dollar-milestone/)
 
-11. **UK Government (2025)** — AI coding assistant trial: average 56 minutes saved per day; 67% spent less time searching for information. [[GOV.UK]](https://www.gov.uk/government/publications/ai-coding-assistants-in-government)
+11. **UK Government (2025)** — AI coding assistant trial: average 56 minutes saved per day; 67% spent less time searching for information. [[GOV.UK]](https://www.gov.uk/government/publications/ai-coding-assistant-trial/ai-coding-assistant-trial-uk-public-sector-findings-report)
 
 12. **Stack Overflow (2025)** — Developer Survey: 84% using or planning to use AI tools; 50.6% daily usage; 55.5% among early-career devs. [[Stack Overflow]](https://survey.stackoverflow.co/2025/)
 
