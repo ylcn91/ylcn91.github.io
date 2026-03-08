@@ -42,10 +42,12 @@ The old bottleneck was production. The new bottleneck is distribution, judgment,
 <a id="section-1"></a>
 ## 1. The Old Math vs The New Math
 Here is the cartoon version of the old startup plan, and cartoons are useful because they exaggerate what was already true: idea, raise money, hire 10 engineers, 2 designers, 3 marketers, 2 ops people, spend 18 months building an MVP, then discover users wanted something else. If you price that team at U.S. median wages and add average private-industry benefits costs, the labor bill alone lands around $4.2 million over 18 months. If those three marketers are actual marketing managers instead of more junior analyst-level hires, the number gets closer to $4.73 million. A solo founder doing a two-week MVP, even if you value their time at the U.S. median software-developer wage and include paid AI tools plus basic infra, comes out around $5.4K. That is roughly a 773x gap.
+
 | Model | Team | Timeline to MVP | Approx. people cost | Main constraint |
 | --- | --- | --- | --- | --- |
 | Old math | 10 engineers + 2 designers + 3 marketers + 2 ops | 18 months | $4.2M to $4.7M | Hiring, meetings, handoffs, alignment |
 | New math | 1 founder + AI stack | 2 weeks to 30 days | ~$5.4K cash-equivalent for first cut | Distribution, judgment, focus |
+
 The point is not that every startup should expect a polished, defensible, enterprise-grade product in 14 days. That is nonsense. The point is that a revenue-capable thin slice is now realistic: auth, onboarding, billing, landing page, docs, analytics, support automation, and a working core workflow. Ten years ago that stack needed a team. Today it needs one obsessed person and enough caffeine to alarm a cardiologist.
 
 The part people still underestimate is handoff tax. In the old model, product hands off to design, design hands off to frontend, frontend to backend, backend to DevOps, then everyone to QA, then marketing waits for screenshots, then support gets surprised on launch day. In the new model, the same founder can move from idea to UI to code to copy to deployment without opening a Jira epic the size of a Tolstoy novel. That is where the real compounding happens.
@@ -56,6 +58,7 @@ The modern solo-builder stack is not one tool. It is a relay team of agents, edi
 There is still a lot of benchmark theater around whether AI makes coders “faster.” On one controlled GitHub Copilot task, developers completed the work 55.8% faster. In METR’s 2025 randomized study of experienced open-source developers working in their own repos, AI actually made them 19% slower. Both results can be true. The real win for solo founders is not winning a benchmark cage match. It is collapsing five job functions into one workflow.
 
 Here is the stack I would treat as the default operating system for a serious solo founder:
+
 | Job to be done | Tooling | Why it matters |
 | --- | --- | --- |
 | App logic, refactors, debugging, terminal automation | Claude Code, Cursor, Windsurf | Turns one founder into their own junior team, QA monkey, and rubber duck |
@@ -66,6 +69,7 @@ Here is the stack I would treat as the default operating system for a serious so
 | Payments, subscriptions, tax | Lemon Squeezy | Merchant-of-record plumbing is the sort of pain nobody should custom-build at $0 MRR |
 | Support automation | Intercom Fin or similar AI support stack | Absorbs repetitive tickets so the founder is not trapped in inbox hell |
 | Copy, docs, onboarding, support drafts | Your LLM of choice | Cheap, instant, and usually good enough to get version one live |
+
 Public pricing makes the economics even more absurd. Claude Code is bundled into Anthropic’s $20/month Pro plan, with higher-usage Max tiers from $100/month. Cursor’s Pro plan is $20/month. Windsurf has a free tier and a $15/month Pro plan. v0 Premium is $20/month. Bolt’s Pro plan is $25/month with hosting and generous token allowances. Vercel’s Hobby plan is free forever. PostHog starts at $0 and gives product analytics a free tier of 1 million events per month. Resend’s free plan includes 3,000 emails per month, with Pro at $20 for 50,000. Lemon Squeezy handles payments, subscriptions, fraud, and global tax compliance as a merchant of record. Intercom’s Fin is priced at $0.99 per resolution, and Intercom says most customers see around a 67% resolution rate.
 
 That stack does not eliminate expertise. It lets one person borrow enough expertise to keep moving. That distinction matters. AI is not your CTO, designer, copy chief, and support manager in the philosophical sense. It is your force multiplier. Used badly, it creates polished garbage. Used well, it buys time, range, and iteration speed.
@@ -101,11 +105,13 @@ Stripe’s definition is clean: micro-SaaS is a simplified form of SaaS designed
 Why? Because AI and commodity infrastructure changed the floor. When hosting is basically free at the beginning, analytics is free until real scale, email is free or nearly free, and payments plus tax can be outsourced, a tiny product no longer needs venture economics to survive. It just needs a real pain point and a buyer with a credit card. Vercel’s Hobby plan is free, PostHog gives you 1 million analytics events per month free, Resend gives you 3,000 emails per month free, and Lemon Squeezy handles merchant-of-record tax and subscription complexity for software companies.
 
 The arithmetic gets interesting fast:
+
 | Price point | Customers for $10K MRR | Customers for $50K MRR | Customers for $100K MRR |
 | --- | --- | --- | --- |
 | $20/month | 500 | 2,500 | 5,000 |
 | $50/month | 200 | 1,000 | 2,000 |
 | $100/month | 100 | 500 | 1,000 |
+
 Those are not insane customer counts for a niche B2B product that solves one painful thing. And SaaS economics remain excellent. Benchmarkit’s 2025 data put median subscription gross margin at 81% and median total gross margin at 77%. SaaS Capital’s 2025 benchmarks for bootstrapped SaaS companies with $3M to $20M ARR showed median growth of 20%, median net revenue retention of 104%, and median gross revenue retention of 92%. In plain English: well-run bootstrapped SaaS businesses can still be sticky, profitable, and boring in the best possible way.
 
 This is why the $10K to $100K MRR band matters so much. At $10K MRR, a solo founder has proof of demand and breathing room. At $30K to $50K MRR, they can start buying back time with contractors or a first hire. At $100K MRR, the thing stops being a side quest and becomes an asset with real strategic options: keep compounding, spin up adjacent tools, or sell.
