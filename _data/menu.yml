@@ -23,7 +23,7 @@ entries:
           - title: Developer Tools
             content: |
               - IDE: IntelliJ, NVIM
-              - AI Copilot: Cursor
+              - AI Copilot: Claude Code, Codex, Droid
               - Version Control: Git
               - Build Tools: Maven
           - title: current focus
@@ -54,3 +54,4 @@ entries:
             content: |
               • [LinkedIn](https://www.linkedin.com/in/doksanbir/)
               • [GitHub](https://github.com/ylcn91)
+              • [whoami](/whoami/)
