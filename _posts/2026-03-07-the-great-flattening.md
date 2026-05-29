@@ -9,7 +9,7 @@ description: "AI is not replacing developers—it is compressing the skill curve
 
 ## Table of Contents
 
-1. [The Great Flattening — WTF Is It?](#section-1)
+1. [The Great Flattening — What Is It?](#section-1)
 2. [The Skill Curve Before and After AI](#section-2)
 3. [Knowledge Access Goes to Zero](#section-3)
 4. [Organizational Flattening](#section-4)
@@ -25,9 +25,9 @@ description: "AI is not replacing developers—it is compressing the skill curve
 ---
 
 <a id="section-1"></a>
-## 1. The Great Flattening — WTF Is It?
+## 1. The Great Flattening — What Is It?
 
-Let me paint you a picture.
+Two scenes, four years apart.
 
 In 2022, a junior engineer hit a weird deadlock, opened twelve tabs, found three contradictory blog posts, pinged a senior, and lost half a day. In 2026, that same engineer asks an agent to explain the lock graph, point at the likely transaction boundary, draft the patch, generate tests, and summarize the tradeoffs.
 
@@ -285,7 +285,7 @@ The mistake is to read that and think engineering leadership matters less.
 
 AI still does not reliably choose the right architecture, the right abstraction boundary, the right sequence of migrations, or the right tradeoff between speed, resilience, and organizational cognition. Stanford's AI Index is explicit that complex reasoning and planning remain weak points. BCG showed people can become less correct outside AI's frontier. METR showed expert developers on their own codebases can become slower, not faster.
 
-So the CTO job shifts. Less headcount accounting. More leverage design. Less "how many engineers do we need to throw at this?" More "what is the right human-agent ratio, where do we need hard review gates, what knowledge must remain institutional, and which decisions are too dangerous to delegate?" AI agents are like caffeinated interns: excellent at chewing through bounded work, not the people you let redesign the payment architecture unsupervised.
+So the CTO job shifts. Less headcount accounting. More leverage design. Less "how many engineers do we need to throw at this?" More "what is the right human-agent ratio, where do we need hard review gates, what knowledge must remain institutional, and which decisions are too dangerous to delegate?" Agents are superb at chewing through bounded, well-specified work and reckless the moment you let them redesign the payment architecture unsupervised.
 
 Leadership also has to defend the learning pipeline. Gartner warns that flattening can break mentoring pathways for junior workers, while hiring data already show firms pulling back on entry-level roles. If companies stop funding apprenticeship because AI makes juniors look instantly productive, they may wake up in five years with plenty of copilots and not enough captains. **Seniors do not spawn in the wild.**
 

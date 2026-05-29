@@ -5,7 +5,7 @@ category: blog
 ---
 
 ## Table of Contents
-1. [Welcome to the Evolution Arena](#1-welcome-to-the-evolution-arena)
+1. [The Evolution Arena](#1-the-evolution-arena)
 2. [Meet the Squad](#2-meet-the-squad)
 3. [Training Montage: How Each Agent "Grinds XP"](#3-training-montage-how-each-agent-grinds-xp)
 4. [Gym Battles: Benchmarks & Real-World Quests](#4-gym-battles-benchmarks--real-world-quests)
@@ -16,7 +16,7 @@ category: blog
 
 ---
 
-## 1. Welcome to the Evolution Arena
+## 1. The Evolution Arena
 
 *A wild agent appears!*
 

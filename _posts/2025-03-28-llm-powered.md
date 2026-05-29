@@ -32,7 +32,7 @@ category: blog
 
 ## 1. Cognitive Data Interface Layer  
 
-Welcome to the new frontier of data interaction! In a cognitive enterprise, we're moving beyond traditional data access methods. Imagine an LLM acting as a direct, intelligent interface to your databases, understanding your questions in plain English.
+In a cognitive enterprise, data access moves beyond query languages and dashboards. An LLM acts as a direct, intelligent interface to your databases, understanding your questions in plain English.
 
 ### LLM-Driven Data Access: The New Query Paradigm
 Gone are the days when developers needed to be SQL wizards or painstakingly map objects through ORMs for every data request. In this new model, an LLM can take a natural language request (think: *"Find the top 5 products by sales last quarter"*) and translate it into the most effective queries across all your data sources—be they relational, document, or graph databases. This isn't just a far-off dream; it requires a thoughtful design where the LLM is armed with comprehensive schema knowledge and the right context to generate correct and efficient queries.

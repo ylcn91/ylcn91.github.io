@@ -6,7 +6,7 @@ category: blog
 ---
 
 ## Table of Contents
-1. [Welcome to the AI Coding Circus: A Developer's Tale](#1-welcome-to-the-ai-coding-circus-a-developers-tale)
+1. [The AI Coding Circus: A Developer's Tale](#1-the-ai-coding-circus-a-developers-tale)
 2. [Meet the AI Dream Team: Your New Quirky Coding Companions](#2-meet-the-ai-dream-team-your-new-quirky-coding-companions)
 3. [Starting Fresh: How to Keep AI Models From Going Rogue](#3-starting-fresh-how-to-keep-ai-models-from-going-rogue)
 4. [Taming Legacy Code: When AI Meets Your Ancient Codebase](#4-taming-legacy-code-when-ai-meets-your-ancient-codebase)
@@ -19,7 +19,7 @@ category: blog
 
 ---
 
-## 1. Welcome to the AI Coding Circus: A Developer's Tale
+## 1. The AI Coding Circus: A Developer's Tale
 
 If you've ever wanted an **army of AI interns** to handle your repetitive tasks, find hidden references, or refactor messy code, you're in the right place. Over the past few months, I've built (and broken) enough projects with LLMs to fill a small library.
 

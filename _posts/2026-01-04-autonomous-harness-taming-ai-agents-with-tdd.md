@@ -35,7 +35,7 @@ description: "How I built a production-grade orchestration system that forces AI
 
 ## The Problem: AI Agents Are Like Caffeinated Interns
 
-Let me paint you a picture. It's 2 AM. You've given an AI coding agent a simple task: "Build a REST API for user authentication." You wake up to find 47 files modified, three new npm packages installed (one of which hasn't been updated since 2019), and a `utils.js` file that somehow contains a cryptocurrency miner. The tests? What tests?
+It's 2 AM. You've given an AI coding agent a simple task: "Build a REST API for user authentication." You wake up to find 47 files modified, three new npm packages installed (one of which hasn't been updated since 2019), and a `utils.js` file that somehow contains a cryptocurrency miner. The tests? What tests?
 
 This is the fundamental problem with autonomous AI coding agents. They're incredibly capable—like hiring a senior engineer who can type at 10,000 WPM—but they have the attention span of a golden retriever at a squirrel convention. Without guardrails, they'll write code that *looks* correct, passes a quick glance, and then explodes in production at 3 AM on a Friday.
 
@@ -487,7 +487,7 @@ The Sonnet prompt emphasizes **minimal implementation**. We're not looking for b
 
 ## Phase 4: Green Check—Retry Until You Succeed
 
-After implementation, we verify that tests now pass. But here's the twist: we don't give up on the first failure.
+After implementation, we verify that tests now pass. Crucially, we don't give up on the first failure.
 
 ```python
 async def run_green_check_phase(feature: Feature) -> PhaseResult:
@@ -2182,7 +2182,7 @@ if feature.cost_so_far > feature.max_budget:
 
 ### 5. The Grand Vision: Jira-to-Production Pipeline
 
-Here's where things get interesting. And by "interesting," I mean "the kind of automation that will either make you a legend or get you fired."
+Now for the ambitious part—the kind of automation that will either make you a legend or get you fired.
 
 Picture this: A product manager creates a Jira ticket. They write some acceptance criteria, maybe attach a mockup, and hit "Create." Then they go get coffee. By the time they're back at their desk, the feature is implemented, tested, and waiting for QA review.
 
