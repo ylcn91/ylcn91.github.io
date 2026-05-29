@@ -87,6 +87,9 @@ hr:after {
 
 table {
   width: 100%;
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 table, th, td {
