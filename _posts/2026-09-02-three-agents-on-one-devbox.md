@@ -3,15 +3,17 @@ layout: post
 title: "Three Agents on One Devbox"
 date: 2026-09-02
 category: blog
-tags: [ai-agents, code-review, sre, qa, claude-code, engineering-leadership]
-description: "Ten weeks of running a PR reviewer, a production scanner and a QA tester as unattended agents at Emlakjet, with the numbers and the failures."
+tags: [ai-agents, sdlc, code-review, qa, sre, claude-code, engineering-leadership]
+description: "Where the software lifecycle at Emlakjet waited on people, and what happened over ten weeks after putting an unattended agent at each of those three points."
 ---
 
-On the evening of September 1st the four-hourly production scan came back RED. The next morning's daily recap put one item at the top of the list: top up the OpenAI billing account behind the listing-description enhancer. The feature had been failing since 13:10 UTC. At 16:00 the failure rate was 79.7 percent. At 20:00 it was 99.93 percent. Nothing in the cluster was broken. The fix was a credit card.
+A pull request at Emlakjet used to wait three times.
 
-An agent wrote that recap. It also wrote the six scans before it, the "still open at day end" list, and the note that the public site had served twelve 5xx responses on 11.2 million requests in the same four-hour window, so this was a product outage and not a platform one. Nobody prompted it that evening. A systemd timer did.
+First it waited for a reviewer to find an hour. Then, after the merge, the task sat in the Test column until someone picked it up for a QA round. Then it shipped and waited a third time, for a person to notice if it had broken anything. Writing the code took hours. The waiting took days, and it was almost never the code that was slow.
 
-I have three of these running on one virtual machine at Emlakjet: a pull request reviewer, a production scanner, and a QA tester. The first two started on June 29th. The QA one came later in the summer. In May I wrote a long post arguing that verification, not generation, is the bottleneck now, and that verifier agents are how you attack it. This is the field report. Less theory, more logs.
+In May I wrote that generation had become cheap and verification had become the bottleneck. This is where that bottleneck actually lived on our board: three queues of human attention around one fast step in the middle. Review, test, watch. Ten weeks ago I started putting an agent in each queue. Two of them run unattended today. The third is built, tested against the manual process, and waiting for me to flip a timer.
+
+This is the field report. Less theory, more logs.
 
 ## One shape, three jobs
 
@@ -19,15 +21,17 @@ All three follow the same pattern, and the pattern matters more than any prompt.
 
 Deterministic scripts collect. The agent reads and reasons. The process writes.
 
-The scanner does not query the monitoring or CDN APIs itself. A set of shell collectors pulls every signal into compact digests, and the agent reads the digests. This is cheaper, and it is exact: two runs on the same digest see the same numbers. The reviewer gets a fresh session and a fresh git worktree per pull request. The QA agent gets a folder with the task, a brief, and a proof that the build it is about to measure is the build it thinks it is.
+The production scanner does not query the monitoring or CDN APIs itself. Shell collectors pull every signal into compact digests, and the agent reads the digests. This is cheaper, and it is exact: two runs on the same digest see the same numbers. The reviewer gets a fresh session and a fresh git worktree per pull request. The QA agent gets a folder with the task, a brief, and a proof that the build it is about to measure is the build it thinks it is.
 
 Every write goes through the process, never through the agent, and every write sits behind a switch that defaults to off. One flag lets the reviewer post comments. Another lets the QA job comment on Jira and move the task. A Slack webhook is the only credential the daily recap ever sees. When something goes wrong in a dry run, the blast radius is a folder on disk.
 
 Each agent is a headless Claude Code call: a system-prompt file, a JSON schema for the output, an allow list and a deny list of tools. The model is Opus 5 at high effort. State lives in small JSON files: what was seen, which commit was reviewed, how many attempts a task has had. A guard timer watches the timers and shouts on Slack when one goes quiet.
 
-## The reviewer
+## The review queue
 
-The reviewer is the oldest and the busiest. A Bitbucket webhook plus a five-minute poll, up to three pull requests in parallel. Every push gets a re-review, deduplicated by source commit, so an unchanged PR costs five seconds and exits. It reviews inside a worktree, so it can run the code rather than only read the diff. It writes in Turkish; the excerpt below is translated.
+The reviewer is the oldest and the busiest. A Bitbucket webhook plus a five-minute poll, up to three pull requests in parallel. Every push gets a re-review, deduplicated by source commit, so an unchanged PR costs five seconds and exits. It reviews inside a worktree, so it can run the code rather than only read the diff. It writes in Turkish; the excerpts below are translated.
+
+This morning's first review, at 08:25 UTC, was a performance change on the listing detail page: lazy-load the map section, warm the map library while the browser is idle, and push the navigation to the full map view until after the tap has painted. The reviewer checked in the worktree that the preload function the change leans on actually exists and dedupes against the map adapter's own initialisation, confirmed the new test asserts what the commit message claims, and approved with four non-blocking notes. One of them: the "show on map" link at the top of the page now scrolls to a skeleton instead of a live map, because the section is no longer eager in page mode. The developer had not noticed. Nobody waited for anyone.
 
 The week ending August 31st:
 
@@ -62,17 +66,7 @@ Claim, evidence with line numbers, suggestion. When the evidence is wrong the de
 
 The native approve or request-changes verdict is set under my account, not a bot account. The responsibility for a merge stays with a person.
 
-## The scanner
-
-Every four hours, 845 times so far, plus 65 daily recaps. It is read-only by construction. It holds read tokens for the monitoring and CDN APIs during collection only, never the cache purge token, never repository credentials. A lock makes sure a slow run and the next scheduled run cannot overlap and fight over the same state.
-
-The useful part is memory. Every alert gets a slug and the agent tracks it across runs. Some are known and accepted; the report says so and moves on, with a counter. "129th day blind" for a set of database exporters nobody has fixed. "99th consecutive run at ceiling" for an autoscaler stuck at its maximum. A counter that climbs in a report you read every morning applies a different kind of pressure than a dashboard nobody opens.
-
-It also tells you when to stop worrying. On September 1st the search page's p95 went 603 ms, then 560, then 503, and the recap noted it was back inside the 500 to 550 band the knowledge base defines for that page and closed the alert. The alert count fell from 38 at noon to 11 at 20:00, and the day still ended RED, because the recap ranks by severity and not by volume.
-
-I did not expect the scanner to be the one that finds billing problems. It was.
-
-## The QA tester
+## The Test column
 
 This is the one I built last and the one I am most careful with, because it writes to Jira and it can move a task backward in someone's sprint.
 
@@ -123,6 +117,28 @@ An hour per task is long, and most of it is measurement. One reflow criterion al
 
 Today's round was five tasks. Two went to UAT with evidence attached. Three went back to BugFix with a comment that names the file and the line.
 
+### The lessons file
+
+The agents do not learn between runs. Every session starts blank. What carries over is a text file, fourteen entries as of today, each in the form "which task, what happened, what the rule is". The manager pass hands it to every QA agent. A few, translated:
+
+- "Code not found in any repository" is not a FAIL reason. Scan wider first. If it is still not found, the verdict is unmeasurable.
+- The developer's own "PASS, verified, byte-identical" table is not evidence. Every number gets reproduced. "Could not reproduce" and "fixed" are not the same thing.
+- On a backend task, a pod running an image built after the fix was merged can still contain an older core jar bundled inside it. Pull the jar from the pod and check the bytecode before measuring behaviour.
+- The control host can be behind the tip of dev. Separate the effect of the fix from an intervening merge with git merge-base before calling an A/B difference a regression.
+- The test cluster cannot reach the CRM. Corporate-member updates return 500 there with a connect timeout. Known environment limit, not a finding. Measure the personal-member path instead.
+
+Each of those cost at least one wrong verdict before it was written down. The last one sent a task back to BugFix for nothing. That is the ratchet. The agent is not getting smarter, the file is getting longer, and the file is the thing I would keep if I had to throw everything else away.
+
+## After the deploy
+
+The third queue is the quietest and the easiest to forget: something is wrong in production and nobody is looking at the right panel. The scanner runs every four hours, 845 times so far, plus 65 daily recaps. It is read-only by construction. It holds read tokens for the monitoring and CDN APIs during collection only, never the cache purge token, never repository credentials. A lock makes sure a slow run and the next scheduled run cannot overlap and fight over the same state.
+
+The useful part is memory. Every alert gets a slug and the agent tracks it across runs. Some are known and accepted; the report says so and moves on, with a counter. "129th day blind" for a set of database exporters nobody has fixed. "99th consecutive run at ceiling" for an autoscaler stuck at its maximum. "31 hours, 8th consecutive scan" for an image editor pod stuck in ImagePullBackOff. A counter that climbs in a report you read every morning applies a different kind of pressure than an alert that fired once and was acknowledged.
+
+It also separates the platform from the product. On September 1st a backend-for-frontend image could not start its Spring context and sat in a crash loop for the last hours of the day, and the recap ranked that as the top open item. In the same window it noted the public site had served twelve 5xx responses on 11.2 million requests, so the crash loop was a service problem and not a customer-facing one yet. The search page's p95 went 603 ms, then 560, then 503, and the recap said it was back inside the 500 to 550 band the knowledge base defines for that page and closed the alert. The alert count fell from 38 at noon to 11 at 20:00, and the day still ended RED, because the recap ranks by severity and not by volume.
+
+None of this is new information. All of it was in dashboards. The difference is that at 06:30 there is a page that has already read the dashboards and put the two things that matter at the top.
+
 ## What went wrong
 
 These are the parts I would want to read in someone else's post.
@@ -135,18 +151,8 @@ These are the parts I would want to read in someone else's post.
 
 **I edited a running script.** The fix above went in while a child process was mid-run. Bash reads scripts incrementally, so editing one in place can corrupt the running job. It did not, by luck. I already had a rule for this, write to a temp file and mv it into place, and I skipped it because I was in a hurry. Rules you skip under time pressure are the ones that matter.
 
-## The lessons file
-
-The agents do not learn between runs. Every session starts blank. What carries over is a text file, fourteen entries as of today, each in the form "which task, what happened, what the rule is". The manager pass hands it to every QA agent. A few, translated:
-
-- "Code not found in any repository" is not a FAIL reason. Scan wider first. If it is still not found, the verdict is unmeasurable.
-- The developer's own "PASS, verified, byte-identical" table is not evidence. Every number gets reproduced. "Could not reproduce" and "fixed" are not the same thing.
-- On a backend task, a pod running an image built after the fix was merged can still contain an older core jar bundled inside it. Pull the jar from the pod and check the bytecode before measuring behaviour.
-- The control host can be behind the tip of dev. Separate the effect of the fix from an intervening merge with git merge-base before calling an A/B difference a regression.
-- The test cluster cannot reach the CRM. Corporate-member updates return 500 there with a connect timeout. Known environment limit, not a finding. Measure the personal-member path instead.
-
-Each of those cost at least one wrong verdict before it was written down. The last one sent a task back to BugFix for nothing. That is the ratchet. The agent is not getting smarter, the file is getting longer, and the file is the thing I would keep if I had to throw everything else away.
-
 ## Where it stands
 
-The reviewer and the scanner have run unattended for ten weeks. The QA timer is still disabled. The dry runs match the manual rounds, the safety is structural, and the posting path has been exercised through the manual finalizer five times without incident. What remains is me deciding to let it move tasks on a sprint board while I am asleep. I have not done that yet. When I do, the first week will be supervised and the manual rounds stop, because two testers on one task is how you get two verdicts.
+Three queues. The review queue and the production watch have run unattended for ten weeks. The Test column is the one still waiting on me: the dry runs match the manual rounds, the safety is structural, and the posting path has been exercised through the manual finalizer five times without incident. What remains is deciding to let it move tasks on a sprint board while I am asleep. I have not done that yet. When I do, the first week will be supervised and the manual rounds stop, because two testers on one task is how you get two verdicts.
+
+The code was never the slow part. The queues were. Two of the three are gone.
