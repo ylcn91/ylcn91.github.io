@@ -142,7 +142,17 @@ None of this is new information. All of it was in dashboards. The difference is 
 
 ### Closing the loop: the root-cause job
 
-The second layer is the newest thing on the box, and its rule is the one I kept coming back to while building it: a breach in the watch layer invokes the diagnosis without a person in the path, and the diagnosis lands in the planning queue like any other task, where a person decides. Fix now, schedule, or dismiss. When the scanner finishes a run, it looks at every red slug in the report. If the slug is new, meaning absent from the previous 24 hours of state, or if it has been red for exactly three consecutive runs, and it is not on the knowledge base's accepted list, the scanner starts a detached job for it. At most two per scan, one per slug at a time, and a week of cooldown per slug so the same incident does not get diagnosed every four hours.
+The second layer is the newest thing on the box, and its rule is the one I kept coming back to while building it: a breach in the watch layer invokes the diagnosis without a person in the path, and the diagnosis lands in the planning queue like any other task, where a person decides. Fix now, schedule, or dismiss.
+
+It has two triggers, a slow one and a fast one.
+
+The slow trigger is the scan. When the scanner finishes a run, it looks at every red slug in the report. If the slug is new, meaning absent from the previous 24 hours of state, or if it has been red for exactly three consecutive runs, and it is not on the knowledge base's accepted list, the scanner starts a detached job for it. At most two per scan, one per slug at a time, and a week of cooldown per slug so the same incident does not get diagnosed every four hours.
+
+The fast trigger is a watcher that polls five control bands every two minutes from the cluster's own Prometheus, with no agent involved: containers in CrashLoopBackOff, image pulls that fail, a deployment whose Progressing condition has been false for sixteen minutes, a restart whose last exit was OOMKilled, and a namespace whose 5xx share is above five percent on real traffic. A band breached on consecutive checks writes an event file with the rule, the query, the first breach time and the offending series, and starts the same root-cause job with that file in place of the scan paragraph. Same protections: one job per service within six hours, two per hour at most, the knowledge base's accepted list skipped.
+
+Replayed against yesterday: the crash-loop band went above zero at 17:30. The watcher would have fired at 17:34. The scan saw it at 20:00. Two and a half hours, on an incident that happened to be harmless. The next one may not be.
+
+Its first live catch came within minutes of being switched on: a legacy search service whose 5xx share had climbed to 77 percent, caught at 09:54, event file written, root-cause job started, one line in Slack.
 
 The job follows the same shape as everything else. The process assembles the inputs: the report lines for that slug, the last twelve scan states, the first time the slug appeared, the knowledge-base lines for that service, the digest snapshot the report was built from, and the local clones whose names match the slug, fetched fresh while the credentials are still in the environment. Then the credentials go away and the agent gets a read-only view of production: kubectl get, describe, logs and the in-cluster Prometheus proxy, gcloud logging read, git log and show in the clones. Push is rewired to nowhere, as with the QA agent. It writes nothing. It returns one JSON object against a schema: a one-line title, impact, a timeline where every row names the command it came from, a root-cause class out of eight, evidence as command plus finding, the change correlation, the hypotheses it eliminated and why, actions with priority and a likely owner, a confidence number, and what would raise it. The process renders that into a Jira-ready task in Turkish and posts a summary to Slack. The Jira write sits behind a switch, like every other write in this setup.
 
@@ -209,6 +219,6 @@ These are the parts I would want to read in someone else's post.
 
 ## Where it stands
 
-Three queues, three agents, one virtual machine, and since this morning the arrow that turns the line back into a loop. Review within minutes of a push instead of within a day. A finished feature out of the Test column in two hours instead of eight, at the same strictness. A production recap every morning that has already read the dashboards, and a root-cause task waiting in the queue when something new turns red. And a bug-ticket rate at a third of where it was in July.
+Three queues, three agents, one virtual machine, and since this morning the arrow that turns the line back into a loop. Review within minutes of a push instead of within a day. A finished feature out of the Test column in two hours instead of eight, at the same strictness. A production recap every morning that has already read the dashboards, and a root-cause task in the queue minutes after a control band breaks, not hours. And a bug-ticket rate at a third of where it was in July.
 
 People stay above the loop, controlling the gates. Here that is one person with three switches. The code was never the slow part. The queues were.
