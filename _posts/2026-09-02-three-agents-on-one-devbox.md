@@ -119,9 +119,8 @@ The agents do not learn between runs. Every session starts blank. What carries o
 - The developer's own "PASS, verified, byte-identical" table is not evidence. Every number gets reproduced. "Could not reproduce" and "fixed" are not the same thing.
 - On a backend task, a pod running an image built after the fix was merged can still contain an older core jar bundled inside it. Pull the jar from the pod and check the bytecode before measuring behaviour.
 - The control host can be behind the tip of dev. Separate the effect of the fix from an intervening merge with git merge-base before calling an A/B difference a regression.
-- The test cluster cannot reach the CRM. Corporate-member updates return 500 there with a connect timeout. Known environment limit, not a finding. Measure the personal-member path instead.
 
-Each of those cost at least one wrong verdict before it was written down. The last one sent a task back to BugFix for nothing. That is the ratchet. The agent is not getting smarter, the file is getting longer, and the file is the thing I would keep if I had to throw everything else away.
+Each of those cost at least one wrong verdict before it was written down. One of them sent a task back to BugFix for nothing. That is the ratchet. The agent is not getting smarter, the file is getting longer, and the file is the thing I would keep if I had to throw everything else away.
 
 ## After the deploy
 
