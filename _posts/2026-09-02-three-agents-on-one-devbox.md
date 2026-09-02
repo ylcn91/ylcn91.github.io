@@ -27,6 +27,66 @@ Every write goes through the process, never through the agent, and every write s
 
 Each agent is a headless Claude Code call: a system-prompt file, a JSON schema for the output, an allow list and a deny list of tools. The model is Opus 5 at high effort. State lives in small JSON files: what was seen, which commit was reviewed, how many attempts a task has had. A guard timer watches the timers and shouts on Slack when one goes quiet.
 
+## The harness
+
+The agents are the visible part. Most of the work on the box is the harness around them: what they are allowed to see, what they are allowed to run, and which keys sit where.
+
+### What the agents can see
+
+The reviewer does not start from the diff. It starts from a map. Every hour a job checks out the tip of dev into a throwaway worktree and regenerates a symbol-level map of the monorepo, skipping the rebuild when dev has not moved. This morning's map:
+
+| | |
+|---|---|
+| Files in the program | 7,619 |
+| Components | 3,298 |
+| Routes | 254 |
+| Import edges | 22,492 |
+| Resolved JSX call sites | 21,249 |
+| Dead props found | 1,830 |
+
+The map answers eight canned questions with a one-line jq program each: who imports this file, what it imports, whether it is client or server including transitive "use client" contamination, which routes it serves or sits in the layout chain of, the full route record with rendering mode and ISR settings, a component's prop contract, its inventory record, and the runtime assertions attached to a route. The reviewer's system prompt lists a strict reference order and the map is first; it is told to grep for the callers of everything the change touched and trace the blast radius before it judges a line.
+
+The production side has its own memory: a curated knowledge base of accepted issues and baselines that the scanner reads and never edits, a suggestions file where it proposes additions and a person promotes them, topology and observability playbooks, and the digest collectors. Those pull from Instana, Cloudflare's GraphQL analytics, Varnish through Cloud Monitoring, GKE through kubectl, and the in-cluster Prometheus for Redis, Postgres, Elasticsearch, Kafka and RabbitMQ, plus a login census from the auth service's own logs.
+
+### What the agents can run
+
+Each agent gets an allow list and a deny list, and the lists are different.
+
+The reviewer can read, grep and glob inside its worktree, run the read-only git verbs, and jq. It cannot curl, wget, fetch, write, push, commit, check out, or touch worktrees. It reads untrusted diff text all day, so it is the most locked down of the three.
+
+The QA agent has the widest set because measuring a preview needs kubectl, Playwright and git. Its kubectl points at a kubeconfig that only contains the test cluster. Push is rewired to nowhere. Every helper that could write to Jira or start a build is on its deny list.
+
+The scanner and the root-cause job get kubectl get, describe, top and logs against production, the Prometheus API through the kube-apiserver proxy, gcloud logging read, and git log and show on the local clones. No exec, no cp, no apply, no rollout, no ssh.
+
+Around them sits tooling people use too. A read-only ops CLI with fourteen commands: is production okay right now, 5xx split by edge and origin, what rolled out, traffic and cache per host, latency, incidents, top erroring endpoints, slow endpoints, Varnish tiers, cache status, pod restarts, queue depths, product counters, and a trace from DNS through the load balancer to the pod. Zero language model in it, every query a GET, tokens never printed. A visual regression harness that keeps pixel baselines of the key page templates captured from production and fails a local branch build when a template moves. And a web-vitals lab bench: Playwright probes for INP, the CrUX and PageSpeed APIs, an inventory of the GTM containers, and real-user data from GA4 in BigQuery, used for the performance investigations and, optionally, by the gate's live lane.
+
+### The quality gate
+
+Before the reviewer sees a pull request, a deterministic gate runs on it. It merges the PR head into the base with no commit, analyses that merge result rather than the branch alone, and aborts the merge afterwards. It uses the map in reverse to find what the change affects, then runs its lanes. T0: lint, the trusted catalog of tools pinned by lock file, contract checks, owners, a self-audit. T1: affected build, typecheck and tests through the monorepo's task graph, coverage of the changed lines, mock integrity, snapshots. T2, off by default: behaviour, performance, runtime, SEO and visual checks against a live pair of URLs. Every lane writes evidence as JSON lines, the evidence becomes a verdict, the verdict becomes a comment and a build status on the commit.
+
+The reviewer is required to adjudicate the gate's evidence fail-closed. It cannot approve over a red gate. A person can, by writing a break-glass comment with a reason, but the list of people who may do that is fixed and the PR's own author is never on it.
+
+Builds are the other write. A developer comments a build command on the PR and the process builds that branch on Jenkins, picking targets from the diffstat, waits for the result, verifies the Argo CD rollout with kubectl, and posts the preview URL to the task. There is no build on open and no build per commit; both were tried and the first filled the test cluster's service range while the second filled the agents' disks. One explicit request, one build, deduplicated by commit.
+
+### Who holds which key
+
+| Key | Scope | Who holds it |
+|---|---|---|
+| Bitbucket | Write: comments, verdict, build status | The process, never an agent |
+| Jira | Write: comments, transitions | The process, never an agent |
+| Jenkins | Write: start a build | The process, on an explicit command or the QA gate, allowlisted repositories, at most two builds per head |
+| Cloudflare | Read: analytics | Collectors and the CLI; the purge token is never loaded |
+| Instana, CrUX, PageSpeed | Read | Collectors, the CLI, the lab bench |
+| Kubernetes | Read verbs only | Per-agent kubeconfig: test cluster for QA, production for the scanner and the root-cause job |
+| Slack | Post-only webhook | The only secret an agent process keeps |
+| Datastore admin | Write | Never reaches an agent |
+
+The webhook that turns a push into a review sits behind a firewall open to Atlassian's addresses and verifies a signature on every request. The rule under the table: an agent's verdict can cause a write, but the agent never holds the pen.
+
+### The harness tests itself
+
+The reviewer's brakes have their own shell tests, five of them, and each tests the direction of failure that matters. The skip decision fails closed: when in doubt, review. The fork filter fails open: never forget a PR. The diff budget drops generated and lock segments but lists every file it dropped, so the reviewer knows its own blind spots. The evidence brake demotes a blocker that arrives without evidence to a minor, and leaves one with evidence alone. The break-glass filter checks who opened the gate. There is a benchmark runner too, same prompt, same schema, same tools, no Jira and no gate context, that measures the reviewer on its own: stay quiet when nothing is wrong, and catch what is. And a guard timer watches every other timer's heartbeat and shouts when one goes quiet.
+
 ## Deploy: the review queue
 
 The rule for this stage is simple. Every pull request gets the same set of review passes, findings ranked by severity, and the human decision moves up a level: does the change do what the task intended, and is the risk acceptable.
