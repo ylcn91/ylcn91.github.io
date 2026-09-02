@@ -11,7 +11,7 @@ A pull request at Emlakjet used to wait three times.
 
 First it waited for a reviewer to find an hour. Then, after the merge, the task sat in the Test column until someone picked it up. Then it shipped and waited a third time, for a person to notice if it had broken anything. Writing the code took hours. The waiting took days, and it was almost never the code that was slow.
 
-In May I wrote that generation had become cheap and verification had become the bottleneck. The lifecycle we run is a loop, not a line: plan, build, review, test, deploy, watch, and back to the plan. The build step got fast. The bottleneck moved to the steps on either side of it, and those steps are where I put the agents, with people above the loop controlling the gates.
+[In May I wrote](https://doksanbir.blog/the-verification-crisis.html) that generation had become cheap and verification had become the bottleneck. The lifecycle we run is a loop, not a line: plan, build, review, test, deploy, watch, and back to the plan. The build step got fast. The bottleneck moved to the steps on either side of it, and those steps are where I put the agents, with people above the loop controlling the gates.
 
 This is a field report on the right half of that loop, Deploy, Test and Maintain, in the order our code actually passes through them, plus the arrow that closes it, plus what the board says.
 
@@ -35,7 +35,7 @@ The agents are the visible part. Most of the work on the box is the harness arou
 
 The reviewer does not start from the diff. It starts from a map. Every hour a job checks out the tip of dev into a throwaway worktree and regenerates a symbol-level map of the monorepo, skipping the rebuild when dev has not moved. This morning's map:
 
-| | |
+| Map | Count |
 |---|---|
 | Files in the program | 7,619 |
 | Components | 3,298 |
@@ -97,7 +97,7 @@ This morning's first review, at 08:25 UTC, was a performance change on the listi
 
 Ten weeks, June 29th to today:
 
-| | |
+| Reviewer | Ten weeks |
 |---|---|
 | Pull requests reviewed | 696 |
 | Review rounds (one per push) | 4,440 |
@@ -106,7 +106,7 @@ Ten weeks, June 29th to today:
 
 Five weeks to August 31st, where the weekly metrics track each finding across rounds by file and title:
 
-| | |
+| Findings | Five weeks |
 |---|---|
 | Blocking findings tracked (blocker or major) | 799 |
 | Resolved before merge | 774, or 97 percent |
@@ -122,12 +122,13 @@ A finding looks like this, with paths trimmed:
 
 ```
 [MINOR/edge-case] PropertyDetailModal.tsx:1117
-The "Show on map" link no longer makes the POI section eager; in page
-mode it now scrolls to a skeleton.
-Evidence: onClick at 1115-1119 only calls scrollIntoView and never
-requestDetailSectionScroll, so line 883 leaves isPoiSectionEager=false.
-Suggestion: call requestDetailSectionScroll('poi'), the same path the
-sticky nav already uses. No extra code.
+The "Show on map" link no longer makes the POI section
+eager; in page mode it now scrolls to a skeleton.
+Evidence: onClick at 1115-1119 only calls scrollIntoView
+and never requestDetailSectionScroll, so line 883 leaves
+isPoiSectionEager=false.
+Suggestion: call requestDetailSectionScroll('poi'), the
+same path the sticky nav already uses. No extra code.
 ```
 
 Claim, evidence with line numbers, suggestion. When the evidence is wrong the developer can say so in one sentence, and they do. The other class it catches well is the accidental one: an import of a module that does not exist and fails the build, found minutes after the push instead of at the end of a CI run.
@@ -173,7 +174,7 @@ url.https://push-disabled.invalid/.pushInsteadOf=git@
 - Production secrets and the Slack, Cloudflare and Bitbucket tokens are removed from the environment before the agent starts.
 - A deny list covers kubectl mutations, gcloud, sudo, anything that touches routes or VPNs, git commit and checkout, and every helper script that writes to Jira or triggers a build.
 
-The rewrite exists because the first version of the deny list matched commands that start with "git push". A smoke test with git -C somedir push walked straight past it. I ran a push with the agent's environment afterwards and it failed with a DNS error. That is the outcome I want. "Please do not push" is a request. A URL that resolves to nothing is a fact.
+The rewrite exists because the first version of the deny list matched commands that start with `git push`. A smoke test with `git -C somedir push` walked straight past it. I ran a push with the agent's environment afterwards and it failed with a DNS error. That is the outcome I want. "Please do not push" is a request. A URL that resolves to nothing is a fact.
 
 ### The lessons file
 
