@@ -219,6 +219,10 @@ These are the parts I would want to read in someone else's post.
 
 ## Where it stands
 
-Three queues, three agents, one virtual machine, and since this morning the arrow that turns the line back into a loop. Review within minutes of a push instead of within a day. A finished feature out of the Test column in two hours instead of eight, at the same strictness. A production recap every morning that has already read the dashboards, and a root-cause task in the queue minutes after a control band breaks, not hours. And a bug-ticket rate at a third of where it was in July.
+Three queues, three agents, one virtual machine. Review within minutes of a push. A finished feature out of the Test column in two hours, at the same strictness. A production recap at 06:30 that has already read the dashboards, and a root-cause draft in the queue minutes after a control band breaks.
 
-People stay above the loop, controlling the gates. Here that is one person with three switches. The code was never the slow part. The queues were.
+What I still do by hand, every day: read the recap, promote or reject the knowledge-base suggestions, decide what happens to each root-cause draft, and put my name on every merge verdict. That is the job now. Reading what the agents flagged and deciding, instead of reviewing diffs, clicking through previews and watching dashboards.
+
+What is not solved. The escape rate after Test has not moved, and thirteen days of data will not settle whether it can. The three agents share one machine, so timings are noisy and every verdict leans on counts and hashes rather than milliseconds. The lessons file grows by one entry per wrong verdict and nobody prunes it yet. And the left half of the loop, the part where a task gets written before anyone builds it, is still people typing into Jira. That is the next queue, and it is the one where the waiting is hardest to see, because nothing turns red while it happens.
+
+The code was never the slow part. The queues were.
