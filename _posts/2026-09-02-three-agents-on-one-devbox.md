@@ -13,11 +13,11 @@ First it waited for a reviewer to find an hour. Then, after the merge, the task 
 
 [In May I wrote](https://doksanbir.blog/the-verification-crisis.html) that generation had become cheap and verification had become the bottleneck. The lifecycle we run is a loop, not a line: plan, build, review, test, deploy, watch, and back to the plan. The build step got fast. The bottleneck moved to the steps on either side of it, and those steps are where I put the agents, with people above the loop controlling the gates.
 
-This is a field report on the right half of that loop, Deploy, Test and Maintain, in the order our code actually passes through them, plus the arrow that closes it, plus what the board says.
+This is a field report on the right half of that loop, review, test and watch, in the order our code actually passes through them, plus the arrow that closes it, plus what the board says.
 
 ## One shape, three jobs
 
-All three agents follow the same pattern, and the pattern matters more than any prompt.
+All three agents, a reviewer on the pull request queue, a QA agent on the Test column, and a production scanner with a root-cause job behind it, follow the same pattern, and the pattern matters more than any prompt.
 
 Deterministic scripts collect. The agent reads and reasons. The process writes.
 
@@ -25,7 +25,7 @@ The production scanner does not query the monitoring or CDN APIs itself. Shell c
 
 Every write goes through the process, never through the agent, and every write sits behind a switch that defaults to off. One flag lets the reviewer post comments. Another lets the QA job comment on Jira and move the task. A Slack webhook is the only credential the daily recap ever sees. When something goes wrong in a dry run, the blast radius is a folder on disk.
 
-Each agent is a headless Claude Code call: a system-prompt file, a JSON schema for the output, an allow list and a deny list of tools. The model is Opus 5 at high effort. State lives in small JSON files: what was seen, which commit was reviewed, how many attempts a task has had. A guard timer watches the timers and shouts on Slack when one goes quiet.
+Each agent is a headless Claude Code call: a system-prompt file, a JSON schema for the output, an allow list and a deny list of tools. The model is Opus 5 at high effort. State lives in small JSON files: what was seen, which commit was reviewed, how many attempts a task has had.
 
 ## The harness
 
@@ -44,7 +44,7 @@ The reviewer does not start from the diff. It starts from a map. Every hour a jo
 | Resolved JSX call sites | 21,249 |
 | Dead props found | 1,830 |
 
-The map answers eight canned questions with a one-line jq program each: who imports this file, what it imports, whether it is client or server including transitive "use client" contamination, which routes it serves or sits in the layout chain of, the full route record with rendering mode and ISR settings, a component's prop contract, its inventory record, and the runtime assertions attached to a route. The reviewer's system prompt lists a strict reference order and the map is first; it is told to grep for the callers of everything the change touched and trace the blast radius before it judges a line.
+The map answers eight canned questions with a one-line jq program each, from who imports this file and whether it is client or server, to which routes it serves and what runtime assertions are attached to them. The reviewer's system prompt lists a strict reference order and the map is first; it is told to grep for the callers of everything the change touched and trace the blast radius before it judges a line.
 
 The production side has its own memory: a curated knowledge base of accepted issues and baselines that the scanner reads and never edits, a suggestions file where it proposes additions and a person promotes them, topology and observability playbooks, and the digest collectors. Those pull from Instana, Cloudflare's GraphQL analytics, Varnish through Cloud Monitoring, GKE through kubectl, and the in-cluster Prometheus for Redis, Postgres, Elasticsearch, Kafka and RabbitMQ, plus a login census from the auth service's own logs.
 
@@ -54,17 +54,17 @@ Each agent gets an allow list and a deny list, and the lists are different.
 
 The reviewer can read, grep and glob inside its worktree, run the read-only git verbs, and jq. It cannot curl, wget, fetch, write, push, commit, check out, or touch worktrees. It reads untrusted diff text all day, so it is the most locked down of the three.
 
-The QA agent has the widest set because measuring a preview needs kubectl, Playwright and git. Its kubectl points at a kubeconfig that only contains the test cluster. Push is rewired to nowhere. Every helper that could write to Jira or start a build is on its deny list.
+The QA agent has the widest set of the three; the Test section below says how it is boxed in.
 
 The scanner and the root-cause job get kubectl get, describe, top and logs against production, the Prometheus API through the kube-apiserver proxy, gcloud logging read, and git log and show on the local clones. No exec, no cp, no apply, no rollout, no ssh.
 
-Around them sits tooling people use too. A read-only ops CLI with fourteen commands: is production okay right now, 5xx split by edge and origin, what rolled out, traffic and cache per host, latency, incidents, top erroring endpoints, slow endpoints, Varnish tiers, cache status, pod restarts, queue depths, product counters, and a trace from DNS through the load balancer to the pod. Zero language model in it, every query a GET, tokens never printed. A visual regression harness that keeps pixel baselines of the key page templates captured from production and fails a local branch build when a template moves. And a web-vitals lab bench: Playwright probes for INP, the CrUX and PageSpeed APIs, an inventory of the GTM containers, and real-user data from GA4 in BigQuery, used for the performance investigations and, optionally, by the gate's live lane.
+Around the agents sits tooling that people use as well. A read-only ops CLI with fourteen commands, from "is production okay right now" to a trace from DNS through the load balancer to the pod. Zero language model in it, every query a GET, tokens never printed. A visual regression harness that keeps pixel baselines of the key page templates captured from production and fails a local branch build when a template moves. And a web-vitals lab bench: Playwright probes for INP, the CrUX and PageSpeed APIs, an inventory of the GTM containers, and real-user data from GA4 in BigQuery, used for the performance investigations and, optionally, by the gate's live lane.
 
 ### The quality gate
 
-Before the reviewer sees a pull request, a deterministic gate runs on it. It merges the PR head into the base with no commit, analyses that merge result rather than the branch alone, and aborts the merge afterwards. It uses the map in reverse to find what the change affects, then runs its lanes. T0: lint, the trusted catalog of tools pinned by lock file, contract checks, owners, a self-audit. T1: affected build, typecheck and tests through the monorepo's task graph, coverage of the changed lines, mock integrity, snapshots. T2, off by default: behaviour, performance, runtime, SEO and visual checks against a live pair of URLs. Every lane writes evidence as JSON lines, the evidence becomes a verdict, the verdict becomes a comment and a build status on the commit.
+Before the reviewer sees a pull request, a deterministic gate runs on it. It merges the PR head into the base with no commit, analyses that merge result rather than the branch alone, and aborts the merge afterwards. It uses the map in reverse to find what the change affects, then runs its lanes: lint and contract checks first, then the affected build, typecheck and tests through the monorepo's task graph with coverage of the changed lines, and, off by default, behaviour, performance, SEO and visual checks against a live pair of URLs. Every lane writes evidence as JSON lines, the evidence becomes a verdict, the verdict becomes a comment and a build status on the commit.
 
-The reviewer is required to adjudicate the gate's evidence fail-closed. It cannot approve over a red gate. A person can, by writing a break-glass comment with a reason, but the list of people who may do that is fixed and the PR's own author is never on it.
+The reviewer has to treat the gate's evidence as fail-closed. It cannot approve over a red gate. A person can, by writing a break-glass comment with a reason, but the list of people who may do that is fixed and the PR's own author is never on it.
 
 Builds are the other write. A developer comments a build command on the PR and the process builds that branch on Jenkins, picking targets from the diffstat, waits for the result, verifies the Argo CD rollout with kubectl, and posts the preview URL to the task. There is no build on open and no build per commit; both were tried and the first filled the test cluster's service range while the second filled the agents' disks. One explicit request, one build, deduplicated by commit.
 
@@ -85,11 +85,11 @@ The webhook that turns a push into a review sits behind a firewall open to Atlas
 
 ### The harness tests itself
 
-The reviewer's brakes have their own shell tests, five of them, and each tests the direction of failure that matters. The skip decision fails closed: when in doubt, review. The fork filter fails open: never forget a PR. The diff budget drops generated and lock segments but lists every file it dropped, so the reviewer knows its own blind spots. The evidence brake demotes a blocker that arrives without evidence to a minor, and leaves one with evidence alone. The break-glass filter checks who opened the gate. There is a benchmark runner too, same prompt, same schema, same tools, no Jira and no gate context, that measures the reviewer on its own: stay quiet when nothing is wrong, and catch what is. And a guard timer watches every other timer's heartbeat and shouts when one goes quiet.
+The reviewer's brakes have their own shell tests, five of them, and each tests the direction of failure that matters. The skip decision fails closed: when in doubt, review. The fork filter fails open: never forget a PR. The diff budget drops generated and lock segments but lists every file it dropped, so the reviewer knows its own blind spots. The evidence brake demotes a blocker that arrives without evidence to a minor, and leaves one with evidence alone. The break-glass filter checks who opened the gate. There is a benchmark runner too, same prompt, same schema, same tools, no Jira and no gate context, that measures the reviewer on its own: stay quiet when nothing is wrong, and catch what is. And a guard timer watches every other timer's heartbeat and shouts on Slack when one goes quiet.
 
-## Deploy: the review queue
+## Review: the pull request queue
 
-The rule for this stage is simple. Every pull request gets the same set of review passes, findings ranked by severity, and the human decision moves up a level: does the change do what the task intended, and is the risk acceptable.
+The rule for this stage is simple. Every pull request gets the same set of review passes, findings ranked by severity, and the human decision moves up a level: does the change do what the task intended, and is the risk acceptable?
 
 The reviewer is the oldest and the busiest of the three. A Bitbucket webhook plus a five-minute poll, up to three pull requests in parallel. Every push gets a re-review, deduplicated by source commit, so an unchanged PR costs five seconds and exits. It reviews inside a worktree, so it can run the code rather than only read the diff. It writes in Turkish; the excerpts below are translated.
 
@@ -187,13 +187,13 @@ The agents do not learn between runs. Every session starts blank. What carries o
 
 Each of those cost at least one wrong verdict before it was written down. One of them sent a task back to BugFix for nothing. That is the ratchet. The agent is not getting smarter, the file is getting longer, and the file is the thing I would keep if I had to throw everything else away.
 
-## Maintain: after the deploy
+## Watch: after the deploy
 
 The third queue is the quietest and the easiest to forget: something is wrong in production and nobody is looking at the right panel. For scale, the zone behind this serves about 111 million requests a day through Cloudflare, 117 million on the last day of August, from roughly a million unique visitors, 56 percent of it from cache, a little over 3 terabytes a day.
 
 This stage has two layers, and both are read-only on purpose. The agent that watches and the agent that diagnoses can look at anything and change nothing.
 
-The first layer is the scanner. Every four hours, 845 times so far, plus 65 daily recaps. It is read-only by construction. It holds read tokens for the monitoring and CDN APIs during collection only, never the cache purge token, never repository credentials. A lock makes sure a slow run and the next scheduled run cannot overlap and fight over the same state. The control bands live in a curated knowledge base the agent reads and never edits; it proposes additions in a separate file and a person promotes them.
+The first layer is the scanner. Every four hours, 845 times so far, plus 65 daily recaps, read-only by construction. A lock makes sure a slow run and the next scheduled run cannot overlap and fight over the same state. The control bands live in a curated knowledge base the agent reads and never edits; it proposes additions in a separate file and a person promotes them.
 
 The useful part is memory. Every alert gets a slug and the agent tracks it across runs. Some are known and accepted; the report says so and moves on, with a counter. "129th day blind" for a set of database exporters nobody has fixed. "99th consecutive run at ceiling" for an autoscaler stuck at its maximum. "31 hours, 8th consecutive scan" for an image editor pod stuck in ImagePullBackOff. A counter that climbs in a report you read every morning applies a different kind of pressure than an alert that fired once and was acknowledged.
 
@@ -215,7 +215,7 @@ Replayed against yesterday: the crash-loop band went above zero at 17:30. The wa
 
 Its first live catch came within minutes of being switched on: a legacy search service whose 5xx share had climbed to 77 percent, caught at 09:54, event file written, root-cause job started, one line in Slack.
 
-The job follows the same shape as everything else. The process assembles the inputs: the report lines for that slug, the last twelve scan states, the first time the slug appeared, the knowledge-base lines for that service, the digest snapshot the report was built from, and the local clones whose names match the slug, fetched fresh while the credentials are still in the environment. Then the credentials go away and the agent gets a read-only view of production: kubectl get, describe, logs and the in-cluster Prometheus proxy, gcloud logging read, git log and show in the clones. Push is rewired to nowhere, as with the QA agent. It writes nothing. It returns one JSON object against a schema: a one-line title, impact, a timeline where every row names the command it came from, a root-cause class out of eight, evidence as command plus finding, the change correlation, the hypotheses it eliminated and why, actions with priority and a likely owner, a confidence number, and what would raise it. The process renders that into a Jira-ready task in Turkish and posts a summary to Slack. The Jira write sits behind a switch, like every other write in this setup.
+The job follows the same shape as everything else. The process assembles the inputs: the report lines for that slug, the last twelve scan states, the first time the slug appeared, the knowledge-base lines for that service, the digest snapshot the report was built from, and the local clones whose names match the slug, fetched fresh while the credentials are still in the environment. Then the credentials go away and the agent gets the read-only view of production described in the harness section, push rewired to nowhere as with the QA agent. It writes nothing. It returns one JSON object against a schema: a one-line title, impact, a timeline where every row names the command it came from, a root-cause class out of eight, evidence as command plus finding, the change correlation, the hypotheses it eliminated and why, actions with priority and a likely owner, a confidence number, and what would raise it. The process renders that into a Jira-ready task in Turkish and posts a summary to Slack. The Jira write sits behind a switch, like every other write in this setup.
 
 The first real run was this morning, on the crash loop from the previous section. Ten minutes, 47 tool calls, 2.71 dollars. What it produced, translated and trimmed:
 
@@ -225,7 +225,7 @@ The root cause was in the previous container's log: application failed to start,
 
 Then the part I did not expect. The commit was tagged on August 20th and deployed on September 1st, twelve days later, so a git log around the onset returns nothing, and the report says so: the trigger was the deploy, not the commit. Between the previous revision and the broken one, the configmap hash, the resource limits, the probes and the environment were identical. The only variable was the image tag.
 
-It eliminated five alternatives with a line of evidence each. Memory was at 24 percent of the limit and the exit reason was an error code, not OOMKilled. The configmap was 76 days old. The failing phase is bean resolution, which makes no network calls. A Kafka error in the logs was also present in the healthy pods, so it was noise, and a separate finding. The image was already on the node and the container did start, then exited on its own.
+It eliminated five alternatives with a line of evidence each: memory at 24 percent of the limit and an error exit rather than OOMKilled, a configmap 76 days old, a failing phase that makes no network calls, a Kafka error the healthy pods had too, and an image that was already on the node.
 
 It also noticed the incident was over. A fix commit had landed at 08:18 that morning, the fixed image rolled at 08:36, the crash loop ended 17 minutes later, and the only 5xx responses in the whole 16-hour window, ten of them, fell inside the fix rollout, because the old pods were terminated without a drain. Confidence 0.95, with a list of what it could not get: the crash log itself, gone with the pod, because that namespace has no log sink; and the reason for the twelve-day gap between tag and deploy, because the deployment tool's API was not in its allow list.
 
@@ -250,7 +250,7 @@ Numbers from Jira, not from the agents. Every task that entered the Test column,
 
 Three things I read from that table.
 
-The Test column got four times faster at the median and six times faster at the tail, on a volume that is roughly the same. This is the number I care about most, because it is the queue that used to hold a finished feature for days.
+The Test column got four times faster at the median and six times faster at the tail, on a volume about a sixth lower. This is the number I care about most, because it is the queue that used to hold a finished feature for days. Some of that speed is mechanical, an agent picks a task up within the hour and people did not, so the number that was not guaranteed is the next one.
 
 The send-back rate did not move. One task in five still goes back to BugFix. The agent is exactly as strict as the people were, which is what you want; a QA step that suddenly passes everything is a QA step that stopped looking.
 
@@ -278,7 +278,7 @@ These are the parts I would want to read in someone else's post: not the setup m
 
 **A four-hour cadence is not a monitor.** On August 2nd the snapshot closed at 12:01, the report said an attack was still running, the attack peaked at 12:30 and ran until 14:18, and the next scheduled scan would have marked it resolved without ever seeing the worst of it. Two hours and seventeen minutes with nobody looking. The first fix was small: if the report says something is still in progress, a follow-up scan is armed for an hour later. The real fix is the two-minute watcher above.
 
-**The QA agent failed tasks that were not broken.** Two tasks got FAIL because the agent could not find the change in the repositories it searched; the code lived in a repository outside its short list. A backend task was failed twice with "the fix is not deployed anywhere" because the agent trusted the pod's image timestamp, while the library jar bundled inside that image was older than the fix; on the third round it pulled the jar out of the pod and checked the bytecode. One task went back to BugFix for a 500 that was a limitation of the test environment, not of the change. Each of those is a line in the lessons file now, and each line exists because a developer had to argue with a robot and win.
+**The QA agent failed tasks that were not broken.** Two because the code lived in a repository outside the short list it searched. One backend task twice, because the agent trusted the pod's image timestamp while the library jar inside that image was older than the fix; on the third round it pulled the jar out and checked the bytecode. One for a 500 that was a limitation of the test environment, not of the change. Each of those is a line in the lessons file now, and each line exists because a developer had to argue with a robot and win.
 
 **Structured output is not guaranteed.** One run came back with the verdict as prose in the result field and no structured object at all, and the process treated it as a parse failure and exited. Extraction now tries three sources in order: the structured output, JSON inside the result text, and a verdict file the agent writes to disk. The file is the one that has never failed.
 
