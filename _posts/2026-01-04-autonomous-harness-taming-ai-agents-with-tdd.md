@@ -1,10 +1,10 @@
 ---
 layout: post
-title: "Autonomous Harness: Taming Wild AI Agents with Test-Driven Development"
+title: "Autonomous Harness"
 date: 2026-01-04
 category: blog
 tags: [ai-agents, tdd, claude, autonomous-coding, orchestration, python]
-description: "How I built a production-grade orchestration system that forces AI coding agents to follow TDD—because sometimes even the smartest AI needs a leash."
+description: "An orchestration system that forces AI coding agents through a strict TDD cycle, with security hooks and five verification layers."
 ---
 
 ## Table of Contents
@@ -12,12 +12,12 @@ description: "How I built a production-grade orchestration system that forces AI
 1. [The Problem: AI Agents Are Like Caffeinated Interns](#the-problem-ai-agents-are-like-caffeinated-interns)
 2. [The Solution: Test-Driven Development as a Hard Constraint](#the-solution-test-driven-development-as-a-hard-constraint)
 3. [Architecture Overview: The Six Phases of TDD Enlightenment](#architecture-overview-the-six-phases-of-tdd-enlightenment)
-4. [Phase 0: Initialize—The Grand Design](#phase-0-initializethe-grand-design)
-5. [Phase 1: Architect—Opus Writes the Tests](#phase-1-architectopus-writes-the-tests)
-6. [Phase 2: Red Check—The Moment of Truth](#phase-2-red-checkthe-moment-of-truth)
-7. [Phase 3: Implement—Sonnet Does the Heavy Lifting](#phase-3-implementsonnet-does-the-heavy-lifting)
-8. [Phase 4: Green Check—Retry Until You Succeed](#phase-4-green-checkretry-until-you-succeed)
-9. [Phase 5: Verify—Five Layers of Trust Issues](#phase-5-verifyfive-layers-of-trust-issues)
+4. [Phase 0, Initialize: The Grand Design](#phase-0-initialize-the-grand-design)
+5. [Phase 1, Architect: Opus Writes the Tests](#phase-1-architect-opus-writes-the-tests)
+6. [Phase 2, Red Check: The Moment of Truth](#phase-2-red-check-the-moment-of-truth)
+7. [Phase 3, Implement: Sonnet Does the Heavy Lifting](#phase-3-implement-sonnet-does-the-heavy-lifting)
+8. [Phase 4, Green Check: Retry Until You Succeed](#phase-4-green-check-retry-until-you-succeed)
+9. [Phase 5, Verify: Five Layers of Trust Issues](#phase-5-verify-five-layers-of-trust-issues)
 10. [Security: The Hooks That Keep Agents Honest](#security-the-hooks-that-keep-agents-honest)
 11. [State Management: Feature List as Source of Truth](#state-management-feature-list-as-source-of-truth)
 12. [Tracing: Because "It Worked on My Machine" Isn't Good Enough](#tracing-because-it-worked-on-my-machine-isnt-good-enough)
@@ -37,7 +37,7 @@ description: "How I built a production-grade orchestration system that forces AI
 
 It's 2 AM. You've given an AI coding agent a simple task: "Build a REST API for user authentication." You wake up to find 47 files modified, three new npm packages installed (one of which hasn't been updated since 2019), and a `utils.js` file that somehow contains a cryptocurrency miner. The tests? What tests?
 
-This is the fundamental problem with autonomous AI coding agents. They're incredibly capable—like hiring a senior engineer who can type at 10,000 WPM—but they have the attention span of a golden retriever at a squirrel convention. Without guardrails, they'll write code that *looks* correct, passes a quick glance, and then explodes in production at 3 AM on a Friday.
+This is the fundamental problem with autonomous AI coding agents. They're incredibly capable, like hiring a senior engineer who can type at 10,000 WPM, but they have the attention span of a golden retriever at a squirrel convention. Without guardrails, they'll write code that *looks* correct, passes a quick glance, and then explodes in production at 3 AM on a Friday.
 
 I've spent months watching AI agents:
 - Write tests that test nothing (the classic "assert true equals true")
@@ -46,9 +46,9 @@ I've spent months watching AI agents:
 - Install dependencies that have more CVEs than features
 - Generate code that works for the happy path and nothing else
 
-The problem isn't intelligence. Claude Opus 4.5 is genuinely brilliant. The problem is **discipline**. AI agents don't naturally follow software engineering best practices because they're optimizing for "task completion," not "maintainable, tested, production-ready code."
+The problem isn't intelligence. Claude Opus 4.5 is genuinely brilliant. What's missing is **discipline**. AI agents don't naturally follow software engineering best practices because they're optimizing for "task completion," not "maintainable, tested, production-ready code."
 
-So I asked myself: What if we could enforce discipline? What if we could make TDD not optional, but *mandatory*? What if we built a system that would literally refuse to let an agent write implementation code until it had proven that its tests actually fail?
+So I asked myself: what if we could enforce discipline? What if TDD were *mandatory* rather than optional, and the orchestrator simply refused to let an agent write implementation code until it had proven that its tests actually fail?
 
 Thus was born the **Autonomous Harness**.
 
@@ -56,9 +56,9 @@ Thus was born the **Autonomous Harness**.
 
 ## The Solution: Test-Driven Development as a Hard Constraint
 
-The Autonomous Harness is a production-grade orchestration system that implements **strict TDD enforcement** for AI coding agents. It's not a suggestion. It's not a prompt that says "please write tests first." It's a hard invariant enforced by the orchestrator itself.
+The Autonomous Harness is a production-grade orchestration system that implements **strict TDD enforcement** for AI coding agents. This isn't a suggestion, and it isn't a prompt that politely asks for tests first. It's a hard invariant enforced by the orchestrator itself.
 
-Here's the core philosophy:
+The core philosophy fits in three lines:
 
 ```
 Tests MUST fail before implementation is allowed.
@@ -78,17 +78,17 @@ The harness achieves this through a multi-phase pipeline:
 | GREEN CHECK | Harness | Tests must PASS |
 | VERIFY | Multi-layer | 5 verification layers |
 
-The magic happens in those "RED CHECK" and "GREEN CHECK" phases. The harness literally runs the tests and verifies:
+The enforcement lives in those "RED CHECK" and "GREEN CHECK" phases. The harness literally runs the tests and verifies:
 1. **RED CHECK**: Tests must return a non-zero exit code (failure)
 2. **GREEN CHECK**: Tests must return zero exit code (success)
 
-If tests pass during RED CHECK—meaning they didn't actually test anything that doesn't exist yet—the harness marks the feature as **FAILED** with reason "TDD Violation." No negotiation.
+If tests pass during RED CHECK, meaning they didn't actually test anything that doesn't exist yet, the harness marks the feature as **FAILED** with reason "TDD Violation." No negotiation.
 
 ---
 
 ## Architecture Overview: The Six Phases of TDD Enlightenment
 
-Let me walk you through the complete architecture. This isn't a simple wrapper script—it's a full orchestration system with state management, security enforcement, and multi-layer verification.
+Let me walk you through the complete architecture. This isn't a simple wrapper script. It's a full orchestration system with state management, security enforcement, and multi-layer verification.
 
 ### Layer 1: CLI Entry Points
 
@@ -125,13 +125,13 @@ Let me walk you through the complete architecture. This isn't a simple wrapper s
 | **Tracing** | Event log, artifacts, progress | `events.jsonl` |
 | **Git Ops** | Commits, rollback, diff check | `git/operations.py` |
 
-Let's dive deep into each phase.
+Now let's go through each phase.
 
 ---
 
-## Phase 0: Initialize—The Grand Design
+## Phase 0, Initialize: The Grand Design
 
-Before any TDD can happen, we need a plan. The Initialize phase is where the magic begins—where a simple task description transforms into a structured, executable feature list.
+Before any TDD can happen, we need a plan. The Initialize phase is where the magic begins: a simple task description turns into a structured, executable feature list.
 
 **Input**: A markdown file describing what you want to build, or a direct prompt.
 
@@ -139,7 +139,7 @@ Before any TDD can happen, we need a plan. The Initialize phase is where the mag
 
 **Output**: A `feature_list.json` containing 30-50+ atomic features with dependencies.
 
-Here's what happens:
+The phase runs like this:
 
 ```python
 async def run_initialize_phase(task: str, project_dir: Path) -> FeatureList:
@@ -235,11 +235,11 @@ Each of these can be TDD'd independently, verified, and committed before moving 
 
 ---
 
-## Phase 1: Architect—Opus Writes the Tests
+## Phase 1, Architect: Opus Writes the Tests
 
 This is where TDD begins. The Architect phase creates the tests that will drive the implementation.
 
-**Agent**: Claude Opus 4.5 (fresh context—no pollution)
+**Agent**: Claude Opus 4.5 (fresh context, no pollution)
 
 **Allowed Files**: Test patterns only (`tests/**/*`, `*.test.*`, `*.spec.*`)
 
@@ -288,7 +288,7 @@ async def run_architect_phase(feature: Feature) -> PhaseResult:
     return PhaseResult(status="success", artifacts=result.files_created)
 ```
 
-Here's an example of what Opus might generate for a "User Authentication" feature:
+For a "User Authentication" feature, Opus might generate something like this:
 
 ```python
 # tests/test_auth.py
@@ -365,11 +365,11 @@ class TestAuthService:
             auth_service.verify_token(tampered_token)
 ```
 
-Notice how these tests import from modules that don't exist (`src.auth.service`, `src.auth.exceptions`). Running these tests will fail with `ModuleNotFoundError`—exactly what we want.
+Notice how these tests import from modules that don't exist (`src.auth.service`, `src.auth.exceptions`). Running these tests will fail with `ModuleNotFoundError`, which is exactly what we want.
 
 ---
 
-## Phase 2: Red Check—The Moment of Truth
+## Phase 2, Red Check: The Moment of Truth
 
 This is where the harness earns its keep. The Red Check phase runs the tests and **verifies they fail**.
 
@@ -427,7 +427,7 @@ Or they'll write tests that accidentally test existing functionality rather than
 
 ---
 
-## Phase 3: Implement—Sonnet Does the Heavy Lifting
+## Phase 3, Implement: Sonnet Does the Heavy Lifting
 
 Now we get to write code! The Implement phase uses Claude Sonnet (faster, cheaper) to write the minimum code needed to pass the tests.
 
@@ -485,7 +485,7 @@ The Sonnet prompt emphasizes **minimal implementation**. We're not looking for b
 
 ---
 
-## Phase 4: Green Check—Retry Until You Succeed
+## Phase 4, Green Check: Retry Until You Succeed
 
 After implementation, we verify that tests now pass. Crucially, we don't give up on the first failure.
 
@@ -582,7 +582,7 @@ Tests pass! ✓
 
 ---
 
-## Phase 5: Verify—Five Layers of Trust Issues
+## Phase 5, Verify: Five Layers of Trust Issues
 
 Tests passing isn't enough. The Verify phase runs **five separate verification layers**, all of which must pass.
 
@@ -973,7 +973,7 @@ TEST_PASSED (Tests pass, verifying)
 VERIFIED (Terminal success)
 ```
 
-**Failure handling:**
+Failures are handled like this:
 
 ```
 Any phase fails --> FAILED
@@ -1041,7 +1041,7 @@ An append-only log of every event. Each line is a JSON object:
 }
 ```
 
-**Event types include:** `HARNESS_STARTED`, `FEATURE_SELECTED`, `PHASE_STARTED`, `PHASE_FINISHED`, `TDD_RED_VERIFIED`, `TDD_GREEN_VERIFIED`, `VERIFICATION_PASSED`, `VERIFICATION_FAILED`, and more.
+Event types include `HARNESS_STARTED`, `FEATURE_SELECTED`, `PHASE_STARTED`, `PHASE_FINISHED`, `TDD_RED_VERIFIED`, `TDD_GREEN_VERIFIED`, `VERIFICATION_PASSED`, `VERIFICATION_FAILED`, and more.
 
 Key properties:
 - **Append-only**: Never modified, only appended
@@ -1208,7 +1208,7 @@ For those who prefer a GUI, the harness includes a React + FastAPI dashboard. He
 *The Harness Monitor showing a live TDD session: 38 features queued, real-time model logs, and event tracking*
 
 ![Test Created State](/assets/images/test-created.png)
-*feat-001 enters TEST_CREATED state after Opus writes the tests. The event log shows TDD_RED_VERIFIED—tests fail as expected.*
+*feat-001 enters TEST_CREATED state after Opus writes the tests. The event log shows TDD_RED_VERIFIED: tests fail as expected.*
 
 ![Implementing State](/assets/images/implementing-state.png)
 *feat-001 transitions to IMPLEMENTING state. Sonnet takes over and begins writing the minimal code to pass the tests.*
@@ -1283,7 +1283,7 @@ function Dashboard() {
 
 ## The Muscle: Claude Agent SDK Deep Dive
 
-The Autonomous Harness isn't just a wrapper around API calls—it's built on the **Claude Agent SDK**, leveraging its full feature set to create a truly autonomous system. Let me show you the muscles under the hood.
+The Autonomous Harness isn't just a wrapper around API calls. It's built on the **Claude Agent SDK**, leveraging its full feature set to create a truly autonomous system. Let me show you the muscles under the hood.
 
 ### SDK Client Factory
 
@@ -1699,7 +1699,7 @@ LSP_OPERATIONS = [
 
 ### Smart Context Analysis
 
-The real magic happens in the **context-analyzer** agent, which uses LSP to build a dependency graph:
+The real work happens in the **context-analyzer** agent, which uses LSP to build a dependency graph:
 
 ```python
 async def analyze_context(
@@ -2018,7 +2018,7 @@ Compared to Opus-only: ~$0.75/feature (58% savings!)
 
 ### Subagent Communication
 
-Subagents don't communicate directly—they pass information through artifacts and state:
+Subagents don't communicate directly. They pass information through artifacts and state:
 
 | Step | Subagent | Model | Output |
 |------|----------|-------|--------|
@@ -2091,7 +2091,7 @@ First attempts often fail for simple reasons:
 - Typos in import paths
 - Wrong function signatures
 
-Sending the error output back to the agent usually results in a quick fix. Three retries is the sweet spot—enough to handle common issues, not so many that we waste time on fundamentally broken implementations.
+Sending the error output back to the agent usually results in a quick fix. Three retries is the sweet spot: enough to handle common issues, not so many that we waste time on fundamentally broken implementations.
 
 ### 5. Multi-Model Orchestration Optimizes Cost and Quality
 
@@ -2135,7 +2135,7 @@ cat events.jsonl | jq 'select(.feature_id=="feat-017")'
 
 ## Future Work: Where Do We Go From Here
 
-The Autonomous Harness v2 is production-ready, but let's be honest—this is just the beginning. I've got bigger dreams. Much bigger. The kind of dreams that make project managers nervous and DevOps engineers reach for their stress balls.
+The Autonomous Harness v2 is production-ready, but it is still only the beginning. I've got bigger dreams, the kind that make project managers nervous and DevOps engineers reach for their stress balls.
 
 ### 1. Parallel Feature Execution
 
@@ -2182,7 +2182,7 @@ if feature.cost_so_far > feature.max_budget:
 
 ### 5. The Grand Vision: Jira-to-Production Pipeline
 
-Now for the ambitious part—the kind of automation that will either make you a legend or get you fired.
+Now for the ambitious part, the kind of automation that will either make you a legend or get you fired.
 
 Picture this: A product manager creates a Jira ticket. They write some acceptance criteria, maybe attach a mockup, and hit "Create." Then they go get coffee. By the time they're back at their desk, the feature is implemented, tested, and waiting for QA review.
 
@@ -2283,9 +2283,7 @@ async def handle_jira_webhook(request: Request):
     return {"status": "success", "pr_url": pr.url}
 ```
 
-**Why is this the future?**
-
-Think about the typical lifecycle of a Jira ticket:
+Why is this the future? Think about the typical lifecycle of a Jira ticket:
 
 1. **Day 1**: PM creates ticket
 2. **Day 2-3**: Ticket sits in backlog
@@ -2307,34 +2305,34 @@ With the autonomous pipeline:
 5. **Hour 6-8**: QA review (the humans still have jobs!)
 6. **Hour 9**: Merged to main
 
-That's **9 hours**. Same quality. Same test coverage. Same code review process. Just without the ticket sitting in backlog purgatory for three days.
+That's **9 hours**, with the same quality, the same test coverage, and the same code review process. Just without the ticket sitting in backlog purgatory for three days.
 
-**The skeptics will say:**
+The skeptics will say:
 
-- *"But what about complex features?"* — The harness breaks them into atomic pieces. Complex is just "many simple."
-- *"What about domain knowledge?"* — That's what the acceptance criteria and attached specs are for. Plus LSP gives context.
-- *"What about code style consistency?"* — The Opus code review enforces project standards.
-- *"What if it makes mistakes?"* — That's what QA is for. The harness just gets you to QA faster.
+- *"But what about complex features?"* The harness breaks them into atomic pieces. Complex is just "many simple."
+- *"What about domain knowledge?"* That's what the acceptance criteria and attached specs are for. Plus LSP gives context.
+- *"What about code style consistency?"* The Opus code review enforces project standards.
+- *"What if it makes mistakes?"* That's what QA is for. The harness just gets you to QA faster.
 
-**What needs to happen first:**
+What needs to happen first:
 
-1. **Secure sandbox orchestration** — Can't have agents running arbitrary code without isolation
-2. **Repository permission management** — OAuth flows for GitHub/Bitbucket access
-3. **Jira integration** — Bidirectional sync with ticket status
-4. **Cost controls** — Hard limits to prevent runaway API costs
-5. **Human approval gates** — Some changes need human sign-off before proceeding
+1. **Secure sandbox orchestration**: Can't have agents running arbitrary code without isolation
+2. **Repository permission management**: OAuth flows for GitHub/Bitbucket access
+3. **Jira integration**: Bidirectional sync with ticket status
+4. **Cost controls**: Hard limits to prevent runaway API costs
+5. **Human approval gates**: Some changes need human sign-off before proceeding
 
 This isn't science fiction. Every piece of this pipeline exists. We just need to wire them together and add enough guardrails to make it production-safe.
 
-The question isn't *if* this will happen. It's *when*. And whether you'll be the one building it or the one reading about it on Hacker News.
+This will happen. The only question is when, and whether you'll be the one building it or the one reading about it on Hacker News.
 
 ---
 
 ## Conclusion
 
-The Autonomous Harness represents a fundamental shift in how we think about AI coding agents. Instead of hoping they'll follow best practices, we **enforce** them. Instead of trusting their output, we **verify** it through multiple layers. Instead of abandoning failed attempts, we **retry** with growing context.
+The Autonomous Harness represents a fundamental shift in how we think about AI coding agents. Rather than hoping they'll follow best practices, we **enforce** them. Their output isn't trusted, it's **verified** through multiple layers. And a failed attempt isn't abandoned; it gets **retried** with the error output as context.
 
-TDD isn't just a nice-to-have—it's the foundation that makes autonomous coding reliable. When tests must fail before implementation and pass after, when scope is enforced through hooks, when every change is verified by five layers of checks, you get code you can actually deploy.
+TDD isn't just a nice-to-have. It's the foundation that makes autonomous coding reliable. When tests must fail before implementation and pass after, when scope is enforced through hooks, when every change is verified by five layers of checks, you get code you can actually deploy.
 
 The future of software development isn't AI replacing developers. It's AI and developers working together, with systems like the Autonomous Harness ensuring that the AI stays on track, follows best practices, and produces code that humans can trust.
 
@@ -2346,12 +2344,12 @@ Now if you'll excuse me, I have 47 more features to verify. And after that? Mayb
 
 This project was heavily inspired by Anthropic's research on autonomous coding agents:
 
-- **[Building Effective Agents](https://www.anthropic.com/research/building-effective-agents)** — Anthropic's guide to agent architectures and patterns
-- **[Effective Harnesses for Long-Running Agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents)** — Deep dive into harness design principles that directly influenced this project
-- **[Claude Autonomous Coding Quickstart](https://github.com/anthropics/claude-quickstarts/tree/main/autonomous-coding)** — Official reference implementation from Anthropic
+- **[Building Effective Agents](https://www.anthropic.com/research/building-effective-agents)**: Anthropic's guide to agent architectures and patterns
+- **[Effective Harnesses for Long-Running Agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents)**: Deep dive into harness design principles that directly influenced this project
+- **[Claude Autonomous Coding Quickstart](https://github.com/anthropics/claude-quickstarts/tree/main/autonomous-coding)**: Official reference implementation from Anthropic
 
 The TDD enforcement approach was inspired by conversations with engineers who've watched too many AI agents "helpfully" delete production databases. You know who you are.
 
 ---
 
-*This project is currently in active development. If you're interested in the autonomous Jira-to-production pipeline vision, stay tuned—or reach out. The future of software development is being written right now, one TDD cycle at a time.*
+*This project is currently in active development. If you're interested in the autonomous Jira-to-production pipeline vision, stay tuned, or reach out. The future of software development is being written right now, one TDD cycle at a time.*
