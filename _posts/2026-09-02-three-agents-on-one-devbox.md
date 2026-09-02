@@ -4,16 +4,16 @@ title: "Three Agents on One Devbox"
 date: 2026-09-02
 category: blog
 tags: [ai-agents, sdlc, code-review, qa, sre, rca, claude-code, engineering-leadership]
-description: "The right half of the AI-native SDLC loop, built at Emlakjet: agents in the review queue, the Test column and production, the job that closes the loop, and what the Jira board says changed."
+description: "The right half of our development loop at Emlakjet: agents in the review queue, the Test column and production, the job that closes the loop, and what the Jira board says changed."
 ---
 
 A pull request at Emlakjet used to wait three times.
 
 First it waited for a reviewer to find an hour. Then, after the merge, the task sat in the Test column until someone picked it up. Then it shipped and waited a third time, for a person to notice if it had broken anything. Writing the code took hours. The waiting took days, and it was almost never the code that was slow.
 
-On August 21st Anthropic published [the AI-native SDLC playbook](https://claude.com/blog/the-ai-native-sdlc-playbook), with [a course](https://academy.claude.com/courses/ai-native-sdlc-playbook) behind it. Its argument fits in one sentence from the post: "the bottleneck moves to the steps to the left and right of the build phase." It draws the lifecycle as a loop of six stages, Plan, Design, Build, Test, Deploy, Maintain, and puts an agent at each one, with people above the loop controlling the gates. I had built the right half of that loop before I read it. The numbers below come from measuring it after.
+In May I wrote that generation had become cheap and verification had become the bottleneck. The lifecycle we run is a loop, not a line: plan, build, review, test, deploy, watch, and back to the plan. The build step got fast. The bottleneck moved to the steps on either side of it, and those steps are where I put the agents, with people above the loop controlling the gates.
 
-This is a field report on Test, Deploy and Maintain, in the order our code actually passes through them, plus the arrow that closes the loop, plus what the board says.
+This is a field report on the right half of that loop, Deploy, Test and Maintain, in the order our code actually passes through them, plus the arrow that closes it, plus what the board says.
 
 ## One shape, three jobs
 
@@ -29,9 +29,9 @@ Each agent is a headless Claude Code call: a system-prompt file, a JSON schema f
 
 ## Deploy: the review queue
 
-The playbook's Deploy stage puts AI in the PR review loop and states the rule plainly: "All PRs get an identical set of review passes, with findings ranked by severity." Then: "Human attention moves up a level, to whether the change does what the plan intended and whether the risk is acceptable."
+The rule for this stage is simple. Every pull request gets the same set of review passes, findings ranked by severity, and the human decision moves up a level: does the change do what the task intended, and is the risk acceptable.
 
-Our reviewer is the oldest and the busiest of the three. A Bitbucket webhook plus a five-minute poll, up to three pull requests in parallel. Every push gets a re-review, deduplicated by source commit, so an unchanged PR costs five seconds and exits. It reviews inside a worktree, so it can run the code rather than only read the diff. It writes in Turkish; the excerpts below are translated.
+The reviewer is the oldest and the busiest of the three. A Bitbucket webhook plus a five-minute poll, up to three pull requests in parallel. Every push gets a re-review, deduplicated by source commit, so an unchanged PR costs five seconds and exits. It reviews inside a worktree, so it can run the code rather than only read the diff. It writes in Turkish; the excerpts below are translated.
 
 This morning's first review, at 08:25 UTC, was a performance change on the listing detail page: lazy-load the map section, warm the map library while the browser is idle, and push the navigation to the full map view until after the tap has painted. The reviewer checked in the worktree that the preload function the change leans on actually exists and dedupes against the map adapter's own initialisation, confirmed the new test asserts what the commit message claims, and approved with four non-blocking notes. One of them: the "show on map" link at the top of the page now scrolls to a skeleton instead of a live map, because the section is no longer eager in page mode. The developer had not noticed. Nobody waited for anyone.
 
@@ -56,7 +56,7 @@ Two things in those numbers surprised me.
 
 First, in the last week of August, of 627 request-changes verdicts, 358 were for process reasons and 269 for code. Process means the branch no longer merges cleanly into dev, generated artifacts were regenerated on both sides, or a branch-specific preview URL is still sitting in a Jenkinsfile. More than half of what blocks a merge here is hygiene, not logic. I would not have guessed that before the numbers existed.
 
-Second, the resolution rate. Blocking findings get fixed, because the reviewer carries unresolved findings forward. The Jenkinsfile URL showed up as a blocker in round after round, each time with the note "unresolved since the previous round", until someone reverted it. An agent that nags with a ledger beats an agent that is clever once. The playbook's version of this is that a mistake flagged twice goes into the project's CLAUDE.md so it is caught from the next PR onwards. Ours is a lessons file, described further down.
+Second, the resolution rate. Blocking findings get fixed, because the reviewer carries unresolved findings forward. The Jenkinsfile URL showed up as a blocker in round after round, each time with the note "unresolved since the previous round", until someone reverted it. An agent that nags with a ledger beats an agent that is clever once. The same idea runs the QA side as a lessons file, described further down.
 
 A finding looks like this, with paths trimmed:
 
@@ -76,7 +76,7 @@ The native approve or request-changes verdict is set under my account, not a bot
 
 ## Test: the Test column
 
-The playbook's Test stage is mostly about the building session verifying its own work: give the agent a feedback loop, weave continuous evals through CI. Ours is a different animal, and I want to be precise about that. Most of our code is still written by people, and CI here runs lint and build, not the test suite. So our Test agent verifies someone else's work, on the deployed preview, against the ticket's acceptance criteria. It is the independent check, not the self-check.
+One thing to be precise about. Most of our code is still written by people, and CI here runs lint and build, not the test suite. So the Test agent verifies someone else's work, on the deployed preview, against the task's acceptance criteria. It is the independent check, not a self-check.
 
 It is also the one I am most careful with, because it writes to Jira and it can move a task backward in someone's sprint.
 
@@ -130,7 +130,7 @@ Each of those cost at least one wrong verdict before it was written down. One of
 
 The third queue is the quietest and the easiest to forget: something is wrong in production and nobody is looking at the right panel. For scale, the zone behind this serves about 111 million requests a day through Cloudflare, 117 million on the last day of August, from roughly a million unique visitors, 56 percent of it from cache, a little over 3 terabytes a day.
 
-The playbook's Maintain lesson describes a detection script watching control bands around a rolling baseline, with three thresholds: "At 1σ the script only logs, at 2σ it invokes Claude read-only to diagnose, and at 3σ Claude may act." Our version has two layers instead of three, and stops at read-only on purpose.
+This stage has two layers, and both are read-only on purpose. The agent that watches and the agent that diagnoses can look at anything and change nothing.
 
 The first layer is the scanner. Every four hours, 845 times so far, plus 65 daily recaps. It is read-only by construction. It holds read tokens for the monitoring and CDN APIs during collection only, never the cache purge token, never repository credentials. A lock makes sure a slow run and the next scheduled run cannot overlap and fight over the same state. The control bands live in a curated knowledge base the agent reads and never edits; it proposes additions in a separate file and a person promotes them.
 
@@ -142,9 +142,7 @@ None of this is new information. All of it was in dashboards. The difference is 
 
 ### Closing the loop: the root-cause job
 
-The playbook's last stage ends with the sentence I kept coming back to: "A trigger such as a control-band breach, a ticket, a channel message, or a schedule invokes Claude without a person in the path." The diagnosis is written in the Plan stage's format and "from there the finding goes through the pipeline like anything else." A person triages the queue: "Fix now, schedule, or dismiss."
-
-That is the second layer, and it is the newest thing on the box. When the scanner finishes a run, it looks at every red slug in the report. If the slug is new, meaning absent from the previous 24 hours of state, or if it has been red for exactly three consecutive runs, and it is not on the knowledge base's accepted list, the scanner starts a detached job for it. At most two per scan, one per slug at a time, and a week of cooldown per slug so the same incident does not get diagnosed every four hours.
+The second layer is the newest thing on the box, and its rule is the one I kept coming back to while building it: a breach in the watch layer invokes the diagnosis without a person in the path, and the diagnosis lands in the planning queue like any other task, where a person decides. Fix now, schedule, or dismiss. When the scanner finishes a run, it looks at every red slug in the report. If the slug is new, meaning absent from the previous 24 hours of state, or if it has been red for exactly three consecutive runs, and it is not on the knowledge base's accepted list, the scanner starts a detached job for it. At most two per scan, one per slug at a time, and a week of cooldown per slug so the same incident does not get diagnosed every four hours.
 
 The job follows the same shape as everything else. The process assembles the inputs: the report lines for that slug, the last twelve scan states, the first time the slug appeared, the knowledge-base lines for that service, the digest snapshot the report was built from, and the local clones whose names match the slug, fetched fresh while the credentials are still in the environment. Then the credentials go away and the agent gets a read-only view of production: kubectl get, describe, logs and the in-cluster Prometheus proxy, gcloud logging read, git log and show in the clones. Push is rewired to nowhere, as with the QA agent. It writes nothing. It returns one JSON object against a schema: a one-line title, impact, a timeline where every row names the command it came from, a root-cause class out of eight, evidence as command plus finding, the change correlation, the hypotheses it eliminated and why, actions with priority and a likely owner, a confidence number, and what would raise it. The process renders that into a Jira-ready task in Turkish and posts a summary to Slack. The Jira write sits behind a switch, like every other write in this setup.
 
@@ -213,4 +211,4 @@ These are the parts I would want to read in someone else's post.
 
 Three queues, three agents, one virtual machine, and since this morning the arrow that turns the line back into a loop. Review within minutes of a push instead of within a day. A finished feature out of the Test column in two hours instead of eight, at the same strictness. A production recap every morning that has already read the dashboards, and a root-cause task waiting in the queue when something new turns red. And a bug-ticket rate at a third of where it was in July.
 
-The playbook says humans stay above the loop, controlling the gates. Here that is one person with three switches. The code was never the slow part. The queues were.
+People stay above the loop, controlling the gates. Here that is one person with three switches. The code was never the slow part. The queues were.
