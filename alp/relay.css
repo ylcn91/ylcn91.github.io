@@ -207,9 +207,6 @@ h1 {
 .shots { display: grid; }
 .shots img { grid-area: 1 / 1; animation: fadein .45s var(--ease); }
 @keyframes fadein { from { opacity: 0; transform: translateY(6px); } }
-.an-tabs { margin-top: 56px; display: flex; flex-wrap: wrap; align-items: center; gap: 14px 24px; padding-top: 22px; border-top: 1px solid var(--line); }
-.an-tabs-k { color: var(--blue); }
-.an-tabs ul { display: flex; flex-wrap: wrap; gap: 6px 20px; color: var(--ink-2); text-transform: none; letter-spacing: .02em; font-size: .8125rem; }
 @media (max-width: 1000px) { .an-side, .an-note { grid-template-columns: 1fr; } }
 
 /* ---------- loop ---------- */
