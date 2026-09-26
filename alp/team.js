@@ -212,7 +212,7 @@ function boot() {
     sun.shadow.bias = -0.0004;
     sun.shadow.normalBias = 0.02;
     scene.add(sun);
-    const fill = new THREE.DirectionalLight(0xdfe9ff, 0.8);
+    const fill = new THREE.DirectionalLight(0xDFEDE5, 0.8);
     fill.position.set(-9, 5, 8);
     scene.add(fill);
     const rim = new THREE.DirectionalLight(0xffffff, 0.9);
@@ -314,7 +314,7 @@ function boot() {
       ctx.beginPath(); ctx.moveTo(x - r * .65, y - r * .65); ctx.lineTo(x + r * .65, y + r * .65); ctx.stroke();
     }
     if (kind === 'done') {
-      ctx.fillStyle = '#2F6BE0'; ctx.beginPath(); ctx.arc(x, y, r + 1, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#1E5E45'; ctx.beginPath(); ctx.arc(x, y, r + 1, 0, Math.PI * 2); ctx.fill();
       ctx.strokeStyle = '#fff'; ctx.lineWidth = 3.4; ctx.beginPath(); ctx.moveTo(x - r * .45, y); ctx.lineTo(x - r * .1, y + r * .38); ctx.lineTo(x + r * .5, y - r * .35); ctx.stroke();
     }
     ctx.restore();
@@ -364,7 +364,7 @@ function boot() {
       const { ctx, c } = this.t; const d = this.data;
       ctx.clearRect(0, 0, c.width, c.height);
       ctx.fillStyle = '#FFFFFF'; ctx.fillRect(0, 0, c.width, c.height);
-      if (this.isHero) { ctx.strokeStyle = '#2F6BE0'; ctx.lineWidth = 8; ctx.strokeRect(4, 4, c.width - 8, c.height - 8); }
+      if (this.isHero) { ctx.strokeStyle = '#1E5E45'; ctx.lineWidth = 8; ctx.strokeRect(4, 4, c.width - 8, c.height - 8); }
       // priority bars + key
       const bars = d.prio ?? 3;
       for (let i = 0; i < 3; i++) { ctx.fillStyle = i < bars ? '#D69A1C' : '#E3E6E4'; ctx.fillRect(28 + i * 9, 40 - (i + 1) * 6, 6, (i + 1) * 6 + 4); }
@@ -391,8 +391,8 @@ function boot() {
       // status pill on the right
       if (d.note) {
         const tones = {
-          grey: ['#F1F2F0', '#5B6570'], blue: ['#E8F0FF', '#1F4FB8'], red: ['#FCEDEA', '#A63A2B'],
-          green: ['#EAF6EE', '#2C7447'], amber: ['#FDF1DE', '#8A5A12'], done: ['#2F6BE0', '#FFFFFF'],
+          grey: ['#F1F2F0', '#5B6570'], blue: ['#E8F2EC', '#164634'], red: ['#FCEDEA', '#A63A2B'],
+          green: ['#EAF6EE', '#2C7447'], amber: ['#FDF1DE', '#8A5A12'], done: ['#1E5E45', '#FFFFFF'],
         };
         const [bg, fg] = tones[d.tone] || tones.grey;
         ctx.font = '500 20px "JetBrains Mono", monospace';
@@ -450,7 +450,7 @@ function boot() {
   function glowTexture() {
     const c = document.createElement('canvas'); c.width = 256; c.height = 144; const ctx = c.getContext('2d');
     const g = ctx.createRadialGradient(128, 72, 10, 128, 72, 128);
-    g.addColorStop(0, 'rgba(47,107,224,.45)'); g.addColorStop(1, 'rgba(47,107,224,0)');
+    g.addColorStop(0, 'rgba(30,94,69,.45)'); g.addColorStop(1, 'rgba(30,94,69,0)');
     ctx.fillStyle = g; ctx.fillRect(0, 0, 256, 144);
     const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t;
   }

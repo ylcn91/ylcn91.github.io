@@ -63,7 +63,7 @@ else {
    Canvas drawing helpers
    ========================================================= */
 const INK = '#1D252C', INK2 = '#3F4851', GREY = '#8A949E', LINE = '#E3E6E4', STEEL = '#EEF0EE';
-const BLUE = '#2F6BE0', BLUEPRINT = '#DCE8FF', RED = '#D4533F', GREEN = '#3E9B5F', AMBER = '#F0B45D';
+const BLUE = '#1E5E45', BLUEPRINT = '#DCEBE2', RED = '#D4533F', GREEN = '#3E9B5F', AMBER = '#F0B45D';
 const F_MONO = '"JetBrains Mono", ui-monospace, Menlo, monospace';
 const F_UI = '"DM Sans", "Helvetica Neue", Arial, sans-serif';
 const F_DISP = '"Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif';
@@ -123,7 +123,7 @@ async function init() {
 
   const camera = new THREE.PerspectiveCamera(30, 1, 0.5, 200);
   scene.add(new THREE.HemisphereLight(0xffffff, 0xF3E6D2, 1.25));
-  const fill = new THREE.DirectionalLight(0xDCE8FF, 0.7);
+  const fill = new THREE.DirectionalLight(0xDCEBE2, 0.7);
   fill.position.set(18, 10, -6);
   scene.add(fill);
   const rimL = new THREE.DirectionalLight(0xffffff, 0.9);
@@ -144,7 +144,7 @@ async function init() {
   const mSteel = new THREE.MeshStandardMaterial({ color: 0xE3E7E5, roughness: 0.34, metalness: 0.55 });
   const mSteelDark = new THREE.MeshStandardMaterial({ color: 0xC5CCC8, roughness: 0.38, metalness: 0.6 });
   const mPaper = new THREE.MeshStandardMaterial({ color: 0xFFFFFF, roughness: 0.92, metalness: 0 });
-  const mBlue = new THREE.MeshStandardMaterial({ color: 0x2F6BE0, roughness: 0.3, metalness: 0.3 });
+  const mBlue = new THREE.MeshStandardMaterial({ color: 0x1E5E45, roughness: 0.3, metalness: 0.3 });
   const mAmber = new THREE.MeshStandardMaterial({ color: 0xF0B45D, roughness: 0.32, metalness: 0.2 });
   const mRed = new THREE.MeshStandardMaterial({ color: 0xD4533F, roughness: 0.4, metalness: 0.1 });
   const mInk = new THREE.MeshStandardMaterial({ color: 0x2A3138, roughness: 0.5, metalness: 0.1 });
@@ -194,7 +194,7 @@ async function init() {
   const pts = curve2.getPoints(256).map(v => new THREE.Vector3(v.x, 0.04, v.y));
   const path = new THREE.CatmullRomCurve3(pts, true);
   const trackGeo = new THREE.TubeGeometry(path, 400, 0.07, 8, true);
-  const track = new THREE.Mesh(trackGeo, new THREE.MeshStandardMaterial({ color: 0xD2DAE6, roughness: 0.6 }));
+  const track = new THREE.Mesh(trackGeo, new THREE.MeshStandardMaterial({ color: 0xD3DDD7, roughness: 0.6 }));
   track.receiveShadow = true;
   scene.add(track);
   const progGeo = new THREE.TubeGeometry(path, 400, 0.1, 8, true);
@@ -373,7 +373,7 @@ async function init() {
       x.textAlign = 'right'; x.fillText(isA ? 'A · FIX' : 'B · CONTROL', w - 3 * u, 5 * u); x.textAlign = 'left';
       // sticky header
       const hdrY = isA ? 13 * u : 10 * u;
-      x.fillStyle = '#E8F0FF'; x.fillRect(0, hdrY, w, 9 * u);
+      x.fillStyle = '#E8F2EC'; x.fillRect(0, hdrY, w, 9 * u);
       x.font = `700 ${4.8 * u}px ${F_UI}`; x.fillStyle = INK; x.fillText('Listing search', 3 * u, hdrY + 4.5 * u);
       // filter chips
       let cx = 3 * u;
@@ -389,7 +389,7 @@ async function init() {
         const X = 3 * u + c * (cw + 3 * u), Y = 33 * u + r * 23 * u;
         const over = isA && r === 1 && c === cols - 1 ? 7 * u : 0;
         rr(x, X, Y, cw + over, 20 * u, 2.5 * u); x.fillStyle = '#FBFCFB'; x.fill(); x.lineWidth = 1.5; x.strokeStyle = LINE; x.stroke();
-        x.fillStyle = '#E3EAF3'; x.fillRect(X + 1.5 * u, Y + 1.5 * u, Math.min(14 * u, cw * 0.4), 17 * u);
+        x.fillStyle = '#E4ECE7'; x.fillRect(X + 1.5 * u, Y + 1.5 * u, Math.min(14 * u, cw * 0.4), 17 * u);
         x.fillStyle = INK; x.font = `600 ${3.4 * u}px ${F_UI}`;
         const title = isA && r === 0 && c === 0 ? 'Sea-view flat with a lar' : 'Two-bed flat, city centre';
         x.save(); x.beginPath(); x.rect(X + 17 * u, Y, cw - 18 * u, 20 * u); x.clip();
@@ -398,7 +398,7 @@ async function init() {
         x.fillStyle = LINE; x.fillRect(X + 17 * u, Y + 11 * u, Math.max(4, cw * 0.35), 2 * u);
       }
       if (isA) { // sticky element sitting over text
-        x.fillStyle = 'rgba(47,107,224,0.92)'; x.fillRect(w * 0.08, 34 * u, w * 0.84, 5 * u);
+        x.fillStyle = 'rgba(30,94,69,0.92)'; x.fillRect(w * 0.08, 34 * u, w * 0.84, 5 * u);
       }
       if (flagged) {
         x.setLineDash([2.2 * u, 1.4 * u]); x.lineWidth = 0.9 * u; x.strokeStyle = RED;
@@ -446,7 +446,7 @@ async function init() {
     // Midscene eye
     const eye = new THREE.Group();
     const ball = shadowed(new THREE.Mesh(new THREE.SphereGeometry(0.3, 40, 24), new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.25 })));
-    const iris = new THREE.Mesh(new THREE.CircleGeometry(0.15, 36), new THREE.MeshStandardMaterial({ color: 0x2F6BE0, roughness: 0.3 }));
+    const iris = new THREE.Mesh(new THREE.CircleGeometry(0.15, 36), new THREE.MeshStandardMaterial({ color: 0x1E5E45, roughness: 0.3 }));
     iris.position.z = 0.296;
     const pupil = new THREE.Mesh(new THREE.CircleGeometry(0.07, 30), new THREE.MeshBasicMaterial({ color: 0x1D252C }));
     pupil.position.z = 0.3;
@@ -538,7 +538,7 @@ async function init() {
         if (i / n > rev) break;
         const hot = i >= n - 4;
         const bh = hot ? 70 + (i - (n - 4)) * 38 : 14 + (i % 3) * 8;
-        x.fillStyle = hot ? RED : '#C9D6EC';
+        x.fillStyle = hot ? RED : '#CAD8CF';
         rr(x, 34 + i * ((w - 68) / n), 330 - bh, (w - 68) / n - 10, bh, 6); x.fill();
       }
     };

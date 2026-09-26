@@ -161,12 +161,12 @@ async function buildScene() {
   /* ---------- materials ---------- */
   const mTable = new THREE.MeshStandardMaterial({ color: 0xE8EBE9, roughness: 0.62, metalness: 0.06 });
   const mLane = new THREE.MeshStandardMaterial({ color: 0xE0E4E1, roughness: 0.8, metalness: 0 });
-  const mHeroLane = new THREE.MeshStandardMaterial({ color: 0xD9E6FF, roughness: 0.8, metalness: 0 });
+  const mHeroLane = new THREE.MeshStandardMaterial({ color: 0xD9EBE1, roughness: 0.8, metalness: 0 });
   const mDivider = new THREE.MeshStandardMaterial({ color: 0xCDD3CF, roughness: 0.5, metalness: 0.3 });
   const mSteel = new THREE.MeshStandardMaterial({ color: 0xE6EAE8, roughness: 0.34, metalness: 0.55 });
   const mSteelDark = new THREE.MeshStandardMaterial({ color: 0xC9CFCB, roughness: 0.38, metalness: 0.6 });
   const mPaper = new THREE.MeshStandardMaterial({ color: 0xFFFFFF, roughness: 0.9, metalness: 0 });
-  const mPuck = new THREE.MeshStandardMaterial({ color: 0x2F6BE0, roughness: 0.28, metalness: 0.35 });
+  const mPuck = new THREE.MeshStandardMaterial({ color: 0x1E5E45, roughness: 0.28, metalness: 0.35 });
   const mPuckTop = new THREE.MeshStandardMaterial({ color: 0xF4F7FF, roughness: 0.4, metalness: 0.1 });
   const mAmber = new THREE.MeshStandardMaterial({ color: 0xF0B45D, roughness: 0.32, metalness: 0.25 });
 
@@ -226,7 +226,7 @@ async function buildScene() {
     x.strokeStyle = '#E3E6E4'; x.lineWidth = 6; rr(x, 3, 3, w - 6, h - 6, 22); x.stroke();
     x.fillStyle = '#8A949E'; x.font = '500 34px "JetBrains Mono", monospace'; x.textBaseline = 'alphabetic';
     x.fillText(card.key, 40, 70);
-    x.fillStyle = card.hero ? '#2F6BE0' : '#9DB8EE';
+    x.fillStyle = card.hero ? '#1E5E45' : '#9CC4AE';
     x.beginPath(); x.arc(w - 52, 60, 13, 0, Math.PI * 2); x.fill();
     x.fillStyle = '#1D252C'; x.font = '600 54px "DM Sans", sans-serif';
     const words = card.title.split(' '); let line = '', y = 142; const lines = [];
@@ -237,7 +237,7 @@ async function buildScene() {
     lines.push(line);
     lines.slice(0, 3).forEach((l, i) => x.fillText(l, 40, y + i * 64));
     x.fillStyle = '#C3CAD0'; x.fillRect(40, h - 62, 150, 10); x.fillRect(206, h - 62, 90, 10);
-    x.fillStyle = card.kind === 'backend' ? '#2F6BE0' : '#6E9BF0'; x.fillRect(40, h - 62, 60, 10);
+    x.fillStyle = card.kind === 'backend' ? '#1E5E45' : '#5E9A7C'; x.fillRect(40, h - 62, 60, 10);
     if (stamped) {
       x.save(); x.translate(w - 150, h - 130); x.rotate(-0.22);
       x.strokeStyle = '#C98A2A'; x.lineWidth = 10; x.beginPath(); x.arc(0, 0, 92, 0, Math.PI * 2); x.stroke();
@@ -573,9 +573,9 @@ async function buildScene() {
 
     // Station LEDs light while the hero card is under them.
     const near = sx => 1 - smooth(0.4, 1.4, Math.abs(hx - sx));
-    leds.arch.material.color.setHex(near(ST.arch) > 0.5 ? 0x2F6BE0 : 0xC9D0CC);
-    leds.del.material.color.setHex(near(ST.del) > 0.5 ? 0x2F6BE0 : 0xC9D0CC);
-    leds.rev.material.color.setHex(heroPhase === 'bounce' ? 0xD4533F : near(ST.rev) > 0.5 ? 0x2F6BE0 : 0xC9D0CC);
+    leds.arch.material.color.setHex(near(ST.arch) > 0.5 ? 0x1E5E45 : 0xC9D0CC);
+    leds.del.material.color.setHex(near(ST.del) > 0.5 ? 0x1E5E45 : 0xC9D0CC);
+    leds.rev.material.color.setHex(heroPhase === 'bounce' ? 0xD4533F : near(ST.rev) > 0.5 ? 0x1E5E45 : 0xC9D0CC);
 
     pointer.x += (pointer.tx - pointer.x) * 0.05;
     pointer.y += (pointer.ty - pointer.y) * 0.05;
