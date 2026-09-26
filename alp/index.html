@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alp · The Relay Table</title>
+<meta name="description" content="Alp puts people and AI coding agents on one shared board. Agents plan, build and review. A person always merges.">
+<link rel="stylesheet" href="./assets/fonts/relay.css">
+<link rel="stylesheet" href="./relay.css">
+<link rel="stylesheet" href="./team.css">
+<link rel="stylesheet" href="./quality.css">
+<script type="importmap">
+{ "imports": { "three": "./assets/lib/three.module.min.js", "three/addons/": "./assets/lib/addons/" } }
+</script>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="alp" viewBox="0 0 512 512">
+      <g transform="translate(-14.673, -16.522) scale(0.2642)"><path fill="currentColor" d="M 1018.42 486.399 C 1031.36 485.005 1047.33 487.047 1059.78 490.574 C 1084.39 497.327 1106.31 511.504 1122.56 531.172 C 1135.37 546.958 1141.44 560.074 1151.18 577.791 C 1157.15 588.648 1164.03 599.939 1170.27 610.763 L 1255.63 757.899 C 1331.58 890.033 1413.18 1023 1486.85 1155.99 C 1461.07 1147.7 1433.77 1142.37 1407.19 1137.42 L 1168.04 727.577 L 1102.57 615.77 C 1094.97 602.598 1083.52 577.645 1075.23 568.103 C 1063.16 556.096 1044.58 546.927 1027.67 546.985 C 983.389 547.136 969.592 579.258 950.103 612.061 C 935.631 636.418 921.356 660.891 907.281 685.48 L 810.458 851.122 L 607.778 1196.39 L 533.728 1322.73 C 520.583 1345.07 507.212 1367.14 494.287 1389.67 C 477.449 1419.01 479.715 1455.36 504.225 1479.8 C 530.715 1506.21 575.931 1505.73 610.126 1499.04 C 632.728 1494.62 652.274 1483.85 673.148 1474.66 C 701.959 1462.18 730.663 1449.44 759.255 1436.46 L 1147.28 1265.92 L 1254.75 1218.08 C 1271.94 1210.54 1293.91 1200.39 1311.2 1194.55 C 1333.45 1186.98 1356.76 1183.02 1380.25 1182.8 C 1438.63 1182.51 1494.1 1208.93 1535.29 1249.46 C 1558.78 1273.44 1572.52 1302.03 1589.3 1330.83 C 1597.16 1344.32 1607.92 1362.59 1614.24 1376.47 C 1629.02 1408.79 1630.09 1445.71 1617.2 1478.83 C 1604.21 1511.95 1578.75 1538.66 1546.28 1553.2 C 1489.61 1577.91 1442.72 1559.52 1389.11 1539.21 L 1298.43 1503.88 L 1073.88 1417.76 C 1096.28 1407.21 1132.93 1392.75 1156.61 1384.72 C 1170.12 1390.81 1188.7 1397.28 1202.81 1402.79 L 1305.83 1442.78 C 1337.74 1455.52 1369.79 1467.89 1401.98 1479.91 C 1421.19 1487.19 1439.28 1494.29 1459.52 1500.52 C 1526.98 1521.3 1584.6 1467.23 1558.41 1399.37 C 1553.66 1387.07 1543.13 1372.31 1536.09 1360.48 C 1524.85 1341.59 1514.26 1319.34 1500.97 1301.85 C 1493.95 1292.6 1485.75 1284.32 1476.57 1277.21 C 1442.61 1250.18 1399.05 1238.27 1356.06 1244.26 C 1330.13 1247.91 1306.7 1259.96 1282.91 1270.56 L 1205.68 1305.49 L 904.352 1437.73 L 774.997 1495.18 C 746.516 1508.16 717.853 1520.73 689.014 1532.89 C 673.6 1539.56 656.971 1547.7 641.163 1552.71 C 627.384 1557.03 613.228 1560.03 598.884 1561.68 C 558.263 1566.61 506.605 1559.4 473.737 1533.53 C 445.378 1511.58 427.219 1478.99 423.467 1443.33 C 418.883 1401.06 433.689 1372.67 454.672 1337.41 C 467.639 1315.62 481.004 1293.54 493.628 1271.57 L 654.028 998.522 L 842.2 676.136 L 895.921 584.508 C 904.579 569.817 918.128 545.243 928.491 532.612 C 950.916 505.277 983.466 489.667 1018.42 486.399 z"/></g>
+    </symbol>
+    <symbol id="arrow" viewBox="0 0 20 20"><path d="M4 10h11M11 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </defs>
+</svg>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-row">
+    <a class="brand" href="#top" aria-label="Alp, back to top"><svg aria-hidden="true"><use href="#alp"/></svg><span>Alp</span></a>
+    <nav class="nav-links" aria-label="Sections">
+      <a href="#relay">Relay</a>
+      <a href="#squads">Squads</a>
+      <a href="#analytics">Analytics</a>
+      <a href="#autonomy">Autonomy</a>
+    </nav>
+    <a class="btn btn-blue btn-sm" href="#start">Get started</a>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ============ HERO + RELAY (one sticky three.js stage) ============ -->
+<section class="stage" id="relay" aria-label="The relay">
+  <div class="stage-sticky">
+    <canvas id="bench" aria-hidden="true"></canvas>
+    <div class="stage-shade" aria-hidden="true"></div>
+
+    <div class="wrap hero-copy" id="heroCopy">
+      <p class="eyebrow mono">One board · many agents · one team</p>
+      <h1>Keep the work moving.<br>Keep the merge human.</h1>
+      <p class="lede">Alp gives people and AI coding agents one shared board to plan, build, review and hand work back.</p>
+      <div class="cta-row">
+        <a class="btn btn-blue" href="#start">Get started</a>
+      </div>
+    </div>
+
+    <div class="tip mono" id="tip" hidden></div>
+
+    <div class="wrap steps-dock">
+      <ol class="steps" id="steps">
+        <li class="step" data-step="0">
+          <span class="step-k mono">01 · Intake</span>
+          <h2>An issue lands on the table.</h2>
+          <p>From your backlog, a Jira ticket or an autopilot schedule. It gets an owner the moment it lands, a person or an agent.</p>
+        </li>
+        <li class="step" data-step="1">
+          <span class="step-k mono">02 · Architecture</span>
+          <h2>Agents map the impact and write the plan.</h2>
+          <p>system-architect finds where the change spreads. software-architect turns it into a spec and tasks. You approve the plan before any code is written.</p>
+        </li>
+        <li class="step" data-step="2">
+          <span class="step-k mono">03 · Delivery</span>
+          <h2>The work splits across parallel lanes.</h2>
+          <p>delivery-lead hands tasks to backend-engineer and frontend-engineer. Each lane is a run on your own machine, up to 20 at once per daemon.</p>
+        </li>
+        <li class="step" data-step="3">
+          <span class="step-k mono">04 · Review</span>
+          <h2>Review sends it back once, with the finding.</h2>
+          <p>reviewer writes a structured verdict and qa-breaker tries to break it. Changes requested? The card goes back to Delivery with the finding in its handoff note.</p>
+        </li>
+        <li class="step" data-step="4">
+          <span class="step-k mono">05 · Merge</span>
+          <h2>A person presses the seal.</h2>
+          <p>A ready verdict, green CI and a reviewed head send you one notice. Alp never merges on its own, at any autonomy level.</p>
+        </li>
+      </ol>
+      <div class="rail" aria-hidden="true">
+        <span data-r="0">Intake</span><span data-r="1">Architecture</span><span data-r="2">Delivery</span><span data-r="3">Review</span><span data-r="4">Merge</span>
+        <i class="rail-fill" id="railFill"></i>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TEAM (owned by team.js / team.css) ============ -->
+<section class="team" id="team" aria-labelledby="team-h">
+  <!-- TEAM:BEGIN -->
+  <div class="wrap team-head">
+    <p class="eyebrow mono">The team</p>
+    <h2 id="team-h" class="h2">Nine agents and a person. One board.</h2>
+    <p class="body-l">Agents pick up the issue, pass it along and send it back when it isn't right. You come in twice: to approve the plan and to merge.</p>
+  </div>
+
+  <div class="wrap">
+    <div class="team-stage" id="teamStage">
+      <div class="team-bar">
+        <p class="team-caption" id="teamCaption"><span class="mono" id="teamCaptionN">01 / 08</span><span id="teamCaptionT">An issue lands in Backlog</span></p>
+        <aside class="team-hud" aria-label="Autonomy for this workspace">
+          <span class="hud-run"><span class="hud-lamp" aria-hidden="true"></span>Running</span>
+          <span class="hud-level"><span class="mono">Autonomy</span> L1 · Open PRs</span>
+          <span class="hud-meter"><span class="hud-meter-top"><span>Spend</span><span class="hud-v"><b id="hudSpend">$6.08</b> / $200</span></span><span class="hud-bar"><i id="hudSpendBar"></i></span></span>
+          <span class="hud-meter"><span class="hud-meter-top"><span>Runs</span><span class="hud-v"><b id="hudRuns">7</b> / 150</span></span><span class="hud-bar"><i id="hudRunsBar"></i></span></span>
+          <span class="hud-you"><span class="mono">You</span><span id="hudPlan"><i aria-hidden="true"></i>Plan</span><span id="hudMerge"><i aria-hidden="true"></i>Merge</span></span>
+        </aside>
+      </div>
+      <div class="team-view" id="teamView">
+        <canvas class="team-canvas" id="teamCanvas" aria-hidden="true"></canvas>
+        <div class="team-overlay" id="teamOverlay" aria-hidden="true"></div>
+        <p class="team-loading mono" id="teamLoading" hidden>Loading the team</p>
+        <div class="team-tip" id="teamTip" role="tooltip" hidden>
+          <img alt="" width="56" height="74">
+          <div><b></b><span></span></div>
+        </div>
+        <ul class="team-fallback" id="teamFallback" hidden>
+          <li><img src="./assets/agents/system-architect-figure.jpg" alt="" loading="lazy"><span>system-architect</span></li>
+          <li><img src="./assets/agents/software-architect-figure.jpg" alt="" loading="lazy"><span>software-architect</span></li>
+          <li><img src="./assets/agents/delivery-lead-figure.jpg" alt="" loading="lazy"><span>delivery-lead</span></li>
+          <li><img src="./assets/agents/backend-engineer-figure.jpg" alt="" loading="lazy"><span>backend-engineer</span></li>
+          <li><img src="./assets/agents/frontend-engineer-figure.jpg" alt="" loading="lazy"><span>frontend-engineer</span></li>
+          <li><img src="./assets/agents/reviewer-figure.jpg" alt="" loading="lazy"><span>reviewer</span></li>
+          <li><img src="./assets/agents/ponytail-figure.jpg" alt="" loading="lazy"><span>ponytail</span></li>
+          <li><img src="./assets/agents/qa-breaker-figure.jpg" alt="" loading="lazy"><span>qa-breaker</span></li>
+          <li><img src="./assets/agents/sre-oncall-figure.jpg" alt="" loading="lazy"><span>sre-oncall</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <ol class="team-steps" id="teamSteps">
+      <li><span class="mono">01</span>An issue lands in Backlog</li>
+      <li><span class="mono">02</span>system-architect maps the impact, software-architect writes the plan</li>
+      <li class="is-you"><span class="mono">03</span>You approve the plan</li>
+      <li><span class="mono">04</span>delivery-lead hands it to backend-engineer</li>
+      <li><span class="mono">05</span>backend-engineer builds it and opens the PR</li>
+      <li><span class="mono">06</span>reviewer requests changes, ponytail writes one line</li>
+      <li><span class="mono">07</span>Fixed, broken on purpose by qa-breaker, checked by sre-oncall</li>
+      <li class="is-you"><span class="mono">08</span>Ready to merge. You merge.</li>
+    </ol>
+  </div>
+  <!-- TEAM:END -->
+</section>
+
+<!-- ============ SQUADS ============ -->
+<section class="block" id="squads" aria-labelledby="squads-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow mono">Squads</p>
+      <h2 id="squads-h" class="h2">Squads pass the baton.</h2>
+      <p class="body-l">A squad is a team of agents with a leader and a routing rule. Handoffs happen by @mention on the issue, so every step leaves a comment anyone can read later.</p>
+    </div>
+    <ol class="stations">
+      <li class="station">
+        <span class="station-k mono">Station 1</span>
+        <h3>Architecture</h3>
+        <p>Where does this change spread, and how do we build it?</p>
+        <ul class="pucks"><li><i></i>system-architect <em>lead</em></li><li><i></i>software-architect</li></ul>
+        <span class="gate mono">Plan approved by a person</span>
+      </li>
+      <li class="station">
+        <span class="station-k mono">Station 2</span>
+        <h3>Delivery</h3>
+        <p>Split the plan by repo and surface, write the code, run the tests, open the PR.</p>
+        <ul class="pucks"><li><i></i>delivery-lead <em>lead</em></li><li><i></i>backend-engineer</li><li><i></i>frontend-engineer</li></ul>
+      </li>
+      <li class="station">
+        <span class="station-k mono">Station 3</span>
+        <h3>Review</h3>
+        <p>A machine-readable verdict with a risk score, then an adversarial pass that adds tests, never production code.</p>
+        <ul class="pucks"><li><i></i>reviewer <em>lead</em></li><li><i></i>qa-breaker</li></ul>
+        <span class="gate mono">Merged by a person</span>
+      </li>
+    </ol>
+    <div class="skills">
+      <p class="skills-h"><strong>Skills</strong> are instructions any agent in the workspace can use.</p>
+      <ul class="chips mono">
+        <li>api-and-interface-design</li><li>code-review</li><li>codebase-design</li><li>debugging-and-error-recovery</li><li>deprecation-and-migration</li><li>diagnosing-bugs</li><li>domain-modeling</li><li>ci-cd-and-automation</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ANALYTICS ============ -->
+<section class="block analytics" id="analytics" aria-labelledby="an-h">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow mono">Analytics</p>
+      <h2 id="an-h" class="h2">The table keeps score.</h2>
+      <p class="body-l">Every run is measured: what it cost, what it shipped, how often review sent it back and where people are the bottleneck. You raise autonomy when these numbers are ready, not before.</p>
+    </div>
+
+    <div class="an-grid">
+      <div class="an-side">
+        <div class="seg" role="tablist" aria-label="Analytics views">
+          <button role="tab" aria-selected="true" aria-controls="an-p0" id="an-t0" data-an="0">Productivity</button>
+          <button role="tab" aria-selected="false" aria-controls="an-p1" id="an-t1" data-an="1" tabindex="-1">Scorers</button>
+          <button role="tab" aria-selected="false" aria-controls="an-p2" id="an-t2" data-an="2" tabindex="-1">Review</button>
+          <button role="tab" aria-selected="false" aria-controls="an-p3" id="an-t3" data-an="3" tabindex="-1">Autonomy</button>
+        </div>
+        <div class="an-notes">
+          <div class="an-note" id="an-p0" role="tabpanel" aria-labelledby="an-t0">
+            <h3>Is the team shipping?</h3>
+            <dl>
+              <div><dt>Merge rate</dt><dd>PRs opened by agents that a person merged.</dd></div>
+              <div><dt>Autonomous PRs</dt><dd>Merged PRs no person had to touch before review.</dd></div>
+              <div><dt>Rework and slop rate</dt><dd>How often work came back, and how many findings each merged PR carried.</dd></div>
+              <div><dt>Human interactions per PR</dt><dd>Where people are the bottleneck. Not a performance score.</dd></div>
+            </dl>
+          </div>
+          <div class="an-note" id="an-p1" role="tabpanel" aria-labelledby="an-t1" hidden>
+            <h3>Is each run any good?</h3>
+            <dl>
+              <div><dt>29 scorers</dt><dd>Task compliance, evidence discipline, scope creep, tool loss, code quality and more, on every run.</dd></div>
+              <div><dt>Calibrated judge</dt><dd>An LLM judge you check against human labels before you trust it.</dd></div>
+              <div><dt>Guardrails</dt><dd>A run that misses one gets one retry, with the judge’s findings in its handoff note.</dd></div>
+            </dl>
+          </div>
+          <div class="an-note" id="an-p2" role="tabpanel" aria-labelledby="an-t2" hidden>
+            <h3>Is review catching things?</h3>
+            <dl>
+              <div><dt>Caught before merge</dt><dd>Defects review found while the PR was still open.</dd></div>
+              <div><dt>Escaped after ready</dt><dd>Defects that got past a ready verdict and were reverted or reopened.</dd></div>
+              <div><dt>False blocks</dt><dd>Changes requested that a person later overruled.</dd></div>
+              <div><dt>Verdict mix</dt><dd>Ready, changes requested, blocked and insufficient proof, per reviewer.</dd></div>
+            </dl>
+          </div>
+          <div class="an-note" id="an-p3" role="tabpanel" aria-labelledby="an-t3" hidden>
+            <h3>Is the next level ready?</h3>
+            <dl>
+              <div><dt>Readiness gates</dt><dd>Each level has thresholds, such as guardrail pass rate ready at 95% and failing at 90%.</dd></div>
+              <div><dt>Today’s limits</dt><dd>Spend and autonomous runs against the daily cap, judging included.</dd></div>
+              <div><dt>Ledger</dt><dd>Every autonomous action, allowed or held, with its reason.</dd></div>
+            </dl>
+          </div>
+        </div>
+      </div>
+
+      <figure class="tray tray-wide">
+        <div class="tray-rim shots" id="anShots">
+          <img data-an="0" src="./assets/shots/relay-productivity.jpg" alt="Alp Analytics, Productivity tab: runs, PRs opened, merge rate, autonomous PRs, rework, slop and retry rates, median cycle time" width="1568" height="744" loading="lazy">
+          <img data-an="1" src="./assets/shots/relay-scorers.jpg" alt="Alp Analytics, Scorers tab: judge configuration and scorer cards with pass rates and daily bars" width="1568" height="744" loading="lazy" hidden>
+          <img data-an="2" src="./assets/shots/relay-review.jpg" alt="Alp Analytics, Review tab: reviewer and QA gates, verdict mix, readiness, findings by severity" width="1568" height="744" loading="lazy" hidden>
+          <img data-an="3" src="./assets/shots/relay-autonomy.jpg" alt="Alp Analytics, Autonomy tab: readiness gates per level and today's spend and run limits" width="1568" height="744" loading="lazy" hidden>
+        </div>
+        <figcaption class="mono">Analytics · real product UI</figcaption>
+      </figure>
+    </div>
+
+    <div class="an-tabs" aria-label="All analytics views">
+      <span class="mono an-tabs-k">12 views</span>
+      <ul class="mono">
+        <li>Usage</li><li>Errors</li><li>Autonomy</li><li>Agents</li><li>Productivity</li><li>Spending</li><li>Review</li><li>Escapes</li><li>Scorers</li><li>Calibration</li><li>Improvement</li><li>Benchmarks</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ QUALITY LOOP (owned by quality.js / quality.css) ============ -->
+<section class="quality" id="quality" aria-labelledby="quality-h">
+  <!-- QUALITY:BEGIN -->
+  <div class="q-stage" id="qStage">
+    <div class="q-sticky">
+      <canvas class="q-canvas" id="qCanvas" aria-hidden="true"></canvas>
+      <div class="q-shade" aria-hidden="true"></div>
+
+      <div class="wrap q-top">
+        <p class="eyebrow mono">Quality loop</p>
+        <h2 id="quality-h" class="q-h">A failure comes back once. A pattern comes back as a fix.</h2>
+        <p class="q-sub">Every change is attacked, checked and judged before a person decides.</p>
+      </div>
+
+      <div class="wrap q-dock">
+        <ol class="q-beats" id="qBeats">
+          <li class="q-beat" data-beat="0">
+            <p class="q-k mono"><span class="q-n">01</span> Brief <span class="chip live">Live</span><span class="chip target">Target · in-app intake</span></p>
+            <h3>The ticket becomes a brief.</h3>
+            <p>Acceptance criteria, every comment in order and the screenshots on the ticket. The last comment beats the description.</p>
+            <ul class="q-art mono"><li>brief.json</li><li>KK-01 · KK-02 · KK-03</li><li>claims to verify</li></ul>
+          </li>
+          <li class="q-beat" data-beat="1">
+            <p class="q-k mono"><span class="q-n">02</span> Deploy gate <span class="chip live">Live</span></p>
+            <h3>Test the head, not a guess.</h3>
+            <p>The preview has to run the pull request head before anything is judged. If it can’t be proven, the result is unmeasurable, never a pass.</p>
+            <ul class="q-art mono"><li>deploy gate: open</li><li>pr_head = image</li></ul>
+          </li>
+          <li class="q-beat" data-beat="2">
+            <p class="q-k mono"><span class="q-n">03</span> Breaker <span class="chip live">Live</span></p>
+            <h3>qa-breaker tries to break it.</h3>
+            <p>The fix preview and a control run side by side at 375, 390, 768 and 1280. A layout scan, Midscene and a pixel diff hunt for what got worse.</p>
+            <ul class="q-art mono"><li>layout-scan</li><li>aiBoolean → false</li><li>verdict.json · fail</li></ul>
+            <p class="q-rule">A Midscene claim never passes alone. It needs a screenshot.</p>
+          </li>
+          <li class="q-beat" data-beat="3">
+            <p class="q-k mono"><span class="q-n">04</span> On call <span class="chip live">Live · prod alarms</span><span class="chip target">Target · per PR</span></p>
+            <h3>The detective checks the runtime.</h3>
+            <p>sre-oncall reads the 5xx and restart signals. HolmesGPT offers a hypothesis, and it only counts once promq confirms it.</p>
+            <ul class="q-art mono"><li>5xx rate</li><li>restarts / OOM</li><li>promq confirms</li></ul>
+          </li>
+          <li class="q-beat" data-beat="4">
+            <p class="q-k mono"><span class="q-n">05</span> Review <span class="chip live">Live</span></p>
+            <h3>One verdict. One line.</h3>
+            <p>The reviewer rules with a risk score and the proof behind it. Ponytail says nothing and writes one line.</p>
+            <ul class="q-art mono"><li>changes_requested</li><li>Risk: High (62/100)</li><li>not_merge_ready</li></ul>
+            <p class="q-rule">Rejections 1 of 2. At 2, a person decides.</p>
+          </li>
+          <li class="q-beat" data-beat="5">
+            <p class="q-k mono"><span class="q-n">06</span> Retry <span class="chip live">Live · off by default</span></p>
+            <h3>A failure comes back once.</h3>
+            <p>The findings travel back as a handoff note. On the new head, each old finding is checked again and marked resolved.</p>
+            <ul class="q-art mono"><li>handoff note · 3 findings</li><li>retry 1 of 1</li><li>resolved 3/3</li></ul>
+          </li>
+          <li class="q-beat" data-beat="6">
+            <p class="q-k mono"><span class="q-n">07</span> Pattern <span class="chip live">Live · first half</span><span class="chip target">Target · auto validation</span></p>
+            <h3>A pattern comes back as a fix.</h3>
+            <p>Twenty failures with one root cause become an improvement issue. The fix is one edit to one instruction, and it has to beat the benchmark. A person starts the validation.</p>
+            <ul class="q-art mono"><li>criterion_not_exercised</li><li>agents/qa-breaker.md</li><li>held-in ✓ held-out ✓</li></ul>
+          </li>
+          <li class="q-beat" data-beat="7">
+            <p class="q-k mono"><span class="q-n">08</span> Merge <span class="chip live">Live</span></p>
+            <h3>A person merges.</h3>
+            <p>ready becomes ready_to_merge, and you get one notice. You press merge. Alp never does.</p>
+            <ul class="q-art mono"><li>ready_to_merge</li><li>merged by a person</li></ul>
+          </li>
+        </ol>
+
+        <div class="q-rail" aria-hidden="true">
+          <i class="q-rail-fill" id="qRailFill"></i>
+          <span>Brief</span><span>Gate</span><span>Break</span><span>On call</span><span>Review</span><span>Retry</span><span>Pattern</span><span>Merge</span>
+        </div>
+      </div>
+      <div class="q-load mono" id="qLoad" hidden>Loading the team…</div>
+    </div>
+  </div>
+
+  <div class="wrap q-static" id="qStatic" hidden>
+    <p class="eyebrow mono">Quality loop</p>
+    <h2 class="q-h">A failure comes back once. A pattern comes back as a fix.</h2>
+    <ol class="q-cards">
+      <li><img src="./assets/agents/qa-breaker-figure.jpg" alt="" loading="lazy" width="300" height="400"><p class="mono">01 Brief · Live</p><h3>The ticket becomes a brief.</h3><p>Acceptance criteria, comments in order and the attached screenshots.</p></li>
+      <li><img src="./assets/agents/qa-breaker-figure.jpg" alt="" loading="lazy" width="300" height="400"><p class="mono">02 Deploy gate · Live</p><h3>Test the head, not a guess.</h3><p>No proven preview means unmeasurable, never a pass.</p></li>
+      <li><img src="./assets/agents/qa-breaker-figure.jpg" alt="qa-breaker" loading="lazy" width="300" height="400"><p class="mono">03 Breaker · Live</p><h3>qa-breaker tries to break it.</h3><p>Fix and control at 375, 390, 768 and 1280: layout scan, Midscene, pixel diff.</p></li>
+      <li><img src="./assets/agents/sre-oncall-figure.jpg" alt="sre-oncall" loading="lazy" width="300" height="400"><p class="mono">04 On call · Live / Target</p><h3>The detective checks the runtime.</h3><p>A HolmesGPT hypothesis counts once promq confirms it.</p></li>
+      <li><img src="./assets/agents/reviewer-figure.jpg" alt="reviewer" loading="lazy" width="300" height="400"><p class="mono">05 Review · Live</p><h3>One verdict. One line.</h3><p>changes_requested · Risk: High (62/100). Ponytail writes one line.</p></li>
+      <li><img src="./assets/agents/backend-engineer-figure.jpg" alt="backend-engineer" loading="lazy" width="300" height="400"><p class="mono">06 Retry · Live</p><h3>A failure comes back once.</h3><p>Findings return as a handoff note and get marked resolved.</p></li>
+      <li><img src="./assets/agents/ponytail-figure.jpg" alt="ponytail" loading="lazy" width="300" height="400"><p class="mono">07 Pattern · Live / Target</p><h3>A pattern comes back as a fix.</h3><p>One edit to one instruction, proven on the benchmark.</p></li>
+      <li><img src="./assets/agents/reviewer-figure.jpg" alt="" loading="lazy" width="300" height="400"><p class="mono">08 Merge · Live</p><h3>A person merges.</h3><p>ready_to_merge, one notice, your click. Alp never merges.</p></li>
+    </ol>
+  </div>
+  <!-- QUALITY:END -->
+</section>
+
+<!-- ============ AUTONOMY ============ -->
+<section class="block" id="autonomy" aria-labelledby="auto-h">
+  <div class="wrap auto-grid">
+    <div>
+      <p class="eyebrow mono">Autonomy</p>
+      <h2 id="auto-h" class="h2">Autonomy is a switch you own.</h2>
+      <p class="body-l">Owners and admins set the level for the workspace, a project or a single agent, and the lowest one wins. Every task starts manual until someone marks it Autonomous. Metrics say when a level looks ready. They never move it.</p>
+    </div>
+    <div class="panel" id="panel">
+      <div class="panel-top">
+        <span class="mono panel-k">Autonomy level</span>
+        <span class="mono panel-v" id="lvlOut">L1 · Open PRs</span>
+      </div>
+      <div class="detents" role="radiogroup" aria-label="Autonomy level" id="detents">
+        <button role="radio" aria-checked="false" data-l="0"><b>L0</b><span>Suggest</span></button>
+        <button role="radio" aria-checked="true" data-l="1"><b>L1</b><span>Open PRs</span></button>
+        <button role="radio" aria-checked="false" data-l="2"><b>L2</b><span>Route reviews</span></button>
+        <button role="radio" aria-checked="false" data-l="3"><b>L3</b><span>Ready for merge</span></button>
+        <button role="radio" aria-checked="false" data-l="4"><b>L4</b><span>Self-improve</span></button>
+      </div>
+      <p class="lvl-desc" id="lvlDesc" aria-live="polite"></p>
+      <div class="panel-bottom">
+        <button class="kill" id="kill" aria-pressed="false"><span class="kill-cap" aria-hidden="true"></span><span class="kill-t">Kill switch</span></button>
+        <div class="readouts">
+          <div><span class="mono">Spend</span><b>$200 / day</b></div>
+          <div><span class="mono">Autonomous runs</span><b>150 / day</b></div>
+          <div><span class="mono">Per issue tree</span><b>40 / 7 days</b></div>
+        </div>
+      </div>
+      <p class="panel-note mono">Defaults. Change the numbers, not the limit. A person always merges.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLOSE + EVERYWHERE ============ -->
+<section class="block close" id="start" aria-labelledby="close-h">
+  <div class="wrap close-split">
+    <div class="close-cta">
+      <svg class="close-mark" aria-hidden="true"><use href="#alp"/></svg>
+      <h2 id="close-h">Put your next issue on the table.</h2>
+      <p class="body-l">A small team shouldn’t feel small.</p>
+      <div class="cta-row">
+        <a class="btn btn-blue" href="#top">Get started</a>
+      </div>
+    </div>
+    <div class="close-sf" aria-labelledby="sf-h">
+      <p class="eyebrow mono">Everywhere</p>
+      <h3 id="sf-h" class="sf-h">Connected to the tools already on your table.</h3>
+      <div class="sf-grid">
+        <div class="sf-col">
+          <span class="mono sf-k">Code and CI</span>
+          <ul><li>GitHub</li><li>Bitbucket</li><li>GitLab</li><li>Gitea</li><li>Forgejo</li><li>Jenkins</li></ul>
+        </div>
+        <div class="sf-col">
+          <span class="mono sf-k">Issues and context</span>
+          <ul><li>Jira</li><li>MCP servers</li></ul>
+        </div>
+        <div class="sf-col">
+          <span class="mono sf-k">Surfaces</span>
+          <ul><li>Web</li><li>Desktop app</li><li>Mobile</li><li>CLI and daemon</li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-row">
+    <span class="brand small"><svg aria-hidden="true"><use href="#alp"/></svg><span>Alp</span></span>
+    <nav aria-label="Footer"><a href="#relay">Relay</a><a href="#analytics">Analytics</a><a href="#autonomy">Autonomy</a></nav>
+  </div>
+</footer>
+
+<script type="module" src="./relay.js"></script>
+<script type="module" src="./team.js"></script>
+<script type="module" src="./quality.js"></script>
+</body>
+</html>
