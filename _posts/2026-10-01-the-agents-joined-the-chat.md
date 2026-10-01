@@ -50,6 +50,34 @@ The last two are named after Black Sea jokes, which is where half the jokes in T
 
 The previous post's review and QA engines are still running underneath. Hakem is the face of the review engine in the chat. Kırıcı replaced the old headless QA job: the same work, but now it lives in a channel where a developer can ask why a task failed.
 
+## What we built around it
+
+We changed Buzz itself in one local commit, covered further down. Everything else is a layer around it on the devbox, kept in an ops repository. Most of the work is in this layer.
+
+**The toolbelt comes from our own daemon.** Agents do not get a generic set of tools. They get an MCP server backed by the agent orchestrator we already run for the development loop: search the service catalog, read code, read docs, git history, Jira search, BigQuery, pull request search, field performance data. Every agent has its own token with its own tool list. Only Jirador has write tools: save a draft, create a task, update a task.
+
+That is also where the 44 percent from the opening came from. The prompt sent each planned change as an object with a repository, a path, a line and a test. The daemon expected a list of strings. Every structured draft failed to decode, and the 400 did not say why, so the agent kept retrying the same shape. The daemon now accepts both shapes, and its 400 carries the decoder's message.
+
+**Approval is a reaction, not a word.** Jirador's first prompt said to create the task once the person says they approve. In practice that never happened. Now a Buzz workflow watches the spec channel for a check-mark reaction and posts "@Jirador approved, create_task" in the thread. A second workflow asks Jirador for a summary of shipped work at 08:30 on weekdays. Approval is something a person does, with their own key, not something an agent reads into a sentence. The same idea comes back in the refuter.
+
+**Alarms arrive as mentions.** Uptime Kuma, which went from 36 to 64 monitors in the first week, posts to a small webhook receiver on the devbox, and the receiver writes DOWN and UP into #ops with a mention of the SRE agent. Collectors post a full-scan request every four hours, and a control-band breach posts an alarm. The SRE agent's 30-minute heartbeat runs a deterministic check first: ingress 5xx, edge 5xx, any monitor down, and once a day the cloud bill against its two-week average. If all of that is fine, the agent writes nothing.
+
+**Narrow tools.** Agents call small CLIs that each do one thing: a Prometheus query, a log query, Jira get, comment and transition, pull request list and comment, monitor status, CDN stats, the cloud bill, worktree management. The wrappers narrow what the agent is told to use. They do not narrow what it can reach while the credentials still sit in its environment, and one agent found that out for us (see What went wrong).
+
+**Small fixes the platform needed.**
+
+- The CLI can set a plain profile, but the desktop app will not let anyone mention an agent until the agent has published a signed agent profile. We added a small publisher for that event to the local commit.
+- The relay rejects PNGs that carry color-profile metadata, with a 422. Screenshots are re-saved with only the core chunks before they are sent.
+- Agents are added to channels from the CLI with the bot role. Added from the desktop app, they become plain members and never show up in mention autocomplete.
+- People are added to the working channels explicitly, because the desktop app only lists channels you are already a member of.
+
+**Running it.**
+
+- `buzz-route` switches an agent's runtime or model with one command: it backs up the environment file, rewrites it, restarts the unit and writes a log line.
+- Every morning a job copies the business teams' guides into each agent's working folder, with a manifest that tells the agent how old each guide is.
+- The ops repository is a one-way snapshot from the live box. A `gitleaks` scan runs before every commit, and a finding blocks it. Changes come in as pull requests; deploys are still by hand, and prompts go out only through the eval gate described below.
+- A new-agent checklist, written from the setup of the first two business agents, lists every trap in this section and the next one, in the order you hit them.
+
 ## Talking is the hard part
 
 Every failure in this section came from a rule that sounded right on its own.
@@ -78,7 +106,7 @@ Each rule was there to fix a real problem, mostly the unanswered questions above
 
 **Identity is a key, not a name.** Divci refused a task from me because its prompt said to take work only from Yalçın, and my display name in the chat is Doksanbir. Agents now match people by public key. The same lesson came back with mentions. The error "Could not authorize a mentioned agent" had two different causes on two different days: once the agent had been added to the channel as a member instead of a bot, once the agent had never published its signed agent profile. The same error message is not the same bug.
 
-On September 20th I decided we would not patch Buzz itself. That held for four days. There is now one local commit on top of upstream, four small changes: DMs follow the agent's reply policy, a heartbeat wakes a sleeping worker pool instead of being dropped, a person's reply in a thread the agent took part in counts as a mention, and `edit` reads stdin like `send`. Each one replaced a workaround that had become harder to explain than the patch.
+On September 20th I decided we would not patch Buzz itself. That held for four days. There is now one local commit on top of upstream: the profile publisher from the section above, and four small changes in behavior: DMs follow the agent's reply policy, a heartbeat wakes a sleeping worker pool instead of being dropped, a person's reply in a thread the agent took part in counts as a mention, and `edit` reads stdin like `send`. Each one replaced a workaround that had become harder to explain than the patch.
 
 ## Permissions, not prompts
 
