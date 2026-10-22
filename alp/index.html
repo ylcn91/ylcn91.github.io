@@ -291,6 +291,24 @@ h1 > span { display: block; white-space: nowrap; }
 .sec .mark { white-space: nowrap; }
 .sec .h2.small { font-size: clamp(34px, 4vw, 56px); }
 
+/* Checks its own numbers */
+.vgrid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: start; }
+.vcheck { margin: 0; background: var(--card); border: 1px solid var(--line); box-shadow: var(--shadow); }
+.vcheck header { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 16px 20px; border-bottom: 1px solid var(--line); }
+.vcheck header b { font: 600 16px/1 var(--sans); }
+.vcheck header span { font: 400 12px/1 var(--mono); color: var(--muted); }
+.vcheck ol { list-style: none; margin: 0; padding: 0; }
+.vcheck li { display: grid; grid-template-columns: 28px 1fr; gap: 12px; padding: 16px 20px; border-bottom: 1px solid var(--line); }
+.vcheck li:last-child { border-bottom: 0; }
+.vcheck .vs { width: 24px; height: 24px; display: grid; place-items: center; border: 1px solid var(--ink); font: 600 12px/1 var(--sans); }
+.vcheck li.bad .vs { background: var(--ink); color: var(--paper); }
+.vcheck li b { display: block; font: 500 16px/1.35 var(--sans); }
+.vcheck li small { display: block; margin-top: 3px; font-size: 14px; color: var(--muted); }
+.vcheck li.bad small { color: var(--ink); }
+.vlist { display: grid; gap: 26px; }
+.vlist h3 { margin: 0 0 6px; font: 600 20px/1.2 var(--sans); letter-spacing: -.025em; }
+.vlist p { margin: 0; color: var(--ink-2); font-size: 15.5px; }
+
 /* How work gets done */
 .how-grid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.25fr); gap: 48px; align-items: start; }
 .steps { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
@@ -389,7 +407,7 @@ details p { margin: 0 0 20px; color: var(--ink-2); max-width: 680px; }
 .foot .brand span { font-size: 22px; }
 
 @media (max-width: 1000px) {
-  .sec .head, .how-grid, .pgrid, .fgrid, .sgrid { grid-template-columns: 1fr; }
+  .sec .head, .how-grid, .vgrid, .pgrid, .fgrid, .sgrid { grid-template-columns: 1fr; }
   .alpwin { position: static; }
   .sq-grid { grid-template-columns: 1fr 1fr; }
   .sq-grid::before { display: none; }
@@ -559,6 +577,32 @@ details p { margin: 0 0 20px; color: var(--ink-2); max-width: 680px; }
       <div class="dgrid" id="dgrid"></div>
     </div>
   </section>
+  <section class="sec verify" id="verify" aria-labelledby="verify-h">
+    <div class="wrap">
+      <div class="head">
+        <h2 id="verify-h" class="h2">Alp checks<br><span class="mark">its own numbers.<svg viewBox="0 0 300 30" preserveAspectRatio="none" aria-hidden="true"><path d="M4 18 C 60 8, 120 26, 180 14 S 270 10, 296 16"/></svg></span></h2>
+        <p>An answer that sounds right is not the same as an answer that is right. So every morning Alp goes back to the source and checks what its agents said the day before.</p>
+      </div>
+      <div class="vgrid">
+        <figure class="vcheck" aria-label="This morning's check of yesterday's claims">
+          <header><b>Morning check</b><span>06:50 · 4 claims from yesterday</span></header>
+          <ol>
+            <li class="bad"><span class="vs" aria-hidden="true">✕</span><div><b>“One task is waiting in the Test column.”</b><small>Jira says six. Flagged with the right number.</small></div></li>
+            <li class="bad"><span class="vs" aria-hidden="true">✕</span><div><b>“Search API: 12 of 12 pods healthy.”</b><small>The cluster reports 9 of 12. Flagged with the right number.</small></div></li>
+            <li><span class="vs" aria-hidden="true">✓</span><div><b>“Network C brought 402 leads last week.”</b><small>Matches the warehouse.</small></div></li>
+            <li><span class="vs" aria-hidden="true">✓</span><div><b>“12% of work came back from QA.”</b><small>Matches Jira.</small></div></li>
+          </ol>
+        </figure>
+        <div class="vlist">
+          <div><h3>Recomputed from the source</h3><p>A job with no AI in it takes yesterday's numbers and runs them again against Jira, the warehouse and your monitoring. A wrong number is flagged with the right one.</p></div>
+          <div><h3>The method comes with the answer</h3><p>Each data answer names the table and the field it used. Two answers that agree because they read the same wrong field get caught.</p></div>
+          <div><h3>Tested like a new hire, every night</h3><p>Live questions, replays of past incidents and drills where the right move is to stop and ask. A change to an agent that lowers its score is rolled back.</p></div>
+          <div><h3>Counts, not people</h3><p>Personal data never goes into a chat or a Jira task. Alp answers with counts and summaries instead.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="sec how" id="how" aria-labelledby="how-h">
     <div class="wrap">
       <div class="head">
@@ -638,7 +682,7 @@ details p { margin: 0 0 20px; color: var(--ink-2); max-width: 680px; }
         <div><h3>People approve what matters</h3><p>Plans for bigger work, risky changes and going live wait for a person. Alp never merges on its own.</p></div>
         <div><h3>A stop button and a budget</h3><p>Pause all agents at once, and set daily limits on spend and runs.</p></div>
         <div><h3>Every step on the record</h3><p>The request, the plan, each run, its cost and the result stay on the issue for anyone who comes later.</p></div>
-        <div><h3>It checks its own numbers</h3><p>Every morning Alp recomputes what its agents claimed the day before from the source. Personal data is never posted to a chat.</p></div>
+        <div><h3>Limits per person and chat</h3><p>Each person and each chat has an hourly cap on the work it can start, so one busy thread cannot use up the day.</p></div>
       </div>
     </div>
   </section>
