@@ -598,7 +598,7 @@ details p { margin: 0 0 20px; color: var(--ink-2); max-width: 680px; }
         <h2 id="teams-h" class="h2 rot" aria-label="Every team gets its own AI specialist: marketing an analyst, support an assistant, finance an analyst, operations an SRE, engineering an engineer.">
           <span aria-hidden="true"><span class="slot dept"><span>Marketing</span></span> gets</span>
           <span aria-hidden="true">an AI <span class="slot role"><span>analyst</span><svg viewBox="0 0 300 30" preserveAspectRatio="none"><path d="M4 18 C 60 8, 120 26, 180 14 S 270 10, 296 16"/></svg></span>.</span>
-          <span class="note n2" aria-hidden="true"><svg viewBox="0 0 52 46"><path d="M48 40 C 30 36, 14 26, 8 6 M8 6 l-4 10 M8 6 l 9 6"/></svg>who already knows your tools</span>
+          <span class="note n2" aria-hidden="true"><svg viewBox="0 0 52 46"><path d="M48 40 C 30 36, 14 26, 8 6 M8 6 l-4 10 M8 6 l 9 6"/></svg>who already knows your tools and data</span>
         </h2>
         <p>Each team asks in its own words. Alp knows which data, which tools and which agent each question needs, and works with the asker's own permissions.</p>
       </div>
@@ -728,7 +728,7 @@ details p { margin: 0 0 20px; color: var(--ink-2); max-width: 680px; }
         <div class="cg"><h3>Chat</h3><p>Microsoft Teams · Slack · Buzz · Jira comments</p></div>
         <div class="cg"><h3>Work</h3><p>Jira · Bitbucket · GitHub · GitLab · Jenkins · Argo CD</p></div>
         <div class="cg"><h3>Data</h3><p>Google Analytics · Search Console · Google Ads · BigQuery · Postgres · Elasticsearch · Cloudflare · Web vitals · NPS surveys</p></div>
-        <div class="cg"><h3>Monitoring</h3><p>Instana · Kibana · Uptime monitors</p></div>
+        <div class="cg"><h3>Monitoring</h3><p>New Relic · Datadog · Instana · Grafana · Kibana · Sentry · Uptime monitors</p></div>
         <div class="cg"><h3>Agents</h3><p>Claude Code · Codex · Cursor · Gemini · Grok · Copilot</p></div>
         <div class="cg"><h3>Apps</h3><p>Notion · Google Drive · Gmail · HubSpot · Salesforce · Linear</p></div>
       </div>
@@ -831,8 +831,8 @@ const GRAPH = [
   { cat: 'Agents', nodes: ['Marketing analyst', 'Support assistant', 'Product analyst', 'Data analyst', 'SRE', 'Backend engineer', 'Frontend engineer', 'Reviewer', 'QA'] },
   { cat: 'Data', nodes: ['Google Analytics', 'Search Console', 'Google Ads', 'BigQuery', 'Postgres', 'NPS surveys', 'Cloudflare', 'Elasticsearch', 'Web vitals'] },
   { cat: 'Knowledge', nodes: ['Support knowledge base', 'Docs', 'Code search', 'Change impact', 'PR history', 'Team memory'] },
-  { cat: 'Work', nodes: ['Jira', 'Bitbucket', 'GitHub', 'Jenkins', 'Argo CD', 'Preview'] },
-  { cat: 'Monitoring', nodes: ['Instana', 'Kibana', 'Uptime monitor'] },
+  { cat: 'Work', nodes: ['Jira', 'Bitbucket', 'GitHub', 'Jenkins', 'Argo CD'] },
+  { cat: 'Monitoring', nodes: ['New Relic', 'Datadog', 'Instana', 'Grafana', 'Kibana', 'Sentry', 'Uptime monitor'] },
   { cat: 'Apps', nodes: ['Notion', 'Google Drive', 'Gmail', 'HubSpot', '+ hundreds'] },
 ];
 
@@ -881,7 +881,7 @@ const CHATS = [
       { who: 'MC', wait: 1700, quote: ['Alp', 'PRD-212 · Plan ready: Weekly digest for saved searches'], html: 'approve' },
       { who: 'alp', typing: 900, uses: ['Backend engineer', 'Frontend engineer', 'Bitbucket'], html: 'PRD-212 · Agents started: backend and frontend.' },
       { who: 'alp', wait: 1500, uses: ['Reviewer', 'Jenkins'], html: 'PRD-212 · Two reviews passed, build green.' },
-      { who: 'alp', wait: 1500, uses: ['QA', 'Preview'], html: 'PRD-212 · QA passed on the preview. <b>Going live is your call.</b>' },
+      { who: 'alp', wait: 1500, uses: ['QA'], html: 'PRD-212 · QA passed on the preview. <b>Going live is your call.</b>' },
       { react: 0, emoji: '✅', replace: true, wait: 400 },
     ],
   },
@@ -902,7 +902,7 @@ const CHATS = [
     preview: 'Alp: INC-88 · Checkout errors are back to 0.1%.',
     script: [
       { who: 'alp', uses: ['SRE', 'Uptime monitor'], html: '<b>Uptime monitor:</b> checkout is DOWN in two regions.' },
-      { who: 'alp', typing: 2400, uses: ['Instana', 'Kibana', 'Cloudflare', 'Change impact'], html: `<p><b>INC-88</b> Checkout returns errors since 14:02, right after the 14:00 release. A new retry rule makes the payment client time out; 3.8% of checkouts fail.</p>
+      { who: 'alp', typing: 2400, uses: ['New Relic', 'Instana', 'Kibana', 'Cloudflare', 'Change impact'], html: `<p><b>INC-88</b> Checkout returns errors since 14:02, right after the 14:00 release. A new retry rule makes the payment client time out; 3.8% of checkouts fail.</p>
         <p>The root cause and a fix are on INC-88. The fix waits for a person.</p>` },
       { who: 'JW', wait: 1600, html: "@Alp roll back the retry rule. I'll review the fix tomorrow." },
       { who: 'alp', typing: 900, uses: ['Backend engineer', 'Jenkins'], html: 'INC-88 · Retry rule rolled back. Checkout errors are back to 0.1%.' },
@@ -925,8 +925,8 @@ const DEPARTMENTS = [
   { chat: 'support', name: 'Customer service', asks: ['What do we tell a customer who cannot find an invoice?', 'Which questions in our knowledge base still have no answer?', 'Is this a known bug, and when is it fixed?'], uses: ['Knowledge base', 'Jira', 'Postgres'], agent: 'Support assistant' },
   { chat: 'product', name: 'Product', asks: ['Write the spec for saved-search digests.', 'Which services does this change touch?', 'Has anyone built something like this before?'], uses: ['Code search', 'Change impact', 'PR history', 'Jira'], agent: 'Product analyst' },
   { chat: 'sales', name: 'Sales & finance', asks: ['Which renewals are at risk this month?', 'Compare NPS of churned and renewed accounts.', 'Revenue funnel by segment, as a chart.'], uses: ['BigQuery', 'Postgres', 'NPS surveys'], agent: 'Data analyst' },
-  { chat: 'ops', name: 'Operations', asks: ['Why does checkout return errors since 14:00?', 'Is the site up in every region?', 'What changed in the last release?'], uses: ['Instana', 'Kibana', 'Cloudflare', 'Uptime monitor'], agent: 'SRE' },
-  { chat: 'product', name: 'Engineering', asks: ['Take PRD-212 and open the pull request.', 'Review this pull request against our conventions.', 'What failed QA this week, and why?'], uses: ['Bitbucket', 'GitHub', 'Jenkins', 'Argo CD', 'Preview'], agent: 'Engineers, reviewer, QA' },
+  { chat: 'ops', name: 'Operations', asks: ['Why does checkout return errors since 14:00?', 'Is the site up in every region?', 'What changed in the last release?'], uses: ['New Relic', 'Instana', 'Kibana', 'Cloudflare'], agent: 'SRE' },
+  { chat: 'product', name: 'Engineering', asks: ['Take PRD-212 and open the pull request.', 'Review this pull request against our conventions.', 'What failed QA this week, and why?'], uses: ['Bitbucket', 'GitHub', 'Jenkins', 'Argo CD'], agent: 'Engineers, reviewer, QA' },
 ];
 
 const slug = c => c.name.toLowerCase().replace(/ & /g, '-').replace(/\s+/g, '-');
