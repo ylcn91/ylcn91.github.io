@@ -62,7 +62,7 @@ a { color: inherit; }
 /* Hero */
 .hero { padding: 72px 0 0; text-align: center; }
 .eyebrow { display: inline-flex; align-items: center; gap: 10px; padding: 7px 14px 7px 8px; border-radius: 999px; background: var(--card); border: 1px solid var(--line); font: 500 13px/1 var(--sans); color: var(--ink-2); }
-.eyebrow .marks { display: inline-flex; gap: 3px; }
+.eyebrow .marks { display: inline-flex; gap: 6px; }
 h1 { margin: 0; }
 /* Headline: the team and its AI role change; a hand-drawn line follows the role */
 .headline { position: relative; display: block; max-width: 100%; margin: 30px auto 0; }
@@ -96,9 +96,8 @@ h1 .mark, .rot > span { white-space: nowrap; }
 .btn.ghost:hover { background: var(--card); }
 .cta-note { margin: 0; font-size: 13.5px; color: var(--muted); }
 
-/* Product marks: small drawn tiles, not the vendors' logos */
-.pm { display: inline-grid; place-items: center; width: 18px; height: 18px; border-radius: 4px; font: 700 10px/1 var(--sans); font-style: normal; color: #fff; }
-.pm.teams { background: #5B5FC7; } .pm.slack { background: #4A154B; } .pm.buzz { background: #1F2328; }
+/* Product marks: the vendors' own logos */
+.pm { width: 16px; height: 16px; flex: none; }
 
 /* Stage: chat window + what Alp used */
 .stage { margin-top: 64px; padding: 14px; background: var(--paper-2); border: 1px solid var(--line); text-align: left; }
@@ -237,31 +236,6 @@ h1 .mark, .rot > span { white-space: nowrap; }
 .app[data-p="slack"] .compose { border: 1px solid #BBBBBB; color: #868686; border-radius: 8px; padding: 14px 12px; }
 .app[data-p="slack"] .typing { color: #616061; }
 
-/* Buzz skin (light) */
-.app[data-p="buzz"] { background: #fff; color: #1F2328; --ui: -apple-system, "Inter", system-ui, sans-serif; }
-.app[data-p="buzz"] .app-top { background: #F6F7F8; border-bottom: 1px solid #E6E8EB; }
-.app[data-p="buzz"] .app-top .search { background: #fff; border: 1px solid #E6E8EB; color: #6B7280; }
-.app[data-p="buzz"] .app-rail { background: #F6F7F8; border-right: 1px solid #E6E8EB; }
-.app[data-p="buzz"] .app-rail b { color: #6B7280; }
-.app[data-p="buzz"] .app-rail b.ws { width: 34px; height: 34px; padding: 0; background: #1F2328; color: #fff; border-radius: 10px; font: 700 13px/1 var(--ui); }
-.app[data-p="buzz"] .app-side { background: #F6F7F8; border-right: 1px solid #E6E8EB; }
-.app[data-p="buzz"] .app-side header { font-size: 14px; color: #111827; font-weight: 600; }
-.app[data-p="buzz"] .app-side .sect { color: #6B7280; }
-.app[data-p="buzz"] .citem { grid-template-columns: 1fr; padding: 6px 10px; }
-.app[data-p="buzz"] .citem .cav, .app[data-p="buzz"] .citem .pv, .app[data-p="buzz"] .citem .tm { display: none; }
-.app[data-p="buzz"] .citem .nm { font-size: 14px; color: #374151; }
-.app[data-p="buzz"] .citem .nm::before { content: "# "; color: #9CA3AF; }
-.app[data-p="buzz"] .citem[aria-selected="true"] { background: #E9EBEE; }
-.app[data-p="buzz"] .citem[aria-selected="true"] .nm { color: #111827; font-weight: 600; }
-.app[data-p="buzz"] .chead { border-bottom: 1px solid #E6E8EB; }
-.app[data-p="buzz"] .chead h3::before { content: "# "; color: #9CA3AF; }
-.app[data-p="buzz"] .chead .tabs { display: none; }
-.app[data-p="buzz"] .chead .ppl { color: #6B7280; }
-.app[data-p="buzz"] .who { color: #6B7280; } .app[data-p="buzz"] .who b { color: #111827; font-weight: 600; }
-.app[data-p="buzz"] .badge { background: #EEF0F3; color: #6B7280; }
-.app[data-p="buzz"] .at { color: #2563EB; font-weight: 600; }
-.app[data-p="buzz"] .compose { border: 1px solid #E6E8EB; color: #9CA3AF; border-radius: 10px; }
-.app[data-p="buzz"] .typing { color: #6B7280; }
 
 /* What Alp used: the connection graph */
 .graph { position: relative; background: var(--card); border: 1px solid var(--line); box-shadow: var(--shadow); overflow: hidden; display: grid; grid-template-rows: auto minmax(0, 1fr); min-width: 0; }
@@ -274,6 +248,7 @@ h1 .mark, .rot > span { white-space: nowrap; }
 .grow div { display: flex; flex-wrap: wrap; gap: 5px; }
 .src { font: 400 12.5px/1 var(--sans); padding: 5px 8px; border: 1px solid var(--line); color: var(--muted); background: var(--card); transition: background .3s, color .3s, border-color .3s; }
 .src.on { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+.src .pm { width: 13px; height: 13px; margin-right: 6px; vertical-align: -2px; }
 
 /* Departments */
 .teams-sec { padding: 140px 0 120px; }
@@ -382,6 +357,7 @@ h1 .mark, .rot > span { white-space: nowrap; }
 .cg { padding: 26px 26px 28px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--card); }
 .cg h3 { margin: 0 0 10px; font: 500 11.5px/1 var(--mono); text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
 .cg p { margin: 0; font: 500 21px/1.45 var(--sans); letter-spacing: -.02em; }
+.cg p .pm { width: .9em; height: .9em; margin-right: .3em; vertical-align: -.1em; }
 .more { margin: 22px 0 0; font-size: 17px; color: var(--ink-2); }
 .more b { color: var(--ink); }
 
@@ -482,13 +458,13 @@ details p { margin: 0 0 20px; color: var(--ink-2); max-width: 680px; }
   .stage { padding: 6px; margin-top: 44px; }
   .stage-top { flex-direction: column; align-items: stretch; }
   .stage-top .hint { display: none; }
-  .ptabs { display: grid; grid-template-columns: repeat(3, 1fr); }
+  .ptabs { display: grid; grid-template-columns: repeat(2, 1fr); }
   .ptabs button { justify-content: center; padding: 8px 6px; font-size: 12.5px; }
   .app-body, .app[data-p="slack"] .app-body { grid-template-columns: 1fr; grid-template-rows: auto minmax(0, 1fr); }
   .app-side header, .app-side .sect { display: none; }
   .clist { display: flex; gap: 4px; padding: 6px; overflow-x: auto; scrollbar-width: none; }
   .clist li { flex: none; }
-  .citem, .app[data-p="slack"] .citem, .app[data-p="buzz"] .citem { grid-template-columns: auto; padding: 7px 10px; }
+  .citem, .app[data-p="slack"] .citem { grid-template-columns: auto; padding: 7px 10px; }
   .citem .cav, .citem .pv, .citem .tm { display: none; }
   .citem .nm { overflow: visible; }
   .chead .tabs, .chead .ppl { display: none; }
@@ -511,6 +487,10 @@ details p { margin: 0 0 20px; color: var(--ink-2); max-width: 680px; }
     <symbol id="alp" viewBox="0 0 512 512">
       <g transform="translate(-14.673, -16.522) scale(0.2642)"><path fill="currentColor" d="M 1018.42 486.399 C 1031.36 485.005 1047.33 487.047 1059.78 490.574 C 1084.39 497.327 1106.31 511.504 1122.56 531.172 C 1135.37 546.958 1141.44 560.074 1151.18 577.791 C 1157.15 588.648 1164.03 599.939 1170.27 610.763 L 1255.63 757.899 C 1331.58 890.033 1413.18 1023 1486.85 1155.99 C 1461.07 1147.7 1433.77 1142.37 1407.19 1137.42 L 1168.04 727.577 L 1102.57 615.77 C 1094.97 602.598 1083.52 577.645 1075.23 568.103 C 1063.16 556.096 1044.58 546.927 1027.67 546.985 C 983.389 547.136 969.592 579.258 950.103 612.061 C 935.631 636.418 921.356 660.891 907.281 685.48 L 810.458 851.122 L 607.778 1196.39 L 533.728 1322.73 C 520.583 1345.07 507.212 1367.14 494.287 1389.67 C 477.449 1419.01 479.715 1455.36 504.225 1479.8 C 530.715 1506.21 575.931 1505.73 610.126 1499.04 C 632.728 1494.62 652.274 1483.85 673.148 1474.66 C 701.959 1462.18 730.663 1449.44 759.255 1436.46 L 1147.28 1265.92 L 1254.75 1218.08 C 1271.94 1210.54 1293.91 1200.39 1311.2 1194.55 C 1333.45 1186.98 1356.76 1183.02 1380.25 1182.8 C 1438.63 1182.51 1494.1 1208.93 1535.29 1249.46 C 1558.78 1273.44 1572.52 1302.03 1589.3 1330.83 C 1597.16 1344.32 1607.92 1362.59 1614.24 1376.47 C 1629.02 1408.79 1630.09 1445.71 1617.2 1478.83 C 1604.21 1511.95 1578.75 1538.66 1546.28 1553.2 C 1489.61 1577.91 1442.72 1559.52 1389.11 1539.21 L 1298.43 1503.88 L 1073.88 1417.76 C 1096.28 1407.21 1132.93 1392.75 1156.61 1384.72 C 1170.12 1390.81 1188.7 1397.28 1202.81 1402.79 L 1305.83 1442.78 C 1337.74 1455.52 1369.79 1467.89 1401.98 1479.91 C 1421.19 1487.19 1439.28 1494.29 1459.52 1500.52 C 1526.98 1521.3 1584.6 1467.23 1558.41 1399.37 C 1553.66 1387.07 1543.13 1372.31 1536.09 1360.48 C 1524.85 1341.59 1514.26 1319.34 1500.97 1301.85 C 1493.95 1292.6 1485.75 1284.32 1476.57 1277.21 C 1442.61 1250.18 1399.05 1238.27 1356.06 1244.26 C 1330.13 1247.91 1306.7 1259.96 1282.91 1270.56 L 1205.68 1305.49 L 904.352 1437.73 L 774.997 1495.18 C 746.516 1508.16 717.853 1520.73 689.014 1532.89 C 673.6 1539.56 656.971 1547.7 641.163 1552.71 C 627.384 1557.03 613.228 1560.03 598.884 1561.68 C 558.263 1566.61 506.605 1559.4 473.737 1533.53 C 445.378 1511.58 427.219 1478.99 423.467 1443.33 C 418.883 1401.06 433.689 1372.67 454.672 1337.41 C 467.639 1315.62 481.004 1293.54 493.628 1271.57 L 654.028 998.522 L 842.2 676.136 L 895.921 584.508 C 904.579 569.817 918.128 545.243 928.491 532.612 C 950.916 505.277 983.466 489.667 1018.42 486.399 z"/></g>
     </symbol>
+    <!-- Teams: the 2025 Microsoft Teams mark from Wikimedia Commons (public domain, trademark of Microsoft).
+         Slack: icons/slack.svg from Bootstrap Icons (MIT, (c) 2019-2024 The Bootstrap Authors), in Slack's four colours. -->
+    <symbol id="logo-teams" viewBox="4 4 36 38"><path fill="url(#tm-a)" d="M21.9999 20h12c3.3137 0 6 2.6863 6 6v10c0 3.3137-2.6863 6-6 6s-6-2.6863-6-6V26c0-3.3137-2.6863-6-6-6"/><path fill="url(#tm-b)" d="M7.99988 24c0-3.3137 2.68632-6 6.00002-6h8c3.3137 0 6 2.6863 6 6v12c0 3.3137 2.6863 6 6 6l-16.0001-.0001c-5.5228 0-9.99992-4.4771-9.99992-10z"/><path fill="url(#tm-c)" fill-opacity=".7" d="M7.99988 24c0-3.3137 2.68632-6 6.00002-6h8c3.3137 0 6 2.6863 6 6v12c0 3.3137 2.6863 6 6 6l-16.0001-.0001c-5.5228 0-9.99992-4.4771-9.99992-10z"/><path fill="url(#tm-d)" fill-opacity=".7" d="M7.99988 24c0-3.3137 2.68632-6 6.00002-6h8c3.3137 0 6 2.6863 6 6v12c0 3.3137 2.6863 6 6 6l-16.0001-.0001c-5.5228 0-9.99992-4.4771-9.99992-10z"/><path fill="url(#tm-e)" d="M32.9999 18c2.7614 0 5-2.2386 5-5s-2.2386-5-5-5-5 2.2386-5 5 2.2386 5 5 5"/><path fill="url(#tm-f)" fill-opacity=".46" d="M32.9999 18c2.7614 0 5-2.2386 5-5s-2.2386-5-5-5-5 2.2386-5 5 2.2386 5 5 5"/><path fill="url(#tm-g)" fill-opacity=".4" d="M32.9999 18c2.7614 0 5-2.2386 5-5s-2.2386-5-5-5-5 2.2386-5 5 2.2386 5 5 5"/><path fill="url(#tm-h)" d="M17.9999 16c3.3137 0 6-2.6863 6-6 0-3.31371-2.6863-6-6-6s-6 2.68629-6 6c0 3.3137 2.6863 6 6 6"/><path fill="url(#tm-i)" fill-opacity=".6" d="M17.9999 16c3.3137 0 6-2.6863 6-6 0-3.31371-2.6863-6-6-6s-6 2.68629-6 6c0 3.3137 2.6863 6 6 6"/><path fill="url(#tm-j)" fill-opacity=".5" d="M17.9999 16c3.3137 0 6-2.6863 6-6 0-3.31371-2.6863-6-6-6s-6 2.68629-6 6c0 3.3137 2.6863 6 6 6"/><rect width="16" height="16" x="4" y="23" fill="url(#tm-k)" rx="3.25"/><rect width="16" height="16" x="4" y="23" fill="url(#tm-l)" fill-opacity=".7" rx="3.25"/><path fill="#fff" d="M15.4792 28.1054h-2.4471v7.466h-2.0648v-7.466H8.52014v-1.6768h6.95906z"/><defs><radialGradient id="tm-a" cx="0" cy="0" r="1" gradientTransform="matrix(13.4784 0 0 33.2694 39.7967 22.1739)" gradientUnits="userSpaceOnUse"><stop stop-color="#a98aff"/><stop offset=".14" stop-color="#8c75ff"/><stop offset=".565" stop-color="#5f50e2"/><stop offset=".9" stop-color="#3c2cb8"/></radialGradient><radialGradient id="tm-b" cx="0" cy="0" r="1" gradientTransform="rotate(68.1539 -7.71566095 14.71355834)scale(32.752 33.1231)" gradientUnits="userSpaceOnUse"><stop stop-color="#85c2ff"/><stop offset=".69" stop-color="#7588ff"/><stop offset="1" stop-color="#6459fe"/></radialGradient><radialGradient id="tm-d" cx="0" cy="0" r="1" gradientTransform="rotate(113.326 8.09285255 17.64474501)scale(19.2186 15.4273)" gradientUnits="userSpaceOnUse"><stop stop-color="#bd96ff"/><stop offset=".686685" stop-color="#bd96ff" stop-opacity="0"/></radialGradient><radialGradient id="tm-e" cx="0" cy="0" r="1" gradientTransform="matrix(0 -10 12.6216 0 32.9999 11.5714)" gradientUnits="userSpaceOnUse"><stop offset=".268201" stop-color="#6868f7"/><stop offset="1" stop-color="#3923b1"/></radialGradient><radialGradient id="tm-f" cx="0" cy="0" r="1" gradientTransform="rotate(40.0516 -.03068196 44.8729095)scale(7.14629 10.3363)" gradientUnits="userSpaceOnUse"><stop offset=".270711" stop-color="#a1d3ff"/><stop offset=".813393" stop-color="#a1d3ff" stop-opacity="0"/></radialGradient><radialGradient id="tm-g" cx="0" cy="0" r="1" gradientTransform="rotate(-41.6581 32.11799918 -43.41948423)scale(8.51275 20.8824)" gradientUnits="userSpaceOnUse"><stop stop-color="#e3acfd"/><stop offset=".816041" stop-color="#9fa2ff" stop-opacity="0"/></radialGradient><radialGradient id="tm-h" cx="0" cy="0" r="1" gradientTransform="matrix(0 -12 15.146 0 17.9999 8.28571)" gradientUnits="userSpaceOnUse"><stop offset=".268201" stop-color="#8282ff"/><stop offset="1" stop-color="#3923b1"/></radialGradient><radialGradient id="tm-i" cx="0" cy="0" r="1" gradientTransform="rotate(40.0516 -3.15465147 21.41641466)scale(8.57554 12.4035)" gradientUnits="userSpaceOnUse"><stop offset=".270711" stop-color="#a1d3ff"/><stop offset=".813393" stop-color="#a1d3ff" stop-opacity="0"/></radialGradient><radialGradient id="tm-j" cx="0" cy="0" r="1" gradientTransform="rotate(-41.6581 20.38180375 -26.51566158)scale(10.2153 25.0589)" gradientUnits="userSpaceOnUse"><stop stop-color="#e3acfd"/><stop offset=".816041" stop-color="#9fa2ff" stop-opacity="0"/></radialGradient><radialGradient id="tm-k" cx="0" cy="0" r="1" gradientTransform="rotate(45 -25.76345597 16.32842712)scale(22.6274)" gradientUnits="userSpaceOnUse"><stop offset=".046875" stop-color="#688eff"/><stop offset=".946875" stop-color="#230f94"/></radialGradient><radialGradient id="tm-l" cx="0" cy="0" r="1" gradientTransform="matrix(0 11.2 -13.0702 0 12 32.6)" gradientUnits="userSpaceOnUse"><stop offset=".570647" stop-color="#6965f6" stop-opacity="0"/><stop offset="1" stop-color="#8f8fff"/></radialGradient><linearGradient id="tm-c" x1="20.5936" x2="20.5936" y1="18" y2="42" gradientUnits="userSpaceOnUse"><stop offset=".801159" stop-color="#6864f6" stop-opacity="0"/><stop offset="1" stop-color="#5149de"/></linearGradient></defs></symbol>
+    <symbol id="logo-slack" viewBox="0 0 16 16"><path fill="#E01E5A" d="M3.362 10.11c0 .926-.756 1.681-1.681 1.681S0 11.036 0 10.111.756 8.43 1.68 8.43h1.682zM4.208 10.11c0-.924.756-1.68 1.681-1.68s1.681.756 1.681 1.68v4.21c0 .924-.756 1.68-1.68 1.68a1.685 1.685 0 0 1-1.682-1.68z"/><path fill="#36C5F0" d="M5.89 3.362c-.926 0-1.682-.756-1.682-1.681S4.964 0 5.89 0s1.68.756 1.68 1.68v1.682zM5.89 4.208c.924 0 1.68.756 1.68 1.681S6.814 7.57 5.89 7.57H1.68C.757 7.57 0 6.814 0 5.89c0-.926.756-1.682 1.68-1.682z"/><path fill="#2EB67D" d="M12.639 5.89c0-.926.755-1.682 1.68-1.682S16 4.964 16 5.889s-.756 1.681-1.68 1.681h-1.681zM11.791 5.89c0 .924-.755 1.68-1.68 1.68A1.685 1.685 0 0 1 8.43 5.89V1.68C8.43.757 9.186 0 10.11 0c.926 0 1.681.756 1.681 1.68z"/><path fill="#ECB22E" d="M10.11 12.638c.926 0 1.682.756 1.682 1.681S11.036 16 10.11 16s-1.681-.756-1.681-1.68v-1.682h1.68zM10.11 11.791c-.924 0-1.68-.755-1.68-1.68s.756-1.681 1.68-1.681h4.21c.924 0 1.68.756 1.68 1.68 0 .926-.756 1.681-1.68 1.681z"/></symbol>
     <symbol id="arrow" viewBox="0 0 20 20"><path d="M4 10h11M11 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
     <symbol id="i-message" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M10 17 6 21v-4a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3h8.5M18 4a3 3 0 0 1 3 3v7a3 3 0 0 1-3 3h-8"/><path d="M7.5 9h9M7.5 12.5h5.5"/></g></symbol>
     <symbol id="i-activity" viewBox="0 0 24 24"><path d="M3 12h4l2.5-6 5 12 2.5-6h4" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></symbol>
@@ -543,7 +523,7 @@ details p { margin: 0 0 20px; color: var(--ink-2); max-width: 680px; }
 <main id="top">
   <section class="hero">
     <div class="wrap">
-      <span class="eyebrow"><span class="marks" aria-hidden="true"><i class="pm teams">T</i><i class="pm slack">S</i><i class="pm buzz">B</i></span>Works in Microsoft Teams, Slack and Buzz</span>
+      <span class="eyebrow"><span class="marks" aria-hidden="true"><svg class="pm"><use href="#logo-teams"/></svg><svg class="pm"><use href="#logo-slack"/></svg></span>Works in Microsoft Teams and Slack</span>
       <div class="headline">
         <h1>Your company,<br><span class="mark">AI-native by Monday.<svg viewBox="0 0 300 30" preserveAspectRatio="none" aria-hidden="true"><path d="M4 18 C 60 8, 120 26, 180 14 S 270 10, 296 16"/></svg></span></h1>
         <span class="note" aria-hidden="true"><svg viewBox="0 0 52 46"><path d="M48 4 C 30 8, 14 18, 8 40 M8 40 l-4 -10 M8 40 l 9 -6"/></svg>right in Teams &amp; Slack</span>
@@ -560,9 +540,8 @@ details p { margin: 0 0 20px; color: var(--ink-2); max-width: 680px; }
       <div class="stage" id="demo">
         <div class="stage-top">
           <div class="ptabs" role="tablist" aria-label="Chat app">
-            <button role="tab" data-p="teams" aria-selected="true"><i class="pm teams" aria-hidden="true">T</i>Microsoft Teams</button>
-            <button role="tab" data-p="slack" aria-selected="false"><i class="pm slack" aria-hidden="true">S</i>Slack</button>
-            <button role="tab" data-p="buzz" aria-selected="false"><i class="pm buzz" aria-hidden="true">B</i>Buzz</button>
+            <button role="tab" data-p="teams" aria-selected="true"><svg class="pm" aria-hidden="true"><use href="#logo-teams"/></svg>Microsoft Teams</button>
+            <button role="tab" data-p="slack" aria-selected="false"><svg class="pm" aria-hidden="true"><use href="#logo-slack"/></svg>Slack</button>
           </div>
           <span class="hint">Pick a team on the left</span>
         </div>
@@ -725,7 +704,7 @@ details p { margin: 0 0 20px; color: var(--ink-2); max-width: 680px; }
         <p>Each person connects their own accounts once. Alp uses them with that person's permissions, and only for the work they asked for.</p>
       </div>
       <div class="cgrid">
-        <div class="cg"><h3>Chat</h3><p>Microsoft Teams · Slack · Buzz · Jira comments</p></div>
+        <div class="cg"><h3>Chat</h3><p><svg class="pm" aria-hidden="true"><use href="#logo-teams"/></svg>Microsoft Teams · <svg class="pm" aria-hidden="true"><use href="#logo-slack"/></svg>Slack · Jira comments</p></div>
         <div class="cg"><h3>Work</h3><p>Jira · Bitbucket · GitHub · GitLab · Jenkins · Argo CD</p></div>
         <div class="cg"><h3>Data</h3><p>Google Analytics · Search Console · Google Ads · BigQuery · Postgres · Elasticsearch · Web vitals · NPS surveys</p></div>
         <div class="cg"><h3>Monitoring</h3><p>New Relic · Datadog · Instana · Grafana · Kibana · Sentry · Cloudflare · Uptime monitors</p></div>
@@ -774,9 +753,9 @@ details p { margin: 0 0 20px; color: var(--ink-2); max-width: 680px; }
     <div class="wrap fgrid">
       <h2 id="faq-h" class="h2 small">Questions</h2>
       <div class="qs">
-        <details><summary>What is Alp?</summary><p>An AI team that works in your company chat. You ask in Teams, Slack or Buzz; Alp answers from your data, opens and tracks the work in Jira, and puts specialist agents on it.</p></details>
+        <details><summary>What is Alp?</summary><p>An AI team that works in your company chat. You ask in Teams or Slack; Alp answers from your data, opens and tracks the work in Jira, and puts specialist agents on it.</p></details>
         <details><summary>Do we need engineers to use it?</summary><p>No. Marketing, support, sales and operations teams ask in plain language. Engineering work goes through the same chat, with plans and reviews built in.</p></details>
-        <details><summary>Which chat apps does it work in?</summary><p>Microsoft Teams, Slack and Buzz, and comments on Jira tasks. It replies in the same thread it was asked in.</p></details>
+        <details><summary>Which chat apps does it work in?</summary><p>Microsoft Teams and Slack, and comments on Jira tasks. It replies in the same thread it was asked in.</p></details>
         <details><summary>Who can see what?</summary><p>Alp works with the permissions of the person who asked, reads only approved chats, and never posts personal data to a chat; it gives counts and summaries instead.</p></details>
         <details><summary>What happens when Alp gets something wrong?</summary><p>Work is reviewed and tested before anyone sees it, people approve plans and going live, and Alp rechecks its own numbers against the source every morning. You can pause every agent at once.</p></details>
         <details><summary>How is it priced?</summary><p>On usage, on Alp Cloud. Talk to us and we will size it with you.</p></details>
@@ -796,7 +775,7 @@ details p { margin: 0 0 20px; color: var(--ink-2); max-width: 680px; }
         <label>Company<input name="company" autocomplete="organization" required></label>
         <div class="row">
           <label>Team size<select name="size"><option>1–20</option><option>21–100</option><option>101–500</option><option>500+</option></select></label>
-          <label>Chat app<select name="chat"><option>Microsoft Teams</option><option>Slack</option><option>Buzz</option><option>Other</option></select></label>
+          <label>Chat app<select name="chat"><option>Microsoft Teams</option><option>Slack</option><option>Other</option></select></label>
         </div>
         <label>What should Alp do first? <small>Optional</small><textarea name="note" rows="3"></textarea></label>
         <button class="btn" type="submit"><span>Request access</span><i><svg aria-hidden="true"><use href="#arrow"/></svg></i></button>
@@ -827,7 +806,7 @@ const PEOPLE = {
 
 // Everything Alp can reach, grouped. Names are what a team would recognise.
 const GRAPH = [
-  { cat: 'Chat', nodes: ['Microsoft Teams', 'Slack', 'Buzz', 'Jira comments'] },
+  { cat: 'Chat', nodes: ['Microsoft Teams', 'Slack', 'Jira comments'] },
   { cat: 'Agents', nodes: ['Marketing analyst', 'Support assistant', 'Product analyst', 'Data analyst', 'SRE', 'Backend engineer', 'Frontend engineer', 'Reviewer', 'QA'] },
   { cat: 'Data', nodes: ['Google Analytics', 'Search Console', 'Google Ads', 'BigQuery', 'Postgres', 'NPS surveys', 'Elasticsearch', 'Web vitals'] },
   { cat: 'Knowledge', nodes: ['Support knowledge base', 'Docs', 'Code search', 'Change impact', 'PR history', 'Team memory'] },
@@ -933,7 +912,6 @@ const slug = c => c.name.toLowerCase().replace(/ & /g, '-').replace(/\s+/g, '-')
 const SKINS = {
   teams: { side: 'Chat', sect: '', search: 'Search', compose: () => 'Type a message', rail: [['i-activity', 'Activity'], ['i-message', 'Chat', true], ['i-people', 'Teams'], ['i-calendar', 'Calendar']], badge: '' },
   slack: { side: 'Acme', sect: 'Channels', search: 'Search Acme', compose: c => `Message #${slug(c)}`, rail: [['ws', 'A'], ['i-home', 'Home', true], ['i-message', 'DMs'], ['i-bell', 'Activity']], badge: 'APP' },
-  buzz: { side: 'Acme', sect: 'Channels', search: 'Search everything', compose: c => `Message #${slug(c)}`, rail: [['ws', 'A'], ['i-message', 'Chat', true], ['i-people', 'Agents']], badge: 'AGENT' },
 };
 
 const $ = s => document.querySelector(s);
@@ -942,7 +920,7 @@ const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const icon = id => `<svg aria-hidden="true"><use href="#${id}"/></svg>`;
 let platform = 'teams', current = 0;
 
-// Teams draws a mention as the name in colour; Slack and Buzz keep the @ and a first name.
+// Teams draws a mention as the name in colour; Slack keeps the @ and a first name.
 function mention(html) {
   return html.replace(/@Alp/g, () => `<span class="at">${platform === 'teams' ? 'Alp' : '@Alp'}</span>`)
              .replace(/@\{([^}]+)\}/g, (_, n) => `<span class="at">${platform === 'teams' ? n : '@' + n.split(' ')[0]}</span>`);
@@ -1042,10 +1020,11 @@ new IntersectionObserver(([e]) => { onScreen = e.isIntersecting; visible = onScr
 document.addEventListener('visibilitychange', () => { visible = onScreen && !document.hidden; });
 
 /* ===== What Alp used: one row per group, the sources of this answer turn dark ===== */
+const LOGOS = { 'Microsoft Teams': 'logo-teams', 'Slack': 'logo-slack' };
 const graph = (() => {
   const el = $('#glist');
-  el.innerHTML = GRAPH.map(g => `<div class="grow"><span>${g.cat}</span><div>${g.nodes.map(n => `<i class="src" data-n="${n}" style="font-style:normal">${n}</i>`).join('')}</div></div>`).join('');
-  const PLATFORM_NODE = { teams: 'Microsoft Teams', slack: 'Slack', buzz: 'Buzz' };
+  el.innerHTML = GRAPH.map(g => `<div class="grow"><span>${g.cat}</span><div>${g.nodes.map(n => `<i class="src" data-n="${n}" style="font-style:normal">${LOGOS[n] ? `<svg class="pm" aria-hidden="true"><use href="#${LOGOS[n]}"/></svg>` : ''}${n}</i>`).join('')}</div></div>`).join('');
+  const PLATFORM_NODE = { teams: 'Microsoft Teams', slack: 'Slack' };
   let used = 0;
   const set = (n, on) => el.querySelector(`[data-n="${n}"]`)?.classList.toggle('on', on);
   return {
