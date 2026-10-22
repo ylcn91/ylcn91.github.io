@@ -349,6 +349,25 @@ h1 > span { display: block; white-space: nowrap; }
 .rules li { font-size: 15.5px; color: var(--ink-2); }
 .rules b { display: block; color: var(--ink); font-weight: 600; margin-bottom: 4px; }
 
+/* Where agents run, and the workbench */
+.rgrid { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: 32px; align-items: start; }
+.rcards { display: grid; gap: 12px; }
+.rcards article { background: var(--card); border: 1px solid var(--line); padding: 20px 22px; }
+.rcards .rt { display: inline-block; font: 500 11px/1 var(--mono); text-transform: uppercase; letter-spacing: .07em; color: var(--paper); background: var(--ink); padding: 5px 7px; }
+.rcards h3 { margin: 12px 0 6px; font: 600 21px/1.2 var(--sans); letter-spacing: -.025em; }
+.rcards p { margin: 0; color: var(--ink-2); font-size: 15.5px; }
+.shot { margin: 0; background: #fff; border: 1px solid rgba(0,0,0,.12); border-radius: 10px; overflow: hidden; box-shadow: var(--shadow); }
+.shot .bar { display: flex; align-items: center; gap: 7px; height: 30px; padding: 0 12px; background: #F4F4F5; border-bottom: 1px solid rgba(0,0,0,.08); font: 500 11.5px/1 var(--sans); color: var(--muted); }
+.shot .bar i { width: 10px; height: 10px; border-radius: 50%; background: #DADADA; }
+.shot .bar span { margin-left: 8px; }
+.shot img { display: block; width: 100%; height: auto; }
+.wbench { display: grid; grid-template-columns: minmax(0, .7fr) minmax(0, 1.3fr); gap: 32px; align-items: center; margin-top: 56px; }
+.wtext h3 { margin: 0; font: 600 34px/1.05 var(--sans); letter-spacing: -.04em; }
+.wlead { margin: 10px 0 18px; font-size: 18px; color: var(--ink-2); }
+.wtext ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; border-top: 1px solid var(--line); padding-top: 16px; }
+.wtext li { padding-left: 24px; position: relative; font-size: 15.5px; }
+.wtext li::before { content: ""; position: absolute; left: 0; top: .62em; width: 12px; height: 2px; background: var(--ink); }
+
 /* Connections */
 .cgrid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
 .cg { padding: 26px 26px 28px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--card); }
@@ -407,7 +426,7 @@ details p { margin: 0 0 20px; color: var(--ink-2); max-width: 680px; }
 .foot .brand span { font-size: 22px; }
 
 @media (max-width: 1000px) {
-  .sec .head, .how-grid, .vgrid, .pgrid, .fgrid, .sgrid { grid-template-columns: 1fr; }
+  .sec .head, .how-grid, .vgrid, .rgrid, .wbench, .pgrid, .fgrid, .sgrid { grid-template-columns: 1fr; }
   .alpwin { position: static; }
   .sq-grid { grid-template-columns: 1fr 1fr; }
   .sq-grid::before { display: none; }
@@ -506,6 +525,7 @@ details p { margin: 0 0 20px; color: var(--ink-2); max-width: 680px; }
       <a href="#teams">For every team</a>
       <a href="#how">How work gets done</a>
       <a href="#squads">Squads</a>
+      <a href="#runs">Runtimes</a>
       <a href="#connections">Connections</a>
       <a href="#pricing">Pricing</a>
     </nav>
@@ -653,6 +673,43 @@ details p { margin: 0 0 20px; color: var(--ink-2); max-width: 680px; }
     </div>
   </section>
 
+  <section class="sec runs" id="runs" aria-labelledby="runs-h">
+    <div class="wrap">
+      <div class="head">
+        <h2 id="runs-h" class="h2">Close your laptop.<br><span class="mark">The agents keep going.<svg viewBox="0 0 300 30" preserveAspectRatio="none" aria-hidden="true"><path d="M4 18 C 60 8, 120 26, 180 14 S 270 10, 296 16"/></svg></span></h2>
+        <p>Each agent has a runtime: where its work runs. Pick it per agent, and let the work move off your laptop when you go home.</p>
+      </div>
+      <div class="rgrid">
+        <div class="rcards">
+          <article><span class="rt">On your computer</span><h3>Your machine</h3><p>Agents run next to your code, with your git access and your own model sign-ins.</p></article>
+          <article><span class="rt">Run on twin</span><h3>Twin, your own cloud computer</h3><p>Docker, SSH and a terminal. It sleeps when idle, keeps its disk, and takes work over from your laptop.</p></article>
+          <article><span class="rt">Run on Kubernetes</span><h3>A pod that wakes for the work</h3><p>Starts when work arrives and stops after a quiet spell, keeping your files. Sign in to Claude Code or Codex from Alp.</p></article>
+        </div>
+        <figure class="shot">
+          <div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>Alp · Settings · Twins</span></div>
+          <img src="shots/alp-twins.jpg" alt="Alp settings, Twins page: set up a twin, and a Kubernetes pod that is asleep, with size, auto-sleep and Claude Code and Codex sign-ins" width="1260" height="771" loading="lazy">
+        </figure>
+      </div>
+      <div class="wbench">
+        <div class="wtext">
+          <h3>Workbench</h3>
+          <p class="wlead">Every agent session on every machine, in one browser tab.</p>
+          <ul>
+            <li>Worktrees on your laptop, your twin and your pods in one list.</li>
+            <li>Open Claude Code, Codex or a terminal on any of them.</li>
+            <li>Search every past agent session by worktree, repository or all.</li>
+            <li>Share a running preview with a link that works for 12 hours.</li>
+            <li>Only you reach your machines, and only after you turn it on.</li>
+          </ul>
+        </div>
+        <figure class="shot">
+          <div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>Alp · Workbench</span></div>
+          <img src="shots/alp-workbench.jpg" alt="Alp Workbench: worktrees on a laptop, a twin and a Kubernetes pod; a Claude Code session; and the searchable history of agent sessions" width="1512" height="771" loading="lazy">
+        </figure>
+      </div>
+    </div>
+  </section>
+
   <section class="sec conn" id="connections" aria-labelledby="conn-h">
     <div class="wrap">
       <div class="head">
@@ -744,7 +801,7 @@ details p { margin: 0 0 20px; color: var(--ink-2); max-width: 680px; }
 <footer class="foot">
   <div class="wrap">
     <span class="brand"><svg aria-hidden="true"><use href="#alp"/></svg><span>Alp</span></span>
-    <nav aria-label="Footer"><a href="#teams">For every team</a><a href="#how">How work gets done</a><a href="#squads">Squads</a><a href="#connections">Connections</a><a href="#pricing">Pricing</a></nav>
+    <nav aria-label="Footer"><a href="#teams">For every team</a><a href="#how">How work gets done</a><a href="#squads">Squads</a><a href="#runs">Runtimes</a><a href="#connections">Connections</a><a href="#pricing">Pricing</a></nav>
     <small>© 2026 Alp</small>
   </div>
 </footer>
