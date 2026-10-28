@@ -27,20 +27,19 @@ So we did the opposite. One agent, in the chat tool the whole company already ha
 
 A personal agent quietly relies on three assumptions: it talks to one person, it uses that person's access, and it may do anything that person asks. A shared agent breaks all three. Four problems came out of that, and each one got its own design.
 
-## 1. Conversations: knowing when it is being spoken to
+## 1. Conversations: is this message for the agent?
 
-A direct message is easy: every message is for the agent. A group is not. People talk to each other, answer each other's questions, come back the next morning and continue a thread as if no time had passed. An agent that answers everything is noise. An agent that answers only when it is tagged feels deaf, because people do not tag a colleague they were just talking to.
+In a direct message, every message is for the agent. In a group it is not that simple. Two people are talking about a campaign, one of them asks the agent for last week's numbers, the agent answers, and the other writes "and the week before?" without tagging anyone. That question is for the agent. The next message, "let's talk after lunch", is not.
 
-What we built sits between those two.
+For the first two weeks the rule was simple: the agent answered when someone wrote `@Alp` and stayed out otherwise. It was safe, and every follow-up without a tag went unanswered.
 
-- **Tagged means answered.** `@Alp` always gets a reply.
-- **A short follow-up window.** For 30 minutes after the agent's last message in a group, an untagged message might still be for it. The server holds the message for eight seconds to catch the rest of a burst, then a small classifier reads it together with the six messages before it and decides. Below 0.8 confidence, the agent stays silent.
-- **"Alp sus"** ("Alp, quiet") switches that off for two hours. Being told to be quiet is a normal part of working in a room with people, and it had to be one sentence, not a setting.
-- **A memory per room.** Each group has its own memory, about 4,000 tokens, that every run in that room reads. `/memory` shows it and `/forget` clears it. One room's memory never shows up in another room.
-- **Commands that skip the model.** `/memory`, `/forget`, `/answer`, `/status` and a few others are handled by the server directly. They are fast, they cost nothing, and they behave exactly the same every time.
-- **One stop sentence.** `@Alp dur` ("Alp, stop") halts all Teams and Jira work the agent is doing, and `@Alp devam` resumes it. Only a person who may approve plans can say either. A bare "dur" in a sentence stops nothing; the agent has to be named.
+Since October 21st, for 30 minutes after the agent's last message in a group, an untagged message can still reach it. The server waits eight seconds to collect the whole burst instead of the first line, then a separate model call reads those messages with the six before them and decides whether they are meant for the agent. Below 0.8 confidence the agent stays out. "Alp sus" ("Alp, quiet") turns this off for two hours, and after that only a tag gets a reply.
 
-The median answer takes 75 seconds; the slowest tenth take more than seven minutes, usually because they query a lot of data.
+Each group also has its own memory of about 4,000 tokens that every run in that group reads. `/memory` shows it, `/forget` clears it, and no other group ever sees it.
+
+Some things do not go to a model at all. `/status`, `/answer`, `/memory`, `/forget` and a few other commands are answered by the server directly, instantly. The emergency stop is handled the same way: `@Alp dur` ("Alp, stop") stops all the Teams and Jira work the agent is doing and `@Alp devam` starts it again. Only people who can approve plans can use it, and the agent has to be named, so a "dur" in an ordinary sentence does nothing.
+
+A typical answer takes about 75 seconds. One in ten takes more than seven minutes, mostly the ones that run heavy data queries.
 
 ## 2. Data: one set of connections, not everyone's logins
 
