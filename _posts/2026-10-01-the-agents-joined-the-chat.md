@@ -62,7 +62,7 @@ That is also where the 44 percent from the opening came from. The prompt sent ea
 
 **Alarms arrive as mentions.** Uptime Kuma, which went from 36 to 64 monitors in the first week, posts to a small webhook receiver on the devbox, and the receiver writes DOWN and UP into #ops with a mention of the SRE agent. Collectors post a full-scan request every four hours, and a control-band breach posts an alarm. The SRE agent's 30-minute heartbeat runs a deterministic check first: ingress 5xx, edge 5xx, any monitor down, and once a day the cloud bill against its two-week average. If all of that is fine, the agent writes nothing.
 
-**Narrow tools.** Agents call small CLIs that each do one thing: a Prometheus query, a log query, Jira get, comment and transition, pull request list and comment, monitor status, CDN stats, the cloud bill, worktree management. The wrappers narrow what the agent is told to use. They do not narrow what it can reach while the credentials still sit in its environment, and one agent found that out for us (see What went wrong).
+**Narrow tools.** Agents call small CLIs that each do one thing: a Prometheus query, a log query, Jira get, comment and transition, pull request list and comment, monitor status, CDN stats, the cloud bill, worktree management. The wrappers narrow what the agent is told to use. They do not narrow what it can reach while the credentials still sit in its environment, and one agent found that out for us (see Controls in the wrong place).
 
 **Small fixes the platform needed.**
 
@@ -285,7 +285,7 @@ The numbers that held:
 - Kırıcı's most common verdict is could-not-measure: 17 of 24 on September 30th. Early on that came from missing access, a test database role and logged-in sessions, and the access was added. What remains is mostly the honest answer. A QA agent that says "I could not measure this" instead of guessing is the one I want.
 - On September 30th the review engine requested changes on 130 of 167 pull requests. 84 of those were only the Jira-column gate: the task was not in Ready to Release yet. Most "request changes" are policy, not findings in the code, which is why the catalog counts them separately.
 
-## What went wrong
+## Controls in the wrong place
 
 **Changing the runtime removed the safety layer.** When we moved the agents to a different agent CLI, the new runtime was wired straight to the bridge, without the proxy. The proxy was where the loop breaker, the turn markers and the empty-turn retry lived, so all three left with it. Within two hours the watchdog, no longer able to see a turn in progress, restarted the SRE agent in the middle of an eight-minute scan as "silent for 242 minutes". Its retries opened three parallel sessions. Then its own "unanswered: @SRE" alert counted as a new unanswered mention, and the watchdog started a loop with itself. The same night the new runtime went behind the proxy, the watchdog stopped counting its own messages, and its alerts stopped mentioning agents. The lesson is about where the safety lives: if it lives in the plumbing, changing the plumbing changes the safety, and nothing tells you.
 
@@ -297,12 +297,10 @@ The numbers that held:
 
 **The archive broke and the dashboards did not say so.** The job that keeps the chat history stopped on September 25th, failing on a key file entry for one of the new agents. Nothing turned red. I found it while writing this post, because the human-message table above ends on the 25th. The weekly eval run is also in a failed state, and no report mentions it. The measuring layer has the same problem as every other layer: it needs a watcher too.
 
-## Where it stands
+## Nine agents later
 
-Nine agents, one virtual machine. A watchdog with no model in it, a proxy that decides when an agent may speak, a nightly eval, a morning verify, a refuter in front of every QA transition, and a catalog of 38 things we measure. Two agents for teams that never open a terminal, each with its own Unix user and a list of what it was deliberately not given.
+There are nine agents on one virtual machine now. Around them: a watchdog with no model in it, a proxy that decides when an agent may speak, a nightly eval, a morning verify, a refuter in front of every QA transition and a catalog of 38 measurements. The two agents for teams that never open a terminal each have their own Unix user and a written list of what they were deliberately not given.
 
-What I do by hand: read the morning reports, decide what happens to every red, approve the tasks Jirador drafts, and answer when someone asks why an agent said what it said. Most of that last part is now a conversation in the thread where it happened, which was the point.
+Every morning I read the reports, decide what happens to each red item, approve the tasks Jirador drafts, and answer when someone asks why an agent said what it said. That last part now mostly happens in the thread where the agent said it, which is what we wanted.
 
-What is not solved. pass^k is red every day; the agents are capable and not yet consistent. The refuter can be argued with. The developer agents are unused. The first seven agents still share one Unix user. And the business teams have already asked for the next layer: not what happened, but why. That is a correlation question, and I do not trust an agent with it until it can show its evidence the way the QA agent has to.
-
-The agents were never the hard part to build. The hard part was teaching them to behave like they were in a room with other people.
+pass^k is still red every day: the agents can do the work, just not the same way every time. The refuter can be argued with. Nobody uses the developer agents. The first seven agents still share one Unix user. And the business teams are already asking for the next thing: not what happened, but why. That is a correlation question, and I will not hand it to an agent until it can show its evidence the way the QA agent has to.

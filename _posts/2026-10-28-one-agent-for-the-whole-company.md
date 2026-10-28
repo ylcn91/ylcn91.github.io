@@ -13,13 +13,11 @@ On October 8th, the first Teams group at Emlakjet could mention `@Alp`. That wee
 
 In the week of October 19th, 27 people sent it 1,240. This week is three days old and it has already passed 1,000 messages and the previous week's agent runs. Three out of four of those messages come from closed rooms, most of them business teams: finance, listing operations, content, growth, HR and the team leads.
 
-Nobody had to install anything. That is most of the story, and the rest of this post is about what it took to make that story hold.
+Nobody installed anything. They already had Teams open.
 
 ## From a fleet to one
 
-A month ago I wrote about [putting agents into a team chat](/the-agents-joined-the-chat.html). That chat was a separate app, and the agents in it were a fleet: an architect, a product analyst, a marketing agent, a customer-service agent, each with its own Unix user and its own hand-cut set of permissions. It worked. It also had a ceiling, and the ceiling was not the agents.
-
-Two things kept showing up.
+A month ago I wrote about [putting agents into a team chat](/the-agents-joined-the-chat.html). That chat was a separate app, and the agents in it were a fleet: an architect, a product analyst, a marketing agent, a customer-service agent, each with its own Unix user and its own hand-cut set of permissions. It worked, up to a point. Two things kept showing up.
 
 **A second app is a second place.** People who live in Teams all day had to remember to go somewhere else to ask a question. The review and QA agents still work there, inside the developer loop. Most of the company never opened it.
 
@@ -42,7 +40,7 @@ What we built sits between those two.
 - **Commands that skip the model.** `/memory`, `/forget`, `/answer`, `/status` and a few others are handled by the server directly. They are fast, they cost nothing, and they behave exactly the same every time.
 - **One stop sentence.** `@Alp dur` ("Alp, stop") halts all Teams and Jira work the agent is doing, and `@Alp devam` resumes it. Only a person who may approve plans can say either. A bare "dur" in a sentence stops nothing; the agent has to be named.
 
-The median answer takes 75 seconds; the slowest tenth take more than seven minutes, usually because they query a lot of data. Most people do not mind. They asked in a chat, and a chat is allowed to take a minute.
+The median answer takes 75 seconds; the slowest tenth take more than seven minutes, usually because they query a lot of data.
 
 ## 2. Data: one set of connections, not everyone's logins
 
@@ -64,6 +62,10 @@ The answer is an intersection. Each person has a grant: which data sources, whic
 
 All of this lives in code, underneath the model. The prompt describes the rules so the agent can explain a refusal politely, but the prompt is not what enforces them. The data server checks every call against the grant before it runs. The server checks every write against the room before it lands. The model cannot be talked into a wider grant, because the model never holds the grant.
 
+For a while the closed rooms also had an approval step for some tool calls, on top of the permission file. A question the file already allowed would stop and wait for that approval, and the person got no answer. I removed it. The permission file decides, and nothing sits on top of it.
+
+The cost of rules in code is that a refusal does not explain itself. If someone is not in the file, or their grant does not cover the source they asked about, the agent refuses, correctly. But only a handful of people know the file exists, so the next message goes to me or to their manager, and the fix is me adding a line.
+
 ![A building cut open, with the same shared presence moving through every room; some doors open, some locked](/assets/images/one-agent/rooms.webp)
 
 There are two kinds of rooms, and they behave differently on purpose.
@@ -72,13 +74,13 @@ There are two kinds of rooms, and they behave differently on purpose.
 
 **Open rooms** are where the developers and product people are. There the agent does everything it does in Alp: it opens tasks, writes plans, starts work, comments on Jira, and posts updates back.
 
-That split was not in the first design. It came out of watching how people used the agent in the first two weeks: the business teams wanted an analyst they could talk to freely, and the engineering teams wanted a colleague who could take a task all the way to a pull request. Trying to serve both with one set of rules made both worse.
+That split was not in the first design. It came out of watching how people used the agent in the first two weeks: the business teams wanted an analyst they could talk to freely, and the engineering teams wanted a colleague who could take a task all the way to a pull request.
 
 ## 4. From a message to a merged pull request
 
 ![A speech bubble turning into a document, then gears, then a tick, with a person reaching for the tick](/assets/images/one-agent/relay.webp)
 
-In an open room, a request can become code. This is the part that makes the company feel different, because the person asking does not need to know where the code lives.
+In an open room, a request can become code, and the person asking does not need to know where the code lives.
 
 ![The flow from a Teams message to a merge, top to bottom](/assets/images/one-agent/flow.svg)
 
@@ -95,19 +97,17 @@ Work that comes from Teams or Jira runs on shared workers for the whole chain, b
 
 Every new commit starts the reviews, the preview and QA again. A red build goes back to the worker twice, then to a person. Two failed QA rounds mean the acceptance criteria were not clear, and the question goes back to the room that asked.
 
-In three weeks, 21 tasks were opened from Teams conversations and 7 of them have reached a pull request. That number is smaller than the message count suggests, and that is fine. Most of what people want from the agent is an answer, not a code change.
+In three weeks, 21 tasks were opened from Teams conversations and 7 of them have reached a pull request. Most of what people want from the agent is an answer, not a code change.
 
 ## The bottleneck moved to people
 
 Once the agent could plan, build, review and test, the slowest step in almost every piece of work became a person.
 
-On October 25th we looked at the last 30 days: of 22 pieces of work the agent was coordinating, 13 to 15 were waiting on a human step. A plan to approve, a manual test, an environment to prepare, a release decision. The agent was escalating correctly; nobody was reading the escalations. Its inbox for "this needs you" had 291 items, and 3 of them had been opened. About 245 of those came from one kind of broadcast that went to every administrator when work stalled, which taught every administrator to ignore it.
+On October 25th we looked at the last 30 days: of 22 pieces of work the agent was coordinating, 13 to 15 were waiting on a human step. A plan to approve, a manual test, an environment to prepare, a release decision. The agent was escalating correctly; nobody was reading the escalations. Its inbox for "this needs you" had 291 items, and 3 of them had been opened. About 245 of those came from one kind of broadcast that went to every administrator, me included, when work stalled. We learned to ignore it.
 
 The fix was to stop broadcasting. Every waiting step now has a deciding person. By default it is whoever asked; a person named on the task wins; and the requester or the current decider can hand it on to someone else. The decider gets a mention in the Teams room and on the Jira task where the work started, and a short list of their open decisions every morning, instead of one more line in an inbox.
 
-It is the least technical change in this post, and the one that moved the most work.
-
-## What the numbers say
+## Three weeks in numbers
 
 | Week of | User messages | People |
 |---|---|---|
@@ -122,22 +122,8 @@ Twenty-six people use closed rooms and 14 use open ones. The first seven rooms, 
 
 What I do not have yet is a good measure of value. Message counts show that people come back; they do not show that the answers were right or that the decisions were better. That is the next thing to measure, and it has to be measured against the source data, not by asking the agent how it did.
 
-## What went wrong
+## Today
 
-**Nobody read the inbox.** The escalations were correct, and they went to an inbox. 291 items, 3 opened. Most of them were the "work stalled" broadcast that went to every administrator, me included. The deciding-person change above came out of this.
+One agent, 32 rooms, two data servers and one permission file. Finance asks it about numbers; developers give it tasks and get pull requests back, which a person merges. I add people and groups to the permission file and go through the morning list of decisions waiting on me.
 
-**Two gates for one decision.** For a while the closed rooms had an approval step for some tool calls, on top of the permission file. A question the file already allowed would stop and wait for that approval, and the person got no answer. I removed the extra step. The permission file decides, and nothing sits on top of it.
-
-**A refusal does not say why.** If someone is not in the file, or their grant does not cover the source they asked about, the agent refuses. That is correct. But nobody outside a handful of people knows the file exists, so the next message goes to me or to their manager, and the fix is me adding a line.
-
-## Where it stands
-
-Today: one agent, 32 rooms, two data servers and one permission file. Finance asks it about numbers. Developers give it tasks and get pull requests back, which a person merges.
-
-What I still do by hand: add people and groups to the permission file, and go through the morning list of decisions waiting on me.
-
-Open items:
-
-- It speaks when spoken to, and for 30 minutes after its own last message. Should it ever join a conversation nobody invited it into? I do not know yet.
-- We measure how much people use it, not whether the answers are right. That is next.
-- Most work still waits on a person. Fewer broadcasts helped; it did not make anyone faster at deciding.
+Three things are open. It speaks when spoken to, and for 30 minutes after its own last message; I have not decided whether it should ever join a conversation nobody invited it into. We measure how much people use it, not whether the answers are right, and that is the next thing to measure. And most work still waits on a person: fewer broadcasts helped, but they did not make anyone faster at deciding.

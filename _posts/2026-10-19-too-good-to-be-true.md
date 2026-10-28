@@ -168,7 +168,7 @@ A release is a pull request from dev to master. After I merge it, the agent puts
 
 Getting there had its own errors. The agent once waited for the SEO pods to roll out before starting a measurement that only needed the web pods. It once set a git hook path in a worktree, which wrote into the configuration of the shared clone, and the next tag push failed on a missing tool. A commit header came out at 101 characters against a limit of 100, because the hooks that would have caught it were not running in that worktree. Each of these cost minutes, and each one was a release step that was correct in the agent's model of the repository and wrong in the repository.
 
-## What went wrong
+## What fooled me
 
 **The best number of the week was a definition error.** The gallery result took the earliest outcome of an interaction as its headline, and the earliest outcome was a placeholder. I caught it because it was implausible, not because a check flagged it.
 
@@ -178,12 +178,12 @@ Getting there had its own errors. The agent once waited for the SEO pods to roll
 
 **A summary is not a measurement.** "Noise", "machine load", "after back" instead of "at open": each was a sentence written ahead of the data. Each was corrected by going back to the data.
 
-## Where it stands
+## Before production
 
 Pre-production runs v2.2.18. Listing pages load their largest element in under two seconds on a throttled phone with every third-party script running, and the tap that used to wait half a second now waits 100 to 200 ms. The work left before production: the layout shift fix, a lazily loaded Street View on the listing detail (backend and frontend pull requests open), and the backend version that has to go live with the frontend. The page-type measurement against v2.2.14 is still running, and the field will have the last word.
 
-What I do by hand: merge, decide what goes into a release, look at the phone, and read the raw numbers behind any result that makes me happy.
+I still merge, decide what goes into a release, check the phone myself and read the raw numbers behind any result that makes me happy.
 
-What is not solved: 50 ms INP is a third-party question we have not asked yet. The gallery is still our slowest interaction. And the measurement layer, the part I trusted to tell me the truth, needed the same doubt as the code it measured.
+Two things are still open. About 50 ms of INP comes from third-party scripts, and we have not looked into it yet. The gallery is still our slowest interaction.
 
 The agent made this week possible. A person doing it alone would have run a fraction of the tests and shipped a fraction of the releases. But the week's most useful sentence was the one I said most often: that looks too good, show me where it comes from.

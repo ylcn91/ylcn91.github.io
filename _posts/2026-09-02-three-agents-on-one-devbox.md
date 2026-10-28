@@ -266,9 +266,9 @@ The other number is bug tickets opened in the project, per day, by period:
 
 That is a two-thirds drop in ten weeks. The first half of it happened before the QA agent existed, with the reviewer running and the Test volume unchanged. I cannot separate the reviewer's effect from everything else that happened in August, and this post would be worth less if I pretended I could. The numbers are what they are; the trend is in the direction the review numbers predict.
 
-## What went wrong
+## When the agents were wrong
 
-These are the parts I would want to read in someone else's post: not the setup mistakes, the places where the agents themselves were wrong.
+I am leaving out the setup mistakes. These are the cases where the agents themselves were wrong.
 
 **The reviewer promised an approve it never gave.** On August 28th it blocked a pull request on Jira status alone, with the code review clean, and wrote in its own comment that approval would be automatic once the task reached Ready to Release. The task got there. The gate badge went green. The verdict stayed red. The PR had fallen into a third path nobody had drawn: it kept merging dev into its branch, so it never counted as unchanged, and the round that ran was a silent one that neither posted a verdict nor checked whether the block should lift. Underneath that, the record saying "we owe this PR an approve" was deleted in the same round that lifted the block, before any approve was set, and with the record gone the dispatcher stopped picking the PR up at all. The developer typed the gate command at 11:15. Two rounds ran with the verdict approve and wrote nothing. I approved by hand at 13:24. The wait was not two hours. It was infinite. Two hours is how long it took a person to notice. Fixed on September 1st: the silent path posts and checks, and the record is deleted only after the approve is on the PR.
 
@@ -282,12 +282,12 @@ These are the parts I would want to read in someone else's post: not the setup m
 
 **Structured output is not guaranteed.** One run came back with the verdict as prose in the result field and no structured object at all, and the process treated it as a parse failure and exited. Extraction now tries three sources in order: the structured output, JSON inside the result text, and a verdict file the agent writes to disk. The file is the one that has never failed.
 
-## Where it stands
+## Next: the left half of the loop
 
-Three queues, three agents, one virtual machine. Review within minutes of a push. A finished feature out of the Test column in two hours, at the same strictness. A production recap at 06:30 that has already read the dashboards, and a root-cause draft in the queue minutes after a control band breaks.
+Today a push gets a review within minutes, a finished feature leaves the Test column in about two hours at the same strictness, and at 06:30 there is a production recap that has already read the dashboards. When a control band breaks, a root-cause draft is in the queue a few minutes later.
 
-What I still do by hand, every day: read the recap, promote or reject the knowledge-base suggestions, decide what happens to each root-cause draft, and put my name on every merge verdict. That is the job now. Reading what the agents flagged and deciding, instead of reviewing diffs, clicking through previews and watching dashboards.
+My part every day is reading the recap, accepting or rejecting the knowledge-base suggestions, deciding what to do with each root-cause draft, and putting my name on every merge verdict. I review fewer diffs and click through fewer previews, and spend that time deciding on what the agents flagged.
 
-What is not solved. The escape rate after Test has not moved, and thirteen days of data will not settle whether it can. The three agents share one machine, so timings are noisy and every verdict leans on counts and hashes rather than milliseconds. The lessons file grows by one entry per wrong verdict and nobody prunes it yet. And the left half of the loop, the part where a task gets written before anyone builds it, is still people typing into Jira. That is the next queue, and it is the one where the waiting is hardest to see, because nothing turns red while it happens.
+Some of it has not moved. The escape rate after Test is the same, and thirteen days of data cannot tell whether it will change. All three agents share one machine, so timings are noisy and the verdicts lean on counts and hashes rather than milliseconds. The lessons file grows by one entry per wrong verdict and nobody prunes it.
 
-The code was never the slow part. The queues were.
+The next queue is the left half of the loop, where a task gets written before anyone builds it. Today that is still people typing into Jira, and it is the hardest wait to see, because nothing turns red while it happens.
