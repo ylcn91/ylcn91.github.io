@@ -19,7 +19,9 @@ entries:
           - title: Expertise
             content: |
               - Agentic engineering
-              - MCP
+              - Multi-agent orchestration
+              - MCP, RAG
+              - Memory systems
               - Data platforms
               - Platform and SRE
           - title: Daily setup
