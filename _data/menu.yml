@@ -15,20 +15,21 @@ entries:
             content: |
               - Spring Boot
               - React, Next.js
-              - Electron, React Native (Expo)
+              - Electron, Expo
           - title: Expertise
             content: |
-              - Agentic engineering: multi-agent orchestration, MCP
-              - Data platforms: BigQuery, PostgreSQL
-              - Platform and SRE: GCP, Kubernetes
+              - Agentic engineering
+              - MCP
+              - Data platforms
+              - Platform and SRE
           - title: Daily setup
             content: |
-              - Agents: Claude Code, Codex, Gemini, Grok, Cursor
-              - Agent infra: MCP servers, sandboxed runs, agent teams in tmux
-              - Editor: Neovim, IntelliJ
-          - title: current focus
+              - Claude Code, Codex
+              - Gemini, Grok, Cursor
+              - Neovim, IntelliJ
+          - title: Current focus
             content: |
-              - Alp: one agent for the whole company, from a Teams message to a merged pull request
+              - [Alp](/alp/)
       - title: thoughts
         entries:
           - title: Debugging
