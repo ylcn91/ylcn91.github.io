@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 920" width="360" height="920" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <title>How a message moves through Alp: where people ask, the server, the agent, the data servers, and the two kinds of rooms</title>
+  <rect width="360" height="920" fill="#F3E9D2"/>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#3A3A38"/>
+    </marker>
+  </defs>
+
+  <!-- where people ask -->
+  <text x="20" y="26" font-size="13" fill="#5C5A55">Where people ask</text>
+  <g fill="#FFFDF7" stroke="#3A3A38" stroke-width="1.5">
+    <rect x="20" y="36" width="100" height="52" rx="10"/>
+    <rect x="130" y="36" width="100" height="52" rx="10"/>
+    <rect x="240" y="36" width="100" height="52" rx="10"/>
+  </g>
+  <g text-anchor="middle" fill="#2B2B29">
+    <text x="70" y="58" font-size="15" font-weight="600">Teams</text>
+    <text x="70" y="77" font-size="13" fill="#5C5A55">groups · DMs</text>
+    <text x="180" y="58" font-size="15" font-weight="600">Jira</text>
+    <text x="180" y="77" font-size="13" fill="#5C5A55">@Alp comment</text>
+    <text x="290" y="58" font-size="15" font-weight="600">Alp</text>
+    <text x="290" y="77" font-size="13" fill="#5C5A55">web · desktop</text>
+  </g>
+
+  <!-- server -->
+  <rect x="20" y="114" width="320" height="146" rx="10" fill="#FFFDF7" stroke="#3A3A38" stroke-width="1.5"/>
+  <g fill="#2B2B29">
+    <text x="36" y="140" font-size="16" font-weight="600">Alp server</text>
+    <g font-size="14" fill="#3A3A38">
+      <text x="36" y="166">• Teams router, commands, auto-join</text>
+      <text x="36" y="190">• Access: person ∩ room</text>
+      <text x="36" y="214">• Plans, deciders, the PR gate</text>
+      <text x="36" y="238">• Postgres: state and audit log</text>
+    </g>
+  </g>
+
+  <!-- agent -->
+  <rect x="20" y="286" width="320" height="70" rx="10" fill="#FFFDF7" stroke="#3A3A38" stroke-width="1.5"/>
+  <g fill="#2B2B29">
+    <text x="36" y="312" font-size="16" font-weight="600">Coordinator agent</text>
+    <text x="36" y="334" font-size="14" fill="#5C5A55">one agent for every room</text>
+    <text x="36" y="350" font-size="13" fill="#5C5A55">closed-room runs in a sandbox</text>
+  </g>
+
+  <!-- data servers -->
+  <rect x="20" y="382" width="320" height="76" rx="10" fill="#E6E1D3" stroke="#3A3A38" stroke-width="1.5"/>
+  <g fill="#2B2B29">
+    <text x="36" y="406" font-size="16" font-weight="600">Data servers (MCP)</text>
+    <text x="36" y="428" font-size="14" fill="#3A3A38">analytics, ads, search, product DBs</text>
+    <text x="36" y="447" font-size="13" fill="#5C5A55">finance on its own · every call checked</text>
+  </g>
+
+  <!-- split headers -->
+  <rect x="20" y="496" width="150" height="46" rx="10" fill="#DCE6D3" stroke="#4E6B45" stroke-width="1.5"/>
+  <rect x="190" y="496" width="150" height="46" rx="10" fill="#F4DCD0" stroke="#A65A3F" stroke-width="1.5"/>
+  <g text-anchor="middle">
+    <text x="95" y="516" font-size="15" font-weight="600" fill="#2B2B29">Closed room</text>
+    <text x="95" y="534" font-size="12.5" fill="#3F5638">DM or hidden group</text>
+    <text x="265" y="516" font-size="15" font-weight="600" fill="#2B2B29">Open room</text>
+    <text x="265" y="534" font-size="12.5" fill="#7E4430">developers, product</text>
+  </g>
+
+  <!-- closed room path -->
+  <rect x="20" y="562" width="150" height="104" rx="10" fill="#FFFDF7" stroke="#4E6B45" stroke-width="1.5"/>
+  <g text-anchor="middle" font-size="13.5" fill="#2B2B29">
+    <text x="95" y="588" font-weight="600">The answer goes</text>
+    <text x="95" y="606" font-weight="600">back to that chat</text>
+    <text x="95" y="630" fill="#5C5A55">no tasks,</text>
+    <text x="95" y="648" fill="#5C5A55">no shared memory</text>
+  </g>
+
+  <!-- open room path -->
+  <g fill="#FFFDF7" stroke="#A65A3F" stroke-width="1.5">
+    <rect x="190" y="562" width="150" height="40" rx="10"/>
+    <rect x="190" y="618" width="150" height="40" rx="10"/>
+    <rect x="190" y="674" width="150" height="40" rx="10"/>
+    <rect x="190" y="730" width="150" height="40" rx="10"/>
+    <rect x="190" y="786" width="150" height="40" rx="10"/>
+  </g>
+  <rect x="190" y="842" width="150" height="56" rx="10" fill="#DCE6D3" stroke="#4E6B45" stroke-width="1.5"/>
+  <g text-anchor="middle" font-size="13.5" fill="#2B2B29">
+    <text x="265" y="587">Task and plan</text>
+    <text x="265" y="643" font-weight="600">A person approves</text>
+    <text x="265" y="699">Worker writes code</text>
+    <text x="265" y="755">Reviews, preview, QA</text>
+    <text x="265" y="811">Server gate opens PR</text>
+    <text x="265" y="865" font-weight="600">A person merges</text>
+    <text x="265" y="884" font-size="12.5" fill="#3F5638">Jira, room updated</text>
+  </g>
+
+  <!-- arrows -->
+  <g stroke="#3A3A38" stroke-width="1.5" fill="none">
+    <line x1="70" y1="88" x2="70" y2="112" marker-end="url(#a)"/>
+    <line x1="180" y1="88" x2="180" y2="112" marker-end="url(#a)"/>
+    <line x1="290" y1="88" x2="290" y2="112" marker-end="url(#a)"/>
+    <line x1="180" y1="260" x2="180" y2="284" marker-end="url(#a)"/>
+    <line x1="180" y1="358" x2="180" y2="380" marker-start="url(#a)" marker-end="url(#a)"/>
+    <path d="M180 458 V476 M95 476 H265 M95 476 V494 M265 476 V494"/>
+    <line x1="95" y1="476" x2="95" y2="494" marker-end="url(#a)"/>
+    <line x1="265" y1="476" x2="265" y2="494" marker-end="url(#a)"/>
+    <line x1="95" y1="542" x2="95" y2="560" marker-end="url(#a)"/>
+    <line x1="265" y1="542" x2="265" y2="560" marker-end="url(#a)"/>
+    <line x1="265" y1="602" x2="265" y2="616" marker-end="url(#a)"/>
+    <line x1="265" y1="658" x2="265" y2="672" marker-end="url(#a)"/>
+    <line x1="265" y1="714" x2="265" y2="728" marker-end="url(#a)"/>
+    <line x1="265" y1="770" x2="265" y2="784" marker-end="url(#a)"/>
+    <line x1="265" y1="826" x2="265" y2="840" marker-end="url(#a)"/>
+  </g>
+</svg>

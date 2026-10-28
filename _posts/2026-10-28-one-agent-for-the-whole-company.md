@@ -25,6 +25,8 @@ A month ago I wrote about [putting agents into a team chat](/the-agents-joined-t
 
 So we did the opposite. One agent, in the chat tool the whole company already had open, and permissions that follow the person instead of the agent. The agent is the coordinator of [Alp](/alp/), the task platform we run our own work on. In Teams it is just `@Alp`.
 
+![How a message moves through Alp: Teams, Jira and the web into the Alp server, then the coordinator agent and the data servers, then either an answer back into a closed room or a plan that ends in a pull request a person merges](/assets/images/one-agent/architecture.svg)
+
 A personal agent quietly relies on three assumptions: it talks to one person, it uses that person's access, and it may do anything that person asks. A shared agent breaks all three. Four problems came out of that, and each one got its own design.
 
 ## 1. Conversations: is this message for the agent?
@@ -80,8 +82,6 @@ That split was not in the first design. It came out of watching how people used 
 ![A speech bubble turning into a document, then gears, then a tick, with a person reaching for the tick](/assets/images/one-agent/relay.webp)
 
 In an open room, a request can become code, and the person asking does not need to know where the code lives.
-
-![The flow from a Teams message to a merge, top to bottom](/assets/images/one-agent/flow.svg)
 
 1. Someone describes what they need in their own words in a group.
 2. The agent opens a task, writes a plan with acceptance criteria and posts it back as a reply.
