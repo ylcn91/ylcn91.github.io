@@ -71,17 +71,43 @@ The cost of rules in code is that a refusal does not explain itself. If someone 
 
 There are two kinds of rooms, and they behave differently on purpose.
 
-**Closed rooms** are direct messages and hidden groups, most of them business teams. In a closed room the agent answers, reads data within the person's grant and writes back into that chat. It opens no tasks, writes no shared memory, and nothing from there shows up on a shared screen. If someone wants to take a topic from their own direct messages into a group, they ask for it in the group, and only their own topic comes along; any data in it is queried again under the group's ceiling.
+**Closed rooms** are direct messages and hidden groups, most of them business teams. What happens in a closed room stays in it. There the agent answers, reads data within the person's grant and writes back into that chat. It opens no tasks, writes no shared memory, and nothing from there shows up on a shared screen. If someone wants to take a topic from their own direct messages into a group, they ask for it in the group, and only their own topic comes along; any data in it is queried again under the group's ceiling.
 
 **Open rooms** are where the developers and product people are. There the agent does everything it does in Alp: it opens tasks, writes plans, starts work, comments on Jira, and posts updates back.
 
 That split was not in the first design. It came out of watching how people used the agent in the first two weeks: the business teams wanted an analyst they could talk to freely, and the engineering teams wanted a colleague who could take a task all the way to a pull request.
 
-## 4. From a message to a merged pull request
+## Same agent, different team
+
+The agent is the same in every room. What it can reach is not, and neither is what people ask it. Counting which data tools it called in each group over three weeks gives a clear picture of each team.
+
+**Management office.** The widest room and the busiest one, with 514 data calls: the sales and contract system, the product database, finance, the data warehouse, web analytics and the search index.
+
+**Growth.** Mostly the data warehouse and the CRM messaging platform, to see how messaging campaigns performed, with web analytics next to it.
+
+**Traffic.** Ad platforms, web analytics, Search Console's URL inspection and the website's request logs: where visitors come from and how pages do in search.
+
+**Listing operations and portfolio management.** The product database and the sales and contract system: listings, offices and contracts.
+
+**Finance.** The sales and contract system plus the finance server. Only three rooms can reach finance data at all: the two finance rooms and the management office.
+
+**Team leads.** Sales, product and warehouse data, and no access to code.
+
+**Content planning and SEO.** The warehouse and Search Console, and for SEO also field performance data from real Chrome users. The SEO room can trigger a build too.
+
+**Funnel.** Web analytics, with the central bank's macroeconomic series next to it.
+
+**Developers.** The open rooms look different again: Jira, Jenkins, pull request and code search, and the product database's schema. Some developer rooms may read only the product database and no other data.
+
+None of this is in the prompt. It comes from each room's ceiling in the permission file: which sources it may reach and whether it may read code or trigger a build. Five of the closed rooms can read data and nothing else.
+
+## 4. Orchestration: one coordinator, many workers
 
 ![A speech bubble turning into a document, then gears, then a tick, with a person reaching for the tick](/assets/images/one-agent/relay.webp)
 
 In an open room, a request can become code, and the person asking does not need to know where the code lives.
+
+The coordinator is the agent people talk to. It does not write code and it never merges. Its job is to understand the request, write the plan, hand the work out and keep track of it. The code is written by worker agents: build workers on Claude Code and Codex, two reviewers on different models, and QA agents, one of them kept for risky changes. They run on shared machines, so a request from Teams does not depend on anyone's laptop being open.
 
 1. Someone describes what they need in their own words in a group.
 2. The agent opens a task, writes a plan with acceptance criteria and posts it back as a reply.
@@ -92,11 +118,13 @@ In an open room, a request can become code, and the person asking does not need 
 7. A QA agent tests the result. The Jira task moves through its columns by itself.
 8. A person merges. Always.
 
+The coordinator and the workers do not report to each other in free text. A worker ends each step with one line the server can read, such as `LOCAL CHECKS: PASS · head 3f2a…` or `VERDICT: clean · head 3f2a…`, naming the commit it refers to. The server reads those lines, wakes the coordinator, and decides by itself whether the pull request gate is met. The coordinator cannot claim that the checks passed; the lines either say so for that commit or they do not.
+
+Most of the coordinator's work is handling what goes wrong. A red build goes back to the worker twice, then to a person. Two rounds of review findings in a row go to a person. An environment failure is retried after 10, 30 and 60 minutes, on another machine if one is free, and the room gets one plain sentence instead of a stack trace. When a worker hits its plan limit, the work moves to the next free one. Every new commit starts the reviews, the preview and QA again.
+
 Work that comes from Teams or Jira runs on shared workers for the whole chain, because the company asked for it; work a person starts from their own Alp screen runs on their own machines.
 
-Every new commit starts the reviews, the preview and QA again. A red build goes back to the worker twice, then to a person. Two failed QA rounds mean the acceptance criteria were not clear, and the question goes back to the room that asked.
-
-In three weeks, 21 tasks were opened from Teams conversations and 7 of them have reached a pull request. Most of what people want from the agent is an answer, not a code change.
+In our busiest workspace the coordinator ran 1,352 times in the last two weeks. In three weeks, 21 tasks were opened from Teams conversations and 7 have reached a pull request. Most of what people want from the agent is an answer, not a code change.
 
 ## The bottleneck moved to people
 

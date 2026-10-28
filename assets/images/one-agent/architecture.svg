@@ -64,10 +64,10 @@
   <!-- closed room path -->
   <rect x="20" y="562" width="150" height="104" rx="10" fill="#FFFDF7" stroke="#4E6B45" stroke-width="1.5"/>
   <g text-anchor="middle" font-size="13.5" fill="#2B2B29">
-    <text x="95" y="588" font-weight="600">The answer goes</text>
-    <text x="95" y="606" font-weight="600">back to that chat</text>
-    <text x="95" y="630" fill="#5C5A55">no tasks,</text>
-    <text x="95" y="648" fill="#5C5A55">no shared memory</text>
+    <text x="95" y="588" font-weight="600">What happens here</text>
+    <text x="95" y="606" font-weight="600">stays here</text>
+    <text x="95" y="630" fill="#5C5A55">no tasks, no shared</text>
+    <text x="95" y="648" fill="#5C5A55">memory, no screens</text>
   </g>
 
   <!-- open room path -->
