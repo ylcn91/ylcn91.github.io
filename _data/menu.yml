@@ -7,28 +7,28 @@ entries:
           show_more: false
       - title: tech arsenal
         entries:
-          - title: Core Languages
+          - title: Languages
             content: |
-              - Java (Primary)
-              - JavaScript
-          - title: Frameworks & Libraries
+              - Java, Go
+              - TypeScript, Python
+          - title: Frameworks
             content: |
-              - Spring Framework
               - Spring Boot
-              - React
-          - title: Expertise Domains
+              - React, Next.js
+              - Electron, React Native (Expo)
+          - title: Expertise
             content: |
-              - AI Enthusiast
-              - Big Data Engineering
-          - title: Developer Tools
+              - Agentic engineering: multi-agent orchestration, MCP
+              - Data platforms: BigQuery, PostgreSQL
+              - Platform and SRE: GCP, Kubernetes
+          - title: Daily setup
             content: |
-              - IDE: IntelliJ, NVIM
-              - AI Copilot: Claude Code, Codex, Droid
-              - Version Control: Git
-              - Build Tools: Maven
+              - Agents: Claude Code, Codex, Gemini, Grok, Cursor
+              - Agent infra: MCP servers, sandboxed runs, agent teams in tmux
+              - Editor: Neovim, IntelliJ
           - title: current focus
             content: |
-              - Building AI-powered applications
+              - Alp: one agent for the whole company, from a Teams message to a merged pull request
       - title: thoughts
         entries:
           - title: Debugging
