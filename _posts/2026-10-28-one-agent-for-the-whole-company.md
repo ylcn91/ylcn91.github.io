@@ -124,18 +124,20 @@ What I do not have yet is a good measure of value. Message counts show that peop
 
 ## What went wrong
 
-**An inbox nobody read.** Described above. We built a correct escalation path and pointed it at a place nobody looks. The agent did its job; the design did not.
+**Nobody read the inbox.** The escalations were correct, and they went to an inbox. 291 items, 3 opened. Most of them were the "work stalled" broadcast that went to every administrator, me included. The deciding-person change above came out of this.
 
-**A second gate on top of the first.** At one point we added an approval step for certain tool calls in the closed rooms, on top of the permission file. The agent started asking permission for things the file already allowed, and people stopped getting answers. We took it out. A permission should be decided in one place. Two places that can disagree are worse than one that is slightly too loose, because the agent ends up obeying the stricter one and nobody can tell which.
+**Two gates for one decision.** For a while the closed rooms had an approval step for some tool calls, on top of the permission file. A question the file already allowed would stop and wait for that approval, and the person got no answer. I removed the extra step. The permission file decides, and nothing sits on top of it.
 
-**Rules in code are reliably wrong when they are wrong.** That is the cost of not trusting the prompt. When a grant is missing from the file, the agent refuses every time, politely and correctly, and the person on the other side has to find out from someone else that a line is missing in a file they have never seen.
+**A refusal does not say why.** If someone is not in the file, or their grant does not cover the source they asked about, the agent refuses. That is correct. But nobody outside a handful of people knows the file exists, so the next message goes to me or to their manager, and the fix is me adding a line.
 
 ## Where it stands
 
-One agent, 32 rooms, two data servers, one permission file, and a road from a sentence in a chat to a pull request that a person merges. The business teams use it as an analyst they can talk to. The engineering teams use it as a colleague who takes a task to review. The same agent does both, and it knows which room it is in.
+Today: one agent, 32 rooms, two data servers and one permission file. Finance asks it about numbers. Developers give it tasks and get pull requests back, which a person merges.
 
-What I do by hand: add people and rooms to the permission file when a team asks, read the morning list of decisions waiting on me, and look at the rooms that went quiet.
+What I still do by hand: add people and groups to the permission file, and go through the morning list of decisions waiting on me.
 
-What is not solved. The agent speaks when it is spoken to, plus a 30-minute window; a human colleague paying attention would sometimes speak up unasked, and I do not know yet when an agent should. The answers are fast but not yet measured for being right. And the slowest step in most work is still a person, which is a better problem than the one we had, but still a problem.
+Open items:
 
-The agent was never the hard part. The hard part was the room: who is in it, what it is allowed to hold, and when it is the agent's turn to talk.
+- It speaks when spoken to, and for 30 minutes after its own last message. Should it ever join a conversation nobody invited it into? I do not know yet.
+- We measure how much people use it, not whether the answers are right. That is next.
+- Most work still waits on a person. Fewer broadcasts helped; it did not make anyone faster at deciding.
