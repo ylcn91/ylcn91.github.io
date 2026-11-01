@@ -1,8 +1,1 @@
 @use "no-style-please" as *;
-
-figure { margin: 1.5em 0; }
-figure img { max-width: 100%; height: auto; display: block; }
-figcaption { font-size: 0.9em; opacity: 0.75; margin-top: 0.4em; }
-@media (prefers-color-scheme: dark) {
-  figure img { filter: brightness(0.8); }
-}
