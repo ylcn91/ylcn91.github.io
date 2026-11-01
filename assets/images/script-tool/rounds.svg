@@ -2,24 +2,24 @@
 <title>Measured saving across three rounds</title>
 <style></style>
 <rect width="760" height="300" fill="#F3E9D2"/>
-<text x="24" y="34" font-size="17" fill="#2B2B29" text-anchor="start" font-weight="600">The same question, measured three times</text>
+<text x="24" y="34" font-size="17" fill="#2B2B29" text-anchor="start" font-weight="600">Script against direct tools, three rounds</text>
 <text x="24" y="56" font-size="13" fill="#5C5A55" text-anchor="start" font-weight="normal">Claude, Script (only) versus direct tools, sum of task medians</text>
 <text x="24" y="106" font-size="14" fill="#2B2B29" text-anchor="start" font-weight="600">Round 1, 66 runs</text>
 <text x="24" y="124" font-size="11.5" fill="#5C5A55" text-anchor="start" font-weight="normal">rg hang inflated the direct runs</text>
-<rect x="250" y="90" width="187.2" height="16" fill="#4E6B45" rx="2"/>
-<text x="445.2" y="103" font-size="12.5" fill="#2B2B29" text-anchor="start" font-weight="normal">cost -30%</text>
+<rect x="250" y="90" width="137.3" height="16" fill="#4E6B45" rx="2"/>
+<text x="395.28" y="103" font-size="12.5" fill="#2B2B29" text-anchor="start" font-weight="normal">cost -22%</text>
 <rect x="250" y="110" width="399.4" height="16" fill="#A65A3F" rx="2"/>
 <text x="657.36" y="123" font-size="12.5" fill="#2B2B29" text-anchor="start" font-weight="normal">time -64%</text>
 <text x="24" y="170" font-size="14" fill="#2B2B29" text-anchor="start" font-weight="600">Round 2, 24 runs</text>
-<text x="24" y="188" font-size="11.5" fill="#5C5A55" text-anchor="start" font-weight="normal">hang fixed</text>
-<rect x="250" y="154" width="81.1" height="16" fill="#4E6B45" rx="2"/>
-<text x="339.12" y="167" font-size="12.5" fill="#2B2B29" text-anchor="start" font-weight="normal">cost -13%</text>
+<text x="24" y="188" font-size="11.5" fill="#5C5A55" text-anchor="start" font-weight="normal">hang fixed, four tasks</text>
+<rect x="250" y="154" width="56.2" height="16" fill="#4E6B45" rx="2"/>
+<text x="314.16" y="167" font-size="12.5" fill="#2B2B29" text-anchor="start" font-weight="normal">cost -9%</text>
 <rect x="250" y="174" width="87.4" height="16" fill="#A65A3F" rx="2"/>
 <text x="345.36" y="187" font-size="12.5" fill="#2B2B29" text-anchor="start" font-weight="normal">time -14%</text>
 <text x="24" y="234" font-size="14" fill="#2B2B29" text-anchor="start" font-weight="600">Round 3, 60 runs</text>
-<text x="24" y="252" font-size="11.5" fill="#5C5A55" text-anchor="start" font-weight="normal">intervals: cost -20…-9, time -18…0</text>
-<rect x="250" y="218" width="87.4" height="16" fill="#4E6B45" rx="2"/>
-<text x="345.36" y="231" font-size="12.5" fill="#2B2B29" text-anchor="start" font-weight="normal">cost -14%</text>
+<text x="24" y="252" font-size="11.5" fill="#5C5A55" text-anchor="start" font-weight="normal">five tasks; intervals: cost -14…-4, time -18…0</text>
+<rect x="250" y="218" width="56.2" height="16" fill="#4E6B45" rx="2"/>
+<text x="314.16" y="231" font-size="12.5" fill="#2B2B29" text-anchor="start" font-weight="normal">cost -9%</text>
 <rect x="250" y="238" width="56.2" height="16" fill="#A65A3F" rx="2"/>
 <text x="314.16" y="251" font-size="12.5" fill="#2B2B29" text-anchor="start" font-weight="normal">time -9%</text>
 <text x="24" y="290" font-size="11.5" fill="#5C5A55" text-anchor="start" font-weight="normal">Bars grow with the size of the saving.</text>

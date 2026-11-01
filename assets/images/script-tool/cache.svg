@@ -3,7 +3,7 @@
 <style></style>
 <rect width="760" height="250" fill="#F3E9D2"/>
 <text x="24" y="34" font-size="17" fill="#2B2B29" text-anchor="start" font-weight="600">Share of the first request read from the prompt cache</text>
-<text x="24" y="56" font-size="13" fill="#5C5A55" text-anchor="start" font-weight="normal">Read from cache costs 0.1x; written again costs 1.25x</text>
+<text x="24" y="56" font-size="13" fill="#5C5A55" text-anchor="start" font-weight="normal">Opus 5.5: read from cache costs 0.05x input; written again, 2x (one-hour cache)</text>
 <text x="24" y="84" font-size="13.5" fill="#2B2B29" text-anchor="start" font-weight="normal">First request of a run, before</text>
 <rect x="24" y="92" width="560" height="20" fill="#A65A3F" fill-opacity="0.35" rx="3"/><rect x="24" y="92" width="162.4" height="20" fill="#4E6B45" rx="3"/><text x="596" y="107" font-size="13.5" fill="#2B2B29" text-anchor="start" font-weight="600">29% read</text>
 <text x="24" y="136" font-size="13.5" fill="#2B2B29" text-anchor="start" font-weight="normal">After moving the brief into the system prompt</text>

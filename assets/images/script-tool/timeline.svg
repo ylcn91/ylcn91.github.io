@@ -5,7 +5,7 @@
 <text x="24" y="34" font-size="17" fill="#2B2B29" text-anchor="start" font-weight="600">The same MCP task, two real runs (Opus 5.5, same build)</text>
 <text x="24" y="56" font-size="13" fill="#5C5A55" text-anchor="start" font-weight="normal">Bars are model requests; ticks are tool calls. Played back at 4x.</text>
 <text x="24" y="114" font-size="15" fill="#2B2B29" text-anchor="start" font-weight="600">Direct tools</text>
-<text x="24" y="134" font-size="12.5" fill="#5C5A55" text-anchor="start" font-weight="normal">9 requests · 47 s · $0.39*</text>
+<text x="24" y="134" font-size="12.5" fill="#5C5A55" text-anchor="start" font-weight="normal">9 requests · 47 s · $0.41*</text>
 <rect x="170" y="100" width="48.8" height="20" fill="#B8B0A0" rx="3"/>
 <rect x="218.8" y="100" width="28.7" height="20" fill="#4E6B45" rx="3"/>
 <rect x="268.8" y="100" width="20.0" height="20" fill="#4E6B45" rx="3"/>
@@ -67,7 +67,7 @@
 <text x="510.0" y="92" font-size="11.5" fill="#5C5A55" text-anchor="start" font-weight="normal">9 × get_customer</text>
 <line x1="757.5" y1="96" x2="757.5" y2="144" stroke="#2B2B29" stroke-width="1.2" stroke-dasharray="3 2"/>
 <text x="24" y="239" font-size="15" fill="#2B2B29" text-anchor="start" font-weight="600">Script (only)</text>
-<text x="24" y="259" font-size="12.5" fill="#5C5A55" text-anchor="start" font-weight="normal">4 requests · 30 s · $0.24*</text>
+<text x="24" y="259" font-size="12.5" fill="#5C5A55" text-anchor="start" font-weight="normal">4 requests · 30 s · $0.26*</text>
 <rect x="170" y="225" width="80.0" height="20" fill="#B8B0A0" rx="3"/>
 <rect x="250.0" y="225" width="33.8" height="20" fill="#4E6B45" rx="3"/>
 <rect x="286.2" y="225" width="137.5" height="20" fill="#4E6B45" rx="3"/>
@@ -128,6 +128,6 @@
 <line x1="420.0" y1="318" x2="420.0" y2="323" stroke="#5C5A55"/><text x="420.0" y="337" font-size="11.5" fill="#5C5A55" text-anchor="middle" font-weight="normal">20 s</text>
 <line x1="545.0" y1="318" x2="545.0" y2="323" stroke="#5C5A55"/><text x="545.0" y="337" font-size="11.5" fill="#5C5A55" text-anchor="middle" font-weight="normal">30 s</text>
 <line x1="670.0" y1="318" x2="670.0" y2="323" stroke="#5C5A55"/><text x="670.0" y="337" font-size="11.5" fill="#5C5A55" text-anchor="middle" font-weight="normal">40 s</text>
-<text x="24" y="368" font-size="11.5" fill="#5C5A55" text-anchor="start" font-weight="normal">* API list-price equivalent. Grey: start-up. Green: model request. Red: tool calls.</text>
+<text x="24" y="368" font-size="11.5" fill="#5C5A55" text-anchor="start" font-weight="normal">* API list price, cache read 0.05x, one-hour cache write 2x. Grey: start-up. Green: model request. Red: tool calls.</text>
 <g class="play"><rect class="cover" x="170" y="84" width="612.0" height="222" fill="#F3E9D2"/><line class="cursor" x1="170" y1="84" x2="170" y2="306" stroke="#2B2B29" stroke-width="1.5"/></g>
 </svg>
