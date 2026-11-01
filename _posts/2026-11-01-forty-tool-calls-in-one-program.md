@@ -49,7 +49,7 @@ for (const t of tickets) {
 text(JSON.stringify({ sum, n }));
 ```
 
-One tool call, 43 MCP calls inside it, in three parallel waves: the list, then all 32 tickets at once, then the 10 customers those tickets belong to at once. The model never saw a ticket. It saw `{"sum":{"EU":651,"NA":813,"APAC":0},"n":14}`. A failed call would have been printed rather than silently dropped; whether the answer was right was checked separately, as it was for every run.
+One tool call, 43 MCP calls inside it, in three waves: the list, then the 32 tickets, then the 10 customers those tickets belong to. Within a wave the calls run in parallel, at most eight at a time; the rest wait their turn. The model never saw a ticket. It saw `{"sum":{"EU":651,"NA":813,"APAC":0},"n":14}`. A failed call would have been printed rather than silently dropped; whether the answer was right was checked separately, as it was for every run.
 
 <figure>
   <img src="/assets/images/script-tool/timeline.svg" width="790" height="380" loading="lazy" alt="Two real runs of the same task on one time axis. Direct tools: 9 model requests and 47 seconds, with tool calls arriving in batches between requests. Script: 4 model requests and 30 seconds, with all 43 MCP calls in one burst under a second.">
@@ -68,10 +68,10 @@ With direct tools, the 32 `get_ticket` calls arrive in two batches of 16, each b
 Alp runs agents through a daemon on the machine that does the work: a developer's laptop, a shared worker, a microVM. The server never runs a Script.
 
 - **The endpoint.** The daemon serves an MCP endpoint called `alp-script` on loopback, with a secret path per run. Claude Code sees it as one more MCP server with two tools, `Script` and `WaitForScript`.
-- **The sandbox.** The program runs in Deno, a version pinned and checked by SHA-256 when it is downloaded. It runs with no permissions at all: no network, no file system, no environment, no imports. A 128 MB heap, a resident memory cap and a CPU time limit stop a runaway loop. The only thing the program can do is call `tools`.
+- **The sandbox.** The program runs in Deno, a version pinned and checked by SHA-256 when it is downloaded. It runs with no permissions: no network, no file system, no environment, no subprocesses. Remote and package imports are off, and the Node modules that would open a new realm or run code, such as `vm`, `worker_threads` and `child_process`, are refused; other built-in modules still load, inside the same sandbox. A 128 MB heap and a watch on resident memory stop a runaway program everywhere; on Linux a 10-minute CPU limit does too. Everything the program does to the outside world goes through `tools`.
 - **The dispatcher.** Every `tools.X(...)` call leaves Deno as a line of JSON on standard output, with a per-run token, and comes back the same way. The Go side decides it exactly as it would decide the direct call it stands for: the agent's deny rules, the workspace tool gate, a person's approval if the gate asks for one, and a check that every path stays inside the run's folder. A refused call is an error inside the program. It never waits silently.
 - **The nested tools.** Read, Edit and Write are Go code. Grep is ripgrep with JSON output, so the program gets typed records instead of text to parse. Glob is fd. AstGrep and Outline are ast-grep. Execute runs a shell command inside the same sandbox the run's own shell uses. Every MCP server the agent has, remote or local, becomes `tools.<server>.<tool>()`.
-- **The way back.** Only what the program prints with `text()` or `console.log()` goes back to the model, at most 64 KiB per Script. Anything longer is cut in the middle and the full output goes to a log file in the run folder. Every answer ends with a status line, such as `[Script completed · 43 calls]`.
+- **The way back.** What the program prints with `text()` or `console.log()` goes back to the model, at most 64 KiB per Script, along with any image it returns with `image()`. Anything longer is cut in the middle and the full output goes to a log file in the run folder. A Script left running in the background can send the model a message with `notify()`. Every answer ends with a status line, such as `[Script completed · 43 calls]`.
 
 The model sees the bindings as TypeScript declarations in the tool description, generated from each tool's input schema. MCP tools come first, so a client that cuts long descriptions cuts the built-in part, which the model knows anyway.
 
@@ -122,9 +122,9 @@ The stub runs taught us one thing that held up. Our first prompt said "one Scrip
 
 **Round 1, the real product, three CLIs, 66 runs.** Eight agents: Claude Code, Codex and Grok, with Script `off`, `on` and `only` (Grok without `only`). Each ran three tasks: the ticket fan-out and the ripgrep counts three times, the Go refactor twice. That is 64 runs, plus two Claude runs that replaced two that hung. For Claude, `only` against `off` said 22% cheaper and 64% faster.
 
-The 64% came from one task. In the Go refactor, the median direct-tool run took 173 seconds against Script's 36. Reading the transcripts showed why: the model had run `rg CalcTotal` with no path. Claude Code gave the shell an open socket as standard input, ripgrep with no path reads standard input, and the call sat there until the two-minute timeout. Four of the six Claude runs of that task that had a direct shell hit it: both `off` runs, which are in that 173-second median, and two of the `on` runs, which hung for good because the CLI never sent its final result while the stuck command lived. Those two are not in any median; they are the ones we replaced.
+The 64% came from one task. In the Go refactor, the median direct-tool run took 173 seconds against Script's 36. Reading the transcripts showed why. The model had written one shell command that piped ripgrep with no path into `sed` and then appended to a file with a heredoc. Claude Code starts its shell with standard input as a pipe it never writes to. It points a command's input at `/dev/null` itself, but only when the command has no heredoc or input redirection of its own. This one had a heredoc, so ripgrep, given no path, read that pipe and waited forever. After 120 seconds Claude Code moved the command to the background, and while it lived the CLI held back its final result. We confirmed this on Claude Code 2.1.314 and 2.1.316. Four of the six Claude runs of that task that had a direct shell hit it: both `off` runs, which are in that 173-second median, and two of the `on` runs, which never finished. Those two are not in any median; they are the ones we replaced.
 
-Commands inside a Script never had that socket, so Script runs did not hit it. The 64% measured our bug, not the tool. The fix was one line at the top of every run's shell environment: `exec </dev/null`.
+Commands inside a Script never had that pipe, so Script runs did not hit it. The 64% measured our bug, not the tool. The fix was one line at the top of every run's shell environment, which Claude Code runs before each command: `exec </dev/null`.
 
 The other two CLIs were clearer. Codex, given Script next to its direct tools, did not call it once in eight runs. Given only Script, it got one total wrong (it added up the raw output in its head), made quoting mistakes when it wrapped shell commands in JavaScript, and cost twice as much on the Go refactor (+103%). Grok found the tool but could not see the typed declarations, guessed the function names, and spent its first few Scripts on errors; one run wrote a Rust lexer inside a Script, ran for 20 minutes and returned the wrong count. We switched Script on for Claude models only.
 
@@ -148,7 +148,23 @@ The other two CLIs were clearer. Codex, given Script next to its direct tools, d
 
 Bold: the interval excludes zero. All 60 runs were right. No task got measurably worse. The time saving overall touches zero, so "about 9% faster" is as far as these runs go.
 
-Output tokens were the same in both modes; the whole saving is on the input side, from fewer requests each carrying less. Script does not make fewer tool calls. The Script runs of the ticket task made 42 to 87 MCP calls each, some fetching every ticket twice, against 42 for the direct runs. What it cuts is model requests.
+Output tokens were the same in both modes; the whole cost saving is on the input side, from fewer requests each carrying less. Script does not make fewer tool calls. The Script runs of the ticket task made 42 to 87 MCP calls each, some fetching every ticket twice, against 42 for the direct runs. What it cuts is model requests.
+
+### Context
+
+The cost is not the only thing a Script saves. "The model never saw a ticket" is a statement about context, and the proxy recorded the size of every request, so we measured it too.
+
+| Task | First request, direct → Script | Context added during the run, direct → Script [95% interval] |
+|---|---|---|
+| MCP fan-out | 39.1k → 41.3k | 9.4k → 3.7k, **-61%** [-65, -46] |
+| Code search | 38.8k → 41.4k | 6.7k → 8.9k, +33% [-29, +155] |
+| Small refactor | 38.8k → 41.4k | 4.6k → 4.6k, 0% [-5, +22] |
+| Failing test | 38.9k → 41.6k | 4.6k → 4.8k, +5% [-12, +10] |
+| Signature change, 26 files | 38.8k → 41.3k | 19.6k → 19.5k, -1% [-15, +21] |
+
+Every run starts at about 39,000 tokens of instructions and tool definitions; Script's description adds about 2,500. On the ticket task, what the run adds to its context after that falls by three fifths, because 32 tickets and 9 customers never enter it. On code tasks it does not change: the model reads the same files either way.
+
+Our tickets were small, so the difference is 6,000 tokens. With real records it grows with every record, and a run that keeps them out of its context reaches compaction and the context limit later. For a long run, that matters more than the dollar figure.
 
 **Round 4, the language server.** We had installed language servers on every agent machine. Twelve more runs asked whether telling the model to use one helps on the 26-file signature change. It did not: 8% more expensive, inside the noise, same time. Told to use it, the model called `findReferences` once in four of six runs and got the right 65 references, the 64 call sites plus the declaration. Then it wrote its own program with Go's parser anyway and counted with that. Not told, it never opened the language server: in none of the 6 runs here and none of the 60 runs of round 3. We kept the servers and did not add a line about them to any agent's instructions.
 
@@ -194,13 +210,14 @@ What to expect from it, from our own numbers: a third less cost and a third less
 What we do not know yet:
 
 - **Real work.** These are five tasks. We scanned 4,674 interactive agent sessions on our own machines for stretches where the agent called an API several times in a row, the shape Script compresses best. They were 3.8% of requests, because the models already batch such calls into one shell command. The large savings belong to agents that fan out over data, and we have not yet measured them on their real traffic. The usage data to do that is now correct.
+- **The sandbox under attack.** None of these runs had a refused call or a program trying to get out. Refusals and the blocked modules are covered by the tool's own tests, not by this measurement.
 - **Small effects.** Six runs per cell cannot separate small effects on code tasks from noise. The intervals in the table are 13 to 41 points wide; anything inside them is unmeasured, not absent.
 - **The unused bindings.** Typed Grep, Outline and AstGrep are not used. Either their descriptions should steer the model, measured in a separate round, or they should go.
 - **Other models.** Codex and Grok were measured once, with few runs, in the round that had the bug. Their results may have been different without it.
 
 ## Methodology
 
-- Product: Alp's test deployment, the build of that day for each round; daemon on a shared development machine; Claude Code 2.1.
+- Product: Alp's test deployment, the build of that day for each round; daemon on a shared development machine; Claude Code 2.1.314 to 2.1.316.
 - Model: `claude-opus-5-5` in every Claude run of rounds 1 to 4, checked from the usage records. Round 1 also used Codex (`gpt-6.1-sol`, reasoning xhigh) and Grok (`grok-4.7`).
 - Runs: round 1, 66 (plus a pilot); round 2, 24; round 3, 60; round 4, 12. In rounds 2 to 4, two agents ran in parallel on the same subscription account, each running its jobs one at a time in random order; in round 1, eight agents.
 - Correctness: a fixed answer line or a check script per task. All runs of rounds 2 to 4 were correct.
