@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 250" width="760" height="250" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif">
+<title>Prompt cache reuse before and after</title>
+<style></style>
+<rect width="760" height="250" fill="#F3E9D2"/>
+<text x="24" y="34" font-size="17" fill="#2B2B29" text-anchor="start" font-weight="600">Share of the first request read from the prompt cache</text>
+<text x="24" y="56" font-size="13" fill="#5C5A55" text-anchor="start" font-weight="normal">Read from cache costs 0.1x; written again costs 1.25x</text>
+<text x="24" y="84" font-size="13.5" fill="#2B2B29" text-anchor="start" font-weight="normal">First request of a run, before</text>
+<rect x="24" y="92" width="560" height="20" fill="#A65A3F" fill-opacity="0.35" rx="3"/><rect x="24" y="92" width="162.4" height="20" fill="#4E6B45" rx="3"/><text x="596" y="107" font-size="13.5" fill="#2B2B29" text-anchor="start" font-weight="600">29% read</text>
+<text x="24" y="136" font-size="13.5" fill="#2B2B29" text-anchor="start" font-weight="normal">After moving the brief into the system prompt</text>
+<rect x="24" y="144" width="560" height="20" fill="#A65A3F" fill-opacity="0.35" rx="3"/><rect x="24" y="144" width="282.8" height="20" fill="#4E6B45" rx="3"/><text x="596" y="159" font-size="13.5" fill="#2B2B29" text-anchor="start" font-weight="600">50.5% read</text>
+<text x="24" y="188" font-size="13.5" fill="#2B2B29" text-anchor="start" font-weight="normal">Chat turn after 62 minutes idle, with keep-warm</text>
+<rect x="24" y="196" width="560" height="20" fill="#A65A3F" fill-opacity="0.35" rx="3"/><rect x="24" y="196" width="532.0" height="20" fill="#4E6B45" rx="3"/><text x="596" y="211" font-size="13.5" fill="#2B2B29" text-anchor="start" font-weight="600">95% read</text>
+<text x="24" y="240" font-size="11.5" fill="#5C5A55" text-anchor="start" font-weight="normal">Green: read from cache. Light red: written again.</text>
+</svg>

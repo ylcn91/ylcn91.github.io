@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 790 380" width="790" height="380" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif">
+<title>Direct tool calls versus one Script on the same MCP task</title>
+<style>@keyframes sweep{0%{transform:translateX(0)}80%{transform:translateX(612.0px)}100%{transform:translateX(612.0px)}}.play rect,.play line{animation:sweep 15s linear infinite}@media (prefers-reduced-motion: reduce){.play{display:none}}</style>
+<rect width="790" height="380" fill="#F3E9D2"/>
+<text x="24" y="34" font-size="17" fill="#2B2B29" text-anchor="start" font-weight="600">The same MCP task, two real runs (Opus 5.5, same build)</text>
+<text x="24" y="56" font-size="13" fill="#5C5A55" text-anchor="start" font-weight="normal">Bars are model requests; ticks are tool calls. Played back at 4x.</text>
+<text x="24" y="114" font-size="15" fill="#2B2B29" text-anchor="start" font-weight="600">Direct tools</text>
+<text x="24" y="134" font-size="12.5" fill="#5C5A55" text-anchor="start" font-weight="normal">9 requests · 47 s · $0.39*</text>
+<rect x="170" y="100" width="48.8" height="20" fill="#B8B0A0" rx="3"/>
+<rect x="218.8" y="100" width="28.7" height="20" fill="#4E6B45" rx="3"/>
+<rect x="268.8" y="100" width="20.0" height="20" fill="#4E6B45" rx="3"/>
+<rect x="290.0" y="100" width="10.0" height="20" fill="#4E6B45" rx="3"/>
+<rect x="300.0" y="100" width="87.5" height="20" fill="#4E6B45" rx="3"/>
+<rect x="387.5" y="100" width="88.8" height="20" fill="#4E6B45" rx="3"/>
+<rect x="476.2" y="100" width="71.2" height="20" fill="#4E6B45" rx="3"/>
+<rect x="547.5" y="100" width="83.7" height="20" fill="#4E6B45" rx="3"/>
+<rect x="635.0" y="100" width="71.3" height="20" fill="#4E6B45" rx="3"/>
+<rect x="710.0" y="100" width="42.5" height="20" fill="#4E6B45" rx="3"/>
+<rect x="247.5" y="126" width="20.0" height="14" fill="#A65A3F" rx="2"/>
+<rect x="631.2" y="126" width="3.0" height="14" fill="#A65A3F" rx="2"/>
+<rect x="705.0" y="126" width="3.8" height="14" fill="#A65A3F" rx="2"/>
+<rect x="288.8" y="126" width="1.6" height="14" fill="#A65A3F"/>
+<rect x="300.0" y="126" width="1.6" height="14" fill="#A65A3F"/>
+<rect x="687.5" y="126" width="1.6" height="14" fill="#A65A3F"/>
+<rect x="315.0" y="126" width="1.6" height="14" fill="#A65A3F"/>
+<rect x="319.8" y="126" width="1.6" height="14" fill="#A65A3F"/>
+<rect x="324.7" y="126" width="1.6" height="14" fill="#A65A3F"/>
+<rect x="329.5" y="126" width="1.6" height="14" fill="#A65A3F"/>
+<rect x="334.3" y="126" width="1.6" height="14" fill="#A65A3F"/>
+<rect x="339.2" y="126" width="1.6" height="14" fill="#A65A3F"/>
+<rect x="344.0" y="126" width="1.6" height="14" fill="#A65A3F"/>
+<rect x="348.8" y="126" width="1.6" height="14" fill="#A65A3F"/>
+<rect x="353.7" y="126" width="1.6" height="14" fill="#A65A3F"/>
+<rect x="358.5" y="126" width="1.6" height="14" fill="#A65A3F"/>
+<rect x="363.3" y="126" width="1.6" height="14" fill="#A65A3F"/>
+<rect x="368.2" y="126" width="1.6" height="14" fill="#A65A3F"/>
+<rect x="373.0" y="126" width="1.6" height="14" fill="#A65A3F"/>
+<rect x="377.8" y="126" width="1.6" height="14" fill="#A65A3F"/>
+<rect x="382.7" y="126" width="1.6" height="14" fill="#A65A3F"/>
+<rect x="387.5" y="126" width="1.6" height="14" fill="#A65A3F"/>
+<rect x="403.8" y="126" width="1.6" height="14" fill="#A65A3F"/>
+<rect x="408.6" y="126" width="1.6" height="14" fill="#A65A3F"/>
+<rect x="413.4" y="126" width="1.6" height="14" fill="#A65A3F"/>
+<rect x="418.2" y="126" width="1.6" height="14" fill="#A65A3F"/>
+<rect x="423.1" y="126" width="1.6" height="14" fill="#A65A3F"/>
+<rect x="427.9" y="126" width="1.6" height="14" fill="#A65A3F"/>
+<rect x="432.8" y="126" width="1.6" height="14" fill="#A65A3F"/>
+<rect x="437.6" y="126" width="1.6" height="14" fill="#A65A3F"/>
+<rect x="442.4" y="126" width="1.6" height="14" fill="#A65A3F"/>
+<rect x="447.2" y="126" width="1.6" height="14" fill="#A65A3F"/>
+<rect x="452.1" y="126" width="1.6" height="14" fill="#A65A3F"/>
+<rect x="456.9" y="126" width="1.6" height="14" fill="#A65A3F"/>
+<rect x="461.8" y="126" width="1.6" height="14" fill="#A65A3F"/>
+<rect x="466.6" y="126" width="1.6" height="14" fill="#A65A3F"/>
+<rect x="471.4" y="126" width="1.6" height="14" fill="#A65A3F"/>
+<rect x="476.2" y="126" width="1.6" height="14" fill="#A65A3F"/>
+<rect x="510.0" y="126" width="1.6" height="14" fill="#A65A3F"/>
+<rect x="514.7" y="126" width="1.6" height="14" fill="#A65A3F"/>
+<rect x="519.4" y="126" width="1.6" height="14" fill="#A65A3F"/>
+<rect x="524.1" y="126" width="1.6" height="14" fill="#A65A3F"/>
+<rect x="528.8" y="126" width="1.6" height="14" fill="#A65A3F"/>
+<rect x="533.4" y="126" width="1.6" height="14" fill="#A65A3F"/>
+<rect x="538.1" y="126" width="1.6" height="14" fill="#A65A3F"/>
+<rect x="542.8" y="126" width="1.6" height="14" fill="#A65A3F"/>
+<rect x="547.5" y="126" width="1.6" height="14" fill="#A65A3F"/>
+<text x="315.0" y="92" font-size="11.5" fill="#5C5A55" text-anchor="start" font-weight="normal">32 × get_ticket, two batches</text>
+<text x="510.0" y="92" font-size="11.5" fill="#5C5A55" text-anchor="start" font-weight="normal">9 × get_customer</text>
+<line x1="757.5" y1="96" x2="757.5" y2="144" stroke="#2B2B29" stroke-width="1.2" stroke-dasharray="3 2"/>
+<text x="24" y="239" font-size="15" fill="#2B2B29" text-anchor="start" font-weight="600">Script (only)</text>
+<text x="24" y="259" font-size="12.5" fill="#5C5A55" text-anchor="start" font-weight="normal">4 requests · 30 s · $0.24*</text>
+<rect x="170" y="225" width="80.0" height="20" fill="#B8B0A0" rx="3"/>
+<rect x="250.0" y="225" width="33.8" height="20" fill="#4E6B45" rx="3"/>
+<rect x="286.2" y="225" width="137.5" height="20" fill="#4E6B45" rx="3"/>
+<rect x="426.2" y="225" width="58.8" height="20" fill="#4E6B45" rx="3"/>
+<rect x="490.0" y="225" width="55.0" height="20" fill="#4E6B45" rx="3"/>
+<rect x="283.8" y="251" width="3.0" height="14" fill="#A65A3F" rx="2"/>
+<rect x="425.0" y="251" width="3.0" height="14" fill="#A65A3F" rx="2"/>
+<rect x="485.0" y="251" width="5.0" height="14" fill="#A65A3F" rx="2"/>
+<line x1="425.6" y1="265" x2="395.6" y2="283" stroke="#A65A3F" stroke-width="0.8"/>
+<line x1="425.6" y1="265" x2="397.1" y2="283" stroke="#A65A3F" stroke-width="0.8"/>
+<line x1="425.6" y1="265" x2="398.5" y2="283" stroke="#A65A3F" stroke-width="0.8"/>
+<line x1="425.6" y1="265" x2="399.9" y2="283" stroke="#A65A3F" stroke-width="0.8"/>
+<line x1="425.6" y1="265" x2="401.3" y2="283" stroke="#A65A3F" stroke-width="0.8"/>
+<line x1="425.6" y1="265" x2="402.8" y2="283" stroke="#A65A3F" stroke-width="0.8"/>
+<line x1="425.6" y1="265" x2="404.2" y2="283" stroke="#A65A3F" stroke-width="0.8"/>
+<line x1="425.6" y1="265" x2="405.6" y2="283" stroke="#A65A3F" stroke-width="0.8"/>
+<line x1="425.6" y1="265" x2="407.1" y2="283" stroke="#A65A3F" stroke-width="0.8"/>
+<line x1="425.6" y1="265" x2="408.5" y2="283" stroke="#A65A3F" stroke-width="0.8"/>
+<line x1="425.6" y1="265" x2="409.9" y2="283" stroke="#A65A3F" stroke-width="0.8"/>
+<line x1="425.6" y1="265" x2="411.3" y2="283" stroke="#A65A3F" stroke-width="0.8"/>
+<line x1="425.6" y1="265" x2="412.8" y2="283" stroke="#A65A3F" stroke-width="0.8"/>
+<line x1="425.6" y1="265" x2="414.2" y2="283" stroke="#A65A3F" stroke-width="0.8"/>
+<line x1="425.6" y1="265" x2="415.6" y2="283" stroke="#A65A3F" stroke-width="0.8"/>
+<line x1="425.6" y1="265" x2="417.1" y2="283" stroke="#A65A3F" stroke-width="0.8"/>
+<line x1="425.6" y1="265" x2="418.5" y2="283" stroke="#A65A3F" stroke-width="0.8"/>
+<line x1="425.6" y1="265" x2="419.9" y2="283" stroke="#A65A3F" stroke-width="0.8"/>
+<line x1="425.6" y1="265" x2="421.3" y2="283" stroke="#A65A3F" stroke-width="0.8"/>
+<line x1="425.6" y1="265" x2="422.8" y2="283" stroke="#A65A3F" stroke-width="0.8"/>
+<line x1="425.6" y1="265" x2="424.2" y2="283" stroke="#A65A3F" stroke-width="0.8"/>
+<line x1="425.6" y1="265" x2="425.6" y2="283" stroke="#A65A3F" stroke-width="0.8"/>
+<line x1="425.6" y1="265" x2="427.1" y2="283" stroke="#A65A3F" stroke-width="0.8"/>
+<line x1="425.6" y1="265" x2="428.5" y2="283" stroke="#A65A3F" stroke-width="0.8"/>
+<line x1="425.6" y1="265" x2="429.9" y2="283" stroke="#A65A3F" stroke-width="0.8"/>
+<line x1="425.6" y1="265" x2="431.3" y2="283" stroke="#A65A3F" stroke-width="0.8"/>
+<line x1="425.6" y1="265" x2="432.8" y2="283" stroke="#A65A3F" stroke-width="0.8"/>
+<line x1="425.6" y1="265" x2="434.2" y2="283" stroke="#A65A3F" stroke-width="0.8"/>
+<line x1="425.6" y1="265" x2="435.6" y2="283" stroke="#A65A3F" stroke-width="0.8"/>
+<line x1="425.6" y1="265" x2="437.1" y2="283" stroke="#A65A3F" stroke-width="0.8"/>
+<line x1="425.6" y1="265" x2="438.5" y2="283" stroke="#A65A3F" stroke-width="0.8"/>
+<line x1="425.6" y1="265" x2="439.9" y2="283" stroke="#A65A3F" stroke-width="0.8"/>
+<line x1="425.6" y1="265" x2="441.3" y2="283" stroke="#A65A3F" stroke-width="0.8"/>
+<line x1="425.6" y1="265" x2="442.8" y2="283" stroke="#A65A3F" stroke-width="0.8"/>
+<line x1="425.6" y1="265" x2="444.2" y2="283" stroke="#A65A3F" stroke-width="0.8"/>
+<line x1="425.6" y1="265" x2="445.6" y2="283" stroke="#A65A3F" stroke-width="0.8"/>
+<line x1="425.6" y1="265" x2="447.1" y2="283" stroke="#A65A3F" stroke-width="0.8"/>
+<line x1="425.6" y1="265" x2="448.5" y2="283" stroke="#A65A3F" stroke-width="0.8"/>
+<line x1="425.6" y1="265" x2="449.9" y2="283" stroke="#A65A3F" stroke-width="0.8"/>
+<line x1="425.6" y1="265" x2="451.3" y2="283" stroke="#A65A3F" stroke-width="0.8"/>
+<line x1="425.6" y1="265" x2="452.8" y2="283" stroke="#A65A3F" stroke-width="0.8"/>
+<line x1="425.6" y1="265" x2="454.2" y2="283" stroke="#A65A3F" stroke-width="0.8"/>
+<line x1="425.6" y1="265" x2="455.6" y2="283" stroke="#A65A3F" stroke-width="0.8"/>
+<text x="286.25" y="217" font-size="11.5" fill="#5C5A55" text-anchor="start" font-weight="normal">the model writes the program</text>
+<text x="425.0" y="299" font-size="11.5" fill="#5C5A55" text-anchor="start" font-weight="normal">43 MCP calls in one Script, &lt; 1 s</text>
+<line x1="545.0" y1="221" x2="545.0" y2="269" stroke="#2B2B29" stroke-width="1.2" stroke-dasharray="3 2"/>
+<line x1="170" y1="318" x2="770.0" y2="318" stroke="#5C5A55"/>
+<line x1="170.0" y1="318" x2="170.0" y2="323" stroke="#5C5A55"/><text x="170.0" y="337" font-size="11.5" fill="#5C5A55" text-anchor="middle" font-weight="normal">0 s</text>
+<line x1="295.0" y1="318" x2="295.0" y2="323" stroke="#5C5A55"/><text x="295.0" y="337" font-size="11.5" fill="#5C5A55" text-anchor="middle" font-weight="normal">10 s</text>
+<line x1="420.0" y1="318" x2="420.0" y2="323" stroke="#5C5A55"/><text x="420.0" y="337" font-size="11.5" fill="#5C5A55" text-anchor="middle" font-weight="normal">20 s</text>
+<line x1="545.0" y1="318" x2="545.0" y2="323" stroke="#5C5A55"/><text x="545.0" y="337" font-size="11.5" fill="#5C5A55" text-anchor="middle" font-weight="normal">30 s</text>
+<line x1="670.0" y1="318" x2="670.0" y2="323" stroke="#5C5A55"/><text x="670.0" y="337" font-size="11.5" fill="#5C5A55" text-anchor="middle" font-weight="normal">40 s</text>
+<text x="24" y="368" font-size="11.5" fill="#5C5A55" text-anchor="start" font-weight="normal">* API list-price equivalent. Grey: start-up. Green: model request. Red: tool calls.</text>
+<g class="play"><rect class="cover" x="170" y="84" width="612.0" height="222" fill="#F3E9D2"/><line class="cursor" x1="170" y1="84" x2="170" y2="306" stroke="#2B2B29" stroke-width="1.5"/></g>
+</svg>
