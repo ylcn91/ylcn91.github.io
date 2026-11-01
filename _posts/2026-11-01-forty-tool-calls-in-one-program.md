@@ -176,7 +176,7 @@ What we do not know yet:
 
 ## Methodology
 
-- Product: Alp test deployment, builds `2b5b27b04` (round 2), `23e1ca727` (round 3) and `69fbec5db` (round 4); daemon on a shared development machine; Claude Code 2.1.3xx.
+- Product: Alp's test deployment, the build of that day for each round; daemon on a shared development machine; Claude Code 2.1.
 - Model: `claude-opus-5-5` in every Claude run of rounds 2 to 4, checked from the usage records. Round 1 also used Codex (`gpt-6.1-sol`, reasoning xhigh) and Grok (`grok-4.7`).
 - Runs: round 1, 66 (plus a pilot); round 2, 24; round 3, 60; round 4, 12. Two agents per round in parallel on the same subscription account, each running its jobs one at a time in random order.
 - Correctness: a fixed answer line or a check script per task. All runs of rounds 2 to 4 were correct.
