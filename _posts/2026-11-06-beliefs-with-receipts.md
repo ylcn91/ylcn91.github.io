@@ -7,11 +7,9 @@ tags: [ai-agents, future-of-software, verification, engineering-leadership, ai-n
 description: "Fifteen things I believe about where software development is going, each one tied to something we built or measured at Emlakjet this year, and what would change my mind."
 ---
 
-Lists of beliefs about the future of software are everywhere this autumn. I agree with a lot of what they say. What most of them do not have is a source.
+This year I put agents into our code review, our QA stage, our releases and our company chat, and measured what happened. This is what I now believe about where software development is going, and what made me believe it. Most of the numbers come from the posts I wrote along the way. Where I have no number yet, I say so.
 
-This year I put agents into our code review, our QA stage, our releases and our company chat, and measured what happened. Most of the numbers below come from the posts I wrote along the way, and I link to them. A few beliefs have no number yet. I say so where that is the case.
-
-**Review moves to agents, and verifying becomes the job.** Our review agent went through 696 pull requests in ten weeks. Most of that code was still written by people, so this is not yet a story about reviewing model output. It is a story about who reads first. In the QA stage, the agent sent one task in five back for fixes, the same rate as the people before it. My own work changed: I read fewer diffs and spend the time deciding on what the agents flagged. I made the longer case in [The Verification Crisis](/the-verification-crisis.html), and the numbers are in [Three Agents on One Devbox](/three-agents-on-one-devbox.html).
+**Review moves to agents, and verifying becomes the job.** Our review agent went through 696 pull requests in ten weeks. In the QA stage, the agent sent one task in five back for fixes, the same rate as the people before it. My own work changed: I read fewer diffs and spend the time deciding on what the agents flagged. I made the longer case in [The Verification Crisis](/the-verification-crisis.html), and the numbers are in [Three Agents on One Devbox](/three-agents-on-one-devbox.html).
 
 **Tests become the contract.** I do not think tests die. An agent needs something to check its work against that is not its own opinion, and a test suite is that thing. The failures we saw were tests that proved nothing. Our QA agent noticed that CI did not run Jest at all, so the green check meant nothing. A fix once passed unit tests, type checks and lint and still fixed nothing, because the tests covered only the paths the fix touched. If an agent writes against your tests, they are part of the spec.
 
