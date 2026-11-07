@@ -4,7 +4,7 @@ title: "Beliefs, With Receipts"
 date: 2026-11-06
 category: blog
 tags: [ai-agents, future-of-software, verification, engineering-leadership, ai-native]
-description: "Fifteen things I believe about where software development is going, each one tied to something I built or measured at Emlakjet this year, and what would change my mind."
+description: "Fifteen things I believe about where software development is going, each one tied to something I built or measured at Emlakjet this year."
 ---
 
 This year I put agents into our code review, our QA stage, our releases and our company chat, and measured what happened. This is what I now believe about where software development is going, and what made me believe it. Most of the numbers come from the posts I wrote along the way. Where I have no number yet, I say so.
@@ -39,11 +39,4 @@ This year I put agents into our code review, our QA stage, our releases and our 
 
 **Good code means cheap context.** No number for this one either. Line width and blank lines matter less as fewer people read each line. Small modules, clear names and less code still matter, because every line an agent reads is context it pays for and a place it can go wrong. Good code used to mean easy for a person. It is starting to mean cheap for an agent.
 
-## What would change my mind
-
-- A review agent that passes everything its own writer produced.
-- A cheap model that matches the strong one on judgment work in my own measurements, not on a benchmark.
-- Business teams going back to tickets once the novelty wears off. Three weeks of growth is not a year.
-- A year in which my first number for a change was right more often than it was wrong.
-
-None of this will happen quickly. Old software will run for a long time, and people will still be paid to write code by hand in ten years. I will look at this list again in a year and mark what held.
+I wrote these down so I can be wrong about them in public. None of this will happen quickly. Old software will run for a long time, and people will still be paid to write code by hand in ten years. In November 2027 I will come back to this list and mark what held.
