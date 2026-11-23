@@ -306,6 +306,12 @@ h1 .mark, .rot > span { white-space: nowrap; }
 .alpwin .bar i { width: 10px; height: 10px; border-radius: 50%; background: #DADADA; }
 .alpwin .bar span { margin-left: 8px; }
 .alpwin img { display: block; width: 100%; height: auto; }
+.alpwin .views { display: grid; }
+.alpwin .views img { grid-area: 1 / 1; transition: opacity .4s; }
+.alpwin .v2, .alpwin.check .v1 { opacity: 0; }
+.alpwin.check .v2 { opacity: 1; }
+.alpwin .lbl { display: grid; }
+.alpwin .lbl b { grid-area: 1 / 1; font-weight: inherit; transition: opacity .4s; }
 
 /* Squads */
 .org { background: var(--card); border: 1px solid var(--line); padding: 28px; }
@@ -624,8 +630,11 @@ details p { margin: 0 0 20px; color: var(--ink-2); max-width: 680px; }
           <li><span class="n">05</span><div><h3>You decide</h3><p>Going live stays with people. Alp tells the chat when the work is ready, and the whole trail stays on the issue.</p></div></li>
         </ol>
         <figure class="alpwin">
-          <div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>Alp · ALP-410</span></div>
-          <img src="shots/alp-thread-light.jpg" alt="An issue thread in Alp: plan v2 approved, the frontend agent's 20-minute build turn, a review sub-issue that passed, and Dora's coordination turns" width="1504" height="763" loading="lazy">
+          <div class="bar" aria-hidden="true"><i></i><i></i><i></i><span class="lbl"><b class="v1">Alp · Hub</b><b class="v2">Alp · Thread · Browser</b></span></div>
+          <div class="views">
+            <img class="v1" src="shots/alp-hub.jpg" alt="A Hub in Alp: the goal of a spring campaign page, the team agreeing the scope in the feed, and Dora joining" width="1504" height="940" loading="lazy">
+            <img class="v2" src="shots/alp-browser-check.jpg" alt="An agent checks the page it built: the thread on the left, and on the right the browser tab drawing the live campaign dashboard at phone width" width="1504" height="940" loading="lazy">
+          </div>
         </figure>
       </div>
     </div>
@@ -1094,6 +1103,8 @@ const steps = [...document.querySelectorAll('.steps li')];
 const stepIO = new IntersectionObserver(es => es.forEach(e => {
   if (!e.isIntersecting) return;
   steps.forEach(s => s.classList.toggle('on', s === e.target));
+  // From "Checked before you see it" on, the window shows the agent checking its page.
+  document.querySelector('.how .alpwin')?.classList.toggle('check', steps.indexOf(e.target) >= 3);
 }), { rootMargin: '-45% 0px -45% 0px' });
 steps.forEach(s => stepIO.observe(s));
 
